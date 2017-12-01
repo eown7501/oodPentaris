@@ -155,14 +155,17 @@ public class GameBoardSolo implements Runnable {
 		if (level == 10)
 			speed = 90;
 		try {
-			Thread.sleep(10);
+			Thread.sleep(30);
 			timer += 10;
 			if(timer == speed) {
-				currentBlock.AIMoveDown();
-				AIbehavior.setBeforeHeight();
-				AIbehavior.setNextHeight();
-				AIbehavior.setBlockContactSurface();
+				//currentBlock.AIMoveDown();
+				//AIbehavior.setBeforeHeight();
+				//AIbehavior.setNextHeight();
+				//AIbehavior.setEmptySpace();
+				//AIbehavior.setBlockAndWallCS();
+				AIbehavior.setBestPoint();
 				//drop();
+				//AIbehavior.circul();
 				timer = 0;
 			}
 		} catch (InterruptedException e) {

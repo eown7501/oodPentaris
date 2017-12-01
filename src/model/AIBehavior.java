@@ -2,7 +2,7 @@ package model;
 
 public class AIBehavior {
 
-	private static final double[] weight = { 1, 1, 1, 1, 1, 1, 1 };// { -3.8, 8.2, 3.7, 2.5, 4.0, -8.8, -0.6 };
+	private static final double[] weight = { -5, 10, 15, -10 };// { 1, 1, 1, 1, 1, 1 };
 	public static final int COLS = 10;
 	public static final int ROWS = 22;
 
@@ -10,16 +10,16 @@ public class AIBehavior {
 	private int[] nextHeight;
 	private int[] beforeHeight;
 	private int[] moved;
-	private int[][] originalBoard;
 
 	private double AIScore;
-	private int sumHeight;
-	private int clearLineNum;
+	
+	private double varHeight;
 	private int blockContactSurface;
 	private int wallContactSurface;
-	private int floorContactSurface;
 	private int emptySpace;
-	private int emptySpaceAboveBlock;
+	
+	private int clearLineNum;
+	private int emptyBlock;
 
 	private int moveCount;
 
@@ -32,30 +32,24 @@ public class AIBehavior {
 		nextHeight = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		beforeHeight = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		moved = new int[] { 0, 0, 0, 0 };
-		originalBoard = new int[ROWS][COLS];
 
 		moveCount = 0;
 	}
 
 	public void AIMove() {
-		int[] D = new int[] { 1, 2, 3, 3, 4 };
-		int order = moveCount;
-		moveCount++;
-		if (order > D.length)
-			return;
-		else if (D[order] == 1) {
-			System.out.println(order);
-			gameBoard.currentBlock.moveLeft();
-		} else if (D[order] == 2) {
-			System.out.println(order);
-			gameBoard.currentBlock.moveDown();
-		} else if (D[order] == 3) {
-			System.out.println(order);
-			gameBoard.currentBlock.moveRight();
-		} else if (D[order] == 4) {
-			System.out.println(order);
-			gameBoard.currentBlock.fastDown();
+		while (moved[0] > 0) {
+			gameBoard.currentBlock.performSpin();
+			moved[0]--;
 		}
+		while (moved[1] > 0) {
+			gameBoard.currentBlock.moveLeft();
+			moved[1]--;
+		}
+		while (moved[2] > 0) {
+			gameBoard.currentBlock.moveRight();
+			moved[2]--;
+		}
+		gameBoard.currentBlock.fastDown();
 	}
 
 	public void setNextHeight() {
@@ -65,10 +59,10 @@ public class AIBehavior {
 				if (gameBoard.Board[j][i] != -1)
 					blockHeight = ROWS - j;
 			nextHeight[i] = blockHeight;
-			 System.out.print(blockHeight+" ");
+			// System.out.print(blockHeight + " ");
 			blockHeight = 0;
 		}
-		 System.out.println();
+		// System.out.println();
 	}
 
 	public void setBeforeHeight() {
@@ -77,19 +71,26 @@ public class AIBehavior {
 			for (int j = ROWS - 1; j >= 3; j--)
 				if (gameBoard.tempBoard[j][i] != -1)
 					blockHeight = ROWS - j;
-			nextHeight[i] = blockHeight;
-			System.out.print(blockHeight+" ");
+			beforeHeight[i] = blockHeight;
+			// System.out.print(blockHeight + " ");
 			blockHeight = 0;
 		}
-		System.out.println();
+		// System.out.println();
 	}
 
-	public void setSumHeight() {
-		sumHeight = 0;
+	public void setVarHeight() {
+		double avrHeight;
+		varHeight = 0;
 		for (int i = 0; i < COLS; i++) {
-			sumHeight += nextHeight[i];
+			varHeight += nextHeight[i];
 		}
-
+		avrHeight = varHeight / 10;
+		varHeight = 0;
+		for (int i = 0; i < COLS; i++) {
+			varHeight = (nextHeight[i] - avrHeight) * (nextHeight[i] - avrHeight);
+		}
+		varHeight /= 10;
+		// System.out.println("varHeight -> "+varHeight);
 	}
 
 	public void setClearLineNum() {
@@ -97,7 +98,7 @@ public class AIBehavior {
 		for (int i = 0; i < ROWS; i++)
 			if (isFullRow(i))
 				clearLineNum++;
-		System.out.println(clearLineNum);
+		// System.out.println("clearLine -> "+clearLineNum);
 	}
 
 	public boolean isFullRow(int line) {
@@ -107,47 +108,151 @@ public class AIBehavior {
 		return true;
 	}
 
-	public void setBlockContactSurface() {
+	public void setBlockAndWallCS() {
 		blockContactSurface = 0;
-		for (int i = 0; i < COLS; i++) 
-			if (nextHeight[i] != beforeHeight[i]) {
-				for (int j = beforeHeight[i]; j <= nextHeight[i]; j++) {
-					if (gameBoard.Board[j][i] == -1)
-						break;
-					if (j == nextHeight[i])
-						blockContactSurface++;
+		wallContactSurface = 0;
+		emptySpace = 0;
+		Block block = gameBoard.currentBlock;
+		Point[] point = new Point[4];
+		for (int i = 0; i < 4; i++) {
+			point[i] = block.topLeftPoint.setCurrentPoint(block.coord[i]);
+		}
+		for (int i = 0; i < 4; i++) {
+			if (point[i].getY() == 0 || point[i].getY() == COLS - 1)
+				wallContactSurface++;
+			getEmpty(point[i].getX(), point[i].getY(), i);
+			if (!isEqualBlock(point, point[i].getX(), point[i].getY() + 1))
+				blockContactSurface += getSurfaceNum(point[i].getX(), point[i].getY() + 1);
+			if (!isEqualBlock(point, point[i].getX(), point[i].getY() - 1))
+				blockContactSurface += getSurfaceNum(point[i].getX(), point[i].getY() - 1);
+			if (!isEqualBlock(point, point[i].getX() + 1, point[i].getY()))
+				blockContactSurface += getSurfaceNum(point[i].getX() + 1, point[i].getY());
+		}
+		// System.out.println("empty contact wall -> " +
+		// emptySpace+","+blockContactSurface+","+wallContactSurface);
+	}
+
+	public void getEmpty(int x, int y, int i) {
+		if (x + 1 < ROWS && gameBoard.Board[x + 1][y] == -1) {
+			emptySpace++;
+			getEmpty(x + 1, y, i);
+		}
+	}
+
+	public boolean isEqualBlock(Point[] p, int x, int y) {
+		for (int i = 0; i < 4; i++) {
+			if (p[i].getX() == x && p[i].getY() == y)
+				return true;
+		}
+		return false;
+	}
+
+	public int getSurfaceNum(int x, int y) {
+		int index = 0;
+
+		try {
+			index = gameBoard.Board[x][y];
+			if (index != -1)
+				return 1;
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return 0;
+		}
+		return 0;
+	}
+
+	public void setEmptyBlock() { // 옆면 말고 밑면만 계산
+		emptyBlock = 0;
+		int emptySpaceLine = 0;
+		int floorBlock = 22;
+		for (int i = 0; i < COLS; i++) {
+			for (int j = (ROWS - nextHeight[i]); j < ROWS; j++) {
+				if (gameBoard.Board[j][i] == -1) {
+					floorBlock = j;
+					emptySpaceLine++;
 				}
 			}
-		 System.out.println(blockContactSurface);
+			if (floorBlock != 22)
+				emptyBlock += nextHeight[i] - emptySpaceLine - (21 - floorBlock);
+			emptySpaceLine = 0;
+			floorBlock = 22;
+		}
+
+		// System.out.println("emptyblock -> " + emptySpaceAboveBlock);
 	}
+
+	public void circul() {
+		setNextHeight();
+		setBeforeHeight();
+		setVarHeight();
+		setClearLineNum();
+		setBlockAndWallCS();
+		setEmptyBlock();
+	}
+
+	public double setAIScore() {
+		AIScore = 0;
+		setNextHeight();
+		setBeforeHeight();
+		setVarHeight();
+		setClearLineNum();
+		setBlockAndWallCS();
+		setEmptyBlock();
+		AIScore = weight[0] * varHeight +  + weight[1] * blockContactSurface+ weight[2] * wallContactSurface + weight[3] * emptySpace;
+							// + weight[5] * emptySpaceAboveBlock weight[1] * clearLineNum
+		// System.out.print(AIScore);
+		return AIScore;
+	}
+
+	public void setBestPoint() {
+		double maxAIScore = -999999999;
+		int left = 0;
+		Block block = gameBoard.currentBlock;
+		Point point = new Point(0, 0);
+		for (int i = 0; i < 4; i++) { // 회전모양 4개
+			block.AIPerformSpin();
+			for (int j = 0; j < 4; j++)
+				left += block.AIMoveLeft();
+			// System.out.println("left ->"+left);
+			point.setX(block.topLeftPoint.getX());
+			point.setY(block.topLeftPoint.getY());
+			for (int j = 0; j < 10; j++) { // colomn 10개
+				block.AIFastDown();
+				if (maxAIScore < setAIScore()) {
+					maxAIScore = AIScore;
+					// System.out.print(AIScore + ",");
+					moved[0] = i + 1;
+					if (left < j) {
+						moved[1] = 0;
+						moved[2] = j - left;
+					} else {
+						moved[1] = left - j;
+						moved[2] = 0;
+					}
+				}
+				point.setX(point.getX() + 1);
+				block.setTopLeftPoint(point);
+				block.AIMoveRight();
+			}
+			point.setX(1);
+			point.setY(4);
+			block.setTopLeftPoint(point);
+			left = 0;
+		}
+		AIMove();
+	}
+
 	/*
 	 * 
 	 * 
-	 * public void setWallContactSurface() { wallContactSurface = 0;
-	 * wallContactSurface = (nextHeight[0] - Height[0]) + (nextHeight[9] -
-	 * Height[9]); }
 	 * 
-	 * public void setFloorContactSurface() { floorContactSurface = 0; for (int i =
-	 * 0; i < COLS; i++) { if (gameBoard.Board[0][i] != gameBoard.tempBoard[0][i])
-	 * floorContactSurface++; } }
 	 * 
-	 * public void setEmptySpace() { emptySpace = 0; for (int i = 0; i < COLS; i++)
-	 * for (int j = 0; j < nextHeight[i]; j++) { if (gameBoard.tempBoard[j][i] ==
-	 * -1) emptySpace++; } }
 	 * 
-	 * public void setEmptySpaceAboveBlock() { emptySpaceAboveBlock = 0; int
-	 * emptyBlock = 0; for (int i = 0; i < COLS; i++) { for (int j = nextHeight[i];
-	 * j >= 0; j--) { if (gameBoard.tempBoard[j][i] == -1) break; emptyBlock++; } if
-	 * (nextHeight[i] != emptyBlock) emptySpaceAboveBlock += emptyBlock; emptyBlock
-	 * = 0; } }
 	 * 
-	 * public void setAIScore() { AIScore = 0; setCurrHeight(); setNextHeight();
-	 * setSumHeight(); setClearLineNum(); setBlockContactSurface();
-	 * setWallContactSurface(); setFloorContactSurface(); setEmptySpace();
-	 * setEmptySpaceAboveBlock(); AIScore = weight[0] * sumHeight + weight[1] *
-	 * clearLineNum + weight[2] * blockContactSurface + weight[3] *
-	 * wallContactSurface + weight[4] * floorContactSurface + weight[5] * emptySpace
-	 * + weight[6] * emptySpaceAboveBlock; }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
 	 * 
 	 * public void setBestPoint() { Point poss = new Point(2, 4); Block block =
 	 * gameBoard.currentBlock; double MaxAIScore = 0; int direction = 0;

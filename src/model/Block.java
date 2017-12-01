@@ -230,29 +230,46 @@ public abstract class Block {
 		gameBoard.update();
 	}
 	
-	public void AIMoveLeft() {
+	public void AIPerformSpin() {
+		gameBoard.revertMatrix();
+		if (!isCollisionSpin(topLeftPoint)) {
+			spinnable.spin(coord);
+		} else {
+			changeCoord();
+			for (int i = 0; i < coord.length; i++) {
+				tempCoord[i].setX(coord[i].getX());
+				tempCoord[i].setY(coord[i].getY());
+			}
+		}
+	}
+	
+	public int AIMoveLeft() {
 		tempTopLeftPoint.setY(topLeftPoint.getY() - 1);
 		tempTopLeftPoint.setX(topLeftPoint.getX());
 		gameBoard.revertMatrix();
 		if (!isCollisionMove(tempTopLeftPoint)) {
 			setTopLeftPoint(tempTopLeftPoint);
 			changeCoord();
+			return 1;
 		} else {
 			topLeftPoint.setY(tempTopLeftPoint.getY() + 1);
 			changeCoord();
+			return 0;
 		}
 	}
 	
-	public void AIMoveRight() {
+	public int AIMoveRight() {
 		tempTopLeftPoint.setY(topLeftPoint.getY() + 1);
 		tempTopLeftPoint.setX(topLeftPoint.getX());
 		gameBoard.revertMatrix();
 		if (!isCollisionMove(tempTopLeftPoint)) {
 			setTopLeftPoint(tempTopLeftPoint);
 			changeCoord();
+			return 1;
 		} else {
 			topLeftPoint.setY(tempTopLeftPoint.getY() - 1);
 			changeCoord();
+			return 0;
 		}
 	}
 	
