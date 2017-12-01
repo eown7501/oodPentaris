@@ -48,6 +48,9 @@ public class GameBoardSolo implements Runnable {
 	private double playTime;
 	/** Pause를 시작한 시간, 총 Pause된 시간을 저장할 변수입니다. */
 	private long startPauseTime, pauseTime;
+	
+	private int gameMode;
+	private int timer;
 
 	/**
 	 * GameBoardSolo 를 생성합니다.
@@ -79,6 +82,8 @@ public class GameBoardSolo implements Runnable {
 	/** Solo Game 을 시작합니다. */
 	public void startSoloGame() {
 		Thread t = new Thread(this);
+		gameMode = 1;
+		timer = 0;
 		t.start();
 		setStartTime();
 	}
@@ -89,9 +94,9 @@ public class GameBoardSolo implements Runnable {
 	 */
 	@Override
 	public void run() {
+		update();
 		while (true) {
 			if (start)
-				drop();
 			setLevel();
 			sleep();
 		}
@@ -133,7 +138,12 @@ public class GameBoardSolo implements Runnable {
 		if (level == 10)
 			speed = 90;
 		try {
-			Thread.sleep(speed);
+			Thread.sleep(10);
+			timer += 10;
+			if(timer == speed) {
+				drop();
+				timer = 0;
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
