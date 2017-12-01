@@ -1,6 +1,7 @@
 package view;
 
 import controller.Controller;
+import java.awt.Graphics;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -38,8 +39,9 @@ public class ViewTotalFrame extends JFrame {
 	/** CardLayout Type 의 변수 입니다. */
 	private CardLayout card;
 	/** KeyListener Type 의 변수 입니다. */
-	private KeyListener keyListener;
+	private KeyListener keyListener1p;
 	/** Container Type 의 변수 입니다. */
+	private KeyListener keyListener2p;
 	private Container contentPane;
 
 	/**
@@ -51,7 +53,7 @@ public class ViewTotalFrame extends JFrame {
 		mainPanel = new ViewMainPanel(this);
 		gameModePanel = new ViewGameModePanel(this);
 		soloGamePanel = new ViewSoloGamePanel(this);
-		ZPAndAIGamePanel = new View2PAndAIGamePanel();
+		ZPAndAIGamePanel = new View2PAndAIGamePanel(this);
 		rankingPanel = new ViewRankingPanel(this);
 		soloRankingPanel = new ViewSoloRankingPanel(this);
 		AIRankingPanel = new ViewAIRankingPanel(this);
@@ -60,7 +62,8 @@ public class ViewTotalFrame extends JFrame {
 		profilePanel = new ViewProfilePanel(this);
 		pausePanel = new ViewPausePanel(this);
 		card = new CardLayout();
-		keyListener = makeKeyListener();
+		keyListener1p = makeKeyListener1p();
+		keyListener2p = makeKeyListener2p();
 		init();
 	}
 
@@ -81,21 +84,24 @@ public class ViewTotalFrame extends JFrame {
 
 	/** 설정된 KeyListener를 추가합니다. */
 	public void addKeyListener() {
-		addKeyListener(keyListener);
+		addKeyListener(makeKeyListener1p());
+		
 	}
-
+	public void addKeyListener2() {
+		addKeyListener(makeKeyListener2p());
+		
+	}
 	/**
 	 * KeyListener를 구현합니다.
 	 * @return 이 KeyListener을 반환합니다.
 	 */
-	public KeyListener makeKeyListener() {
+	public KeyListener makeKeyListener1p() {
 		return new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					spin();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					System.out.println("Asdasd");
 					fastDown();
 				}
 			}
@@ -109,6 +115,38 @@ public class ViewTotalFrame extends JFrame {
 				}
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 					moveDown();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					pause();
+				}
+			}
+		};
+		
+			
+	}
+	
+
+	public KeyListener makeKeyListener2p() {
+		return new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				
+				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+					fastDown2();
+				}
+			}
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_W) {
+					spin2();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_A) {
+					moveLeft2();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_D) {
+					moveRight2();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_S) {
+					moveDown2();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					pause();
@@ -141,6 +179,8 @@ public class ViewTotalFrame extends JFrame {
 	/** 2PGame을 시작합니다. */
 	public void ZPGameStart() {
 		addKeyListener();
+		addKeyListener2();
+		controller.start2PGame();
 	}
 
 	/** AIGame을 시작합니다. */
@@ -159,17 +199,26 @@ public class ViewTotalFrame extends JFrame {
 	 */
 	public void draw(Graphics g) {
 		controller.draw(g);
+	
 	}
-
+	
 	/** SoloGame을 종료합니다. */
 	public void soloGameOver() {
-		removeKeyListener(keyListener);
+		removeKeyListener(keyListener1p);
 		soloGamePanel.gameOver();
 	}
 
 	/** 2PGame을 종료합니다. */
 	public void ZPGameLose() {
-
+		removeKeyListener(keyListener1p);
+		removeKeyListener(keyListener2p);
+		ZPAndAIGamePanel.lose();
+	}
+	public void ZPGameWin() {
+		ZPAndAIGamePanel.win();
+		removeKeyListener(keyListener1p);
+		removeKeyListener(keyListener2p);
+		ZPAndAIGamePanel.lose();
 	}
 
 	/** AIGame을 종료합니다. */
@@ -195,7 +244,6 @@ public class ViewTotalFrame extends JFrame {
 
 	/** 2PGamePanel을 보여줍니다. */
 	public void show2PGamePanel() {
-
 		card.show(contentPane, "2P And AI Game");
 	}
 
@@ -244,41 +292,56 @@ public class ViewTotalFrame extends JFrame {
 		controller.spin();
 	}
 
+	public void spin2() {
+		controller.spin2();
+	}
 	/** 왼쪽이동 명령을 전달합니다. */
 	public void moveLeft() {
 		controller.moveLeft();
 	}
-
+	public void moveLeft2() {
+		controller.moveLeft2();
+	}
 	/** 오른쪽이동 명령을 전달합니다. */
 	public void moveRight() {
 		controller.moveRight();
+	}
+	public void moveRight2() {
+		controller.moveRight2();
 	}
 
 	/** 아래로이동 명령을 전달합니다. */
 	public void moveDown() {
 		controller.moveDown();
 	}
-
+	public void moveDown2() {
+		controller.moveDown2();
+	}
 	/** 아래로 빠르게 이동 명령을 전달합니다. */
 	public void fastDown() {
 		controller.fastDown();
 	}
+	/** 아래로 빠르게 이동 명령을 전달합니다. */
+	public void fastDown2() {
+		controller.fastDown2();
+	}
+
 
 	/** 일시정지 명령을 전달합니다. */
 	public void pause() {
-		removeKeyListener(keyListener);
+		removeKeyListener(keyListener1p);
 		controller.pause();
 	}
 
 	/** 계속하기 명령을 전달합니다. */
 	public void resume() {
-		addKeyListener(keyListener);
+		addKeyListener(keyListener1p);
 		controller.resume();
 	}
 
 	/** 재시작 명령을 전달합니다. */
 	public void restart() {
-		addKeyListener(keyListener);
+		addKeyListener(keyListener1p);
 		controller.restart();
 	}
 

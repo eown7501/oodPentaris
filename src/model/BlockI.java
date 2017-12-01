@@ -15,11 +15,13 @@ public class BlockI extends Block {
 	 * @param gameBoard
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
-	public BlockI(GameBoardSolo gameBoard) {
+	public BlockI(GameBoard gameBoard) {
 		super(gameBoard);
 		initShape();
-	}
+		initShape2();
 
+	}
+	
 	/** Block 의 모양을 결정합니다. */
 	@Override
 	public void initShape() {
@@ -30,6 +32,14 @@ public class BlockI extends Block {
 		coord = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 		tempCoord = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 	}
+	public void initShape2() {
+		setSpinBehavior2(new SpinBlock4x4());
+		setTopLeftPoint2(new Point(1, 4));
+		tempTopLeftPoint2 = new Point(2, 4);
+		color = new Color(244, 36, 51);
+		coord2 = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
+		tempCoord2 = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
+	}
 
 	/** 블럭의 위치를 바꿉니다. */
 	@Override
@@ -39,5 +49,11 @@ public class BlockI extends Block {
 		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[2]), 2);
 		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[3]), 2);
 	}
-
+	@Override
+	public void changeCoord2() {
+		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[0]), 2);
+		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[1]), 2);
+		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[2]), 2);
+		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[3]), 2);
+	}
 }

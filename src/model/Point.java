@@ -72,5 +72,8 @@ public class Point {
 	public Point setCurrentPoint(Point point) {
 		return new Point(x + point.getX(), y + point.getY());
 	}
+	public Point setCurrentPoint2(Point point) {
+		return new Point(x + point.getX(), y + point.getY());
+	}
 
 }

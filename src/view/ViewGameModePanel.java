@@ -137,7 +137,7 @@ public class ViewGameModePanel extends JPanel implements IViewPanel {
 					totalFrame.soloGameStart();
 				}
 				if (e.getSource() == ZPGamebt) {
-					show2PGamePanel();
+					totalFrame.ZPGameStart();
 				}
 				if (e.getSource() == AIGamebt) {
 					showAIGamePanel();

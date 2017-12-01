@@ -1,9 +1,8 @@
 package controller;
 
 import java.awt.Graphics;
+import model.GameBoard;
 
-import model.GameBoardSolo;
-import model.GameBoardZP;
 import view.ViewTotalFrame;
 
 /**
@@ -17,9 +16,7 @@ public class Controller {
 	/** 명령을 받을 TotalFrame Type 의 변수입니다. */
 	private ViewTotalFrame totalFrame;
 	/** 명령을 전달할 GameBoardSolo Type 의 변수입니다. */
-	private GameBoardSolo soloGameBoard;
-	/** 명령을 전달할 ZPGameBoard Type 의 변수입니다. */
-	private GameBoardZP ZPGameBoard;
+	private GameBoard GameBoard;
 	/** GameMode 를 나타낼 Int Type 변수입니다. */
 	public int gameMode;
 
@@ -31,7 +28,7 @@ public class Controller {
 
 	/** Controller 의 멤버변수들을 초기화 합니다. */
 	public void init() {
-		soloGameBoard = new GameBoardSolo(this);
+		GameBoard = new GameBoard(this);
 
 	}
 
@@ -39,12 +36,16 @@ public class Controller {
 	public void startSoloGame() {
 		init();
 		gameMode = 1;
-		soloGameBoard.startSoloGame();
+		GameBoard.startGame();
 		totalFrame.showSoloGamePanel();
 	}
 
 	/** 2P Game 을 시작합니다. */
 	public void start2PGame() {
+		init();
+		gameMode = 2;
+		GameBoard.startGame();
+		totalFrame.show2PGamePanel();
 
 	}
 
@@ -61,7 +62,7 @@ public class Controller {
 	 *            전달합니다.
 	 */
 	public void draw(Graphics g) {
-		soloGameBoard.draw(g);
+		GameBoard.draw(g);
 	}
 
 	/** totalFrame 의 update 메소드를 실행합니다. */
@@ -71,50 +72,68 @@ public class Controller {
 
 	/** 회전 명령을 전달합니다. */
 	public void spin() {
-		soloGameBoard.spin();
+		GameBoard.spin();
 		update();
 	}
-
+	public void spin2() {
+		GameBoard.spin2();
+		update();
+	}
 	/** 왼쪽이동 명령을 전달합니다. */
 	public void moveLeft() {
-		soloGameBoard.moveLeft();
+		GameBoard.moveLeft();
+		update();
+	}
+	public void moveLeft2() {
+		GameBoard.moveLeft2();
 		update();
 	}
 
 	/** 오른쪽 이동 명령을 전달합니다. */
 	public void moveRight() {
-		soloGameBoard.moveRight();
+		GameBoard.moveRight();
+		update();
+	}
+	public void moveRight2() {
+		GameBoard.moveRight2();
 		update();
 	}
 
 	/** 아래이동 명령을 전달합니다. */
 	public void moveDown() {
-		soloGameBoard.moveDown();
+		GameBoard.moveDown();
+		update();
+	}
+	public void moveDown2() {
+		GameBoard.moveDown2();
 		update();
 	}
 
 	/** 바로내림 명령을 전달합니다. */
 	public void fastDown() {
-		soloGameBoard.fastDown();
+		GameBoard.fastDown();
 		update();
 	}
-
+	public void fastDown2() {
+		GameBoard.fastDown2();
+		update();
+	}
 	/** Game 을 일시정지 합니다. */
 	public void pause() {
-		soloGameBoard.pause();
+		GameBoard.pause();
 		totalFrame.showPausePanel();
 	}
 
 	/** Game 을 재개 합니다. */
 	public void resume() {
-		soloGameBoard.resume();
+		GameBoard.resume();
 		totalFrame.showSoloGamePanel();
 		update();
 	}
 
 	/** Game 을 재시작 합니다. */
 	public void restart() {
-		soloGameBoard.restart();
+		GameBoard.restart();
 		totalFrame.showSoloGamePanel();
 		update();
 	}
@@ -127,6 +146,10 @@ public class Controller {
 	/** SoloGame Over하면 호출됩니다. */
 	public void soloGameOver() {
 		totalFrame.soloGameOver();
+	}
+	/** SoloGame Over하면 호출됩니다. */
+	public void ZPGameOver() {
+		totalFrame.ZPGameLose();		
 	}
 
 }
