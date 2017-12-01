@@ -96,9 +96,10 @@ public class GameBoardSolo implements Runnable {
 	public void run() {
 		update();
 		while (true) {
-			if (start)
-			setLevel();
-			sleep();
+			if (start) {
+				setLevel();
+				sleep();
+			}
 		}
 	}
 
