@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 /**
  * 이 ViewTotalFrame 클래스는 모든 GUI를 총괄담당하는 클래스 입니다.
+ * 
  * @author 송민석
  */
 public class ViewTotalFrame extends JFrame {
@@ -42,11 +43,14 @@ public class ViewTotalFrame extends JFrame {
 	private KeyListener keyListener1p;
 	/** Container Type 의 변수 입니다. */
 	private KeyListener keyListener2p;
+	private KeyListener keyListenerSolo;
 	private Container contentPane;
 
 	/**
 	 * ViewTotalFrame을 생성합니다.
-	 * @param controller - 명령을 하거나 명령을 전달받을 controller 입니다.
+	 * 
+	 * @param controller
+	 *            - 명령을 하거나 명령을 전달받을 controller 입니다.
 	 */
 	public ViewTotalFrame(Controller controller) {
 		this.controller = controller;
@@ -64,6 +68,7 @@ public class ViewTotalFrame extends JFrame {
 		card = new CardLayout();
 		keyListener1p = makeKeyListener1p();
 		keyListener2p = makeKeyListener2p();
+		keyListenerSolo = makeKeyListenerSolo();
 		init();
 	}
 
@@ -85,14 +90,22 @@ public class ViewTotalFrame extends JFrame {
 	/** 설정된 KeyListener를 추가합니다. */
 	public void addKeyListener() {
 		addKeyListener(makeKeyListener1p());
-		
+
 	}
+
 	public void addKeyListener2() {
 		addKeyListener(makeKeyListener2p());
-		
+
 	}
+
+	public void addKeyListenerSolo() {
+		addKeyListener(makeKeyListenerSolo());
+
+	}
+
 	/**
 	 * KeyListener를 구현합니다.
+	 * 
 	 * @return 이 KeyListener을 반환합니다.
 	 */
 	public KeyListener makeKeyListener1p() {
@@ -121,15 +134,13 @@ public class ViewTotalFrame extends JFrame {
 				}
 			}
 		};
-		
-			
+
 	}
-	
 
 	public KeyListener makeKeyListener2p() {
 		return new KeyAdapter() {
 			public void keyReleased(KeyEvent e) {
-				
+
 				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
 					fastDown2();
 				}
@@ -155,6 +166,35 @@ public class ViewTotalFrame extends JFrame {
 		};
 	}
 
+	public KeyListener makeKeyListenerSolo() {
+		return new KeyAdapter() {
+			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					spinSolo();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					fastDownSolo();
+				}
+			}
+
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					moveLeftSolo();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					moveRightSolo();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+					moveDownSolo();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					pauseSolo();
+				}
+			}
+		};
+
+	}
+
 	/** Container에 Panel을 삽입합니다. */
 	public void addPanel() {
 		contentPane.add("Main", mainPanel);
@@ -172,7 +212,7 @@ public class ViewTotalFrame extends JFrame {
 
 	/** SoloGame을 시작합니다. */
 	public void soloGameStart() {
-		addKeyListener();
+		addKeyListenerSolo();
 		controller.startSoloGame();
 	}
 
@@ -193,22 +233,25 @@ public class ViewTotalFrame extends JFrame {
 		repaint();
 	}
 
-	/** 
-	 * Controller의 draw 메소드를 실행합니다. 
-	 * @param g - controller에 draw 메소드를 전달합니다.
+	/**
+	 * Controller의 draw 메소드를 실행합니다.
+	 * 
+	 * @param g
+	 *            - controller에 draw 메소드를 전달합니다.
 	 */
 	public void draw(Graphics g) {
 		controller.draw(g);
-	
+
 	}
+
 	public void drawSolo(Graphics g) {
 		controller.drawSolo(g);
-	
+
 	}
-	
+
 	/** SoloGame을 종료합니다. */
 	public void soloGameOver() {
-		removeKeyListener(keyListener1p);
+		removeKeyListener(keyListenerSolo);
 		soloGamePanel.gameOver();
 	}
 
@@ -218,6 +261,7 @@ public class ViewTotalFrame extends JFrame {
 		removeKeyListener(keyListener2p);
 		ZPAndAIGamePanel.lose();
 	}
+
 	public void ZPGameWin() {
 		ZPAndAIGamePanel.win();
 		removeKeyListener(keyListener1p);
@@ -299,54 +343,100 @@ public class ViewTotalFrame extends JFrame {
 	public void spin2() {
 		controller.spin2();
 	}
+
+	/** 회전 명령을 전달합니다. */
+	public void spinSolo() {
+		controller.spinSolo();
+	}
+
 	/** 왼쪽이동 명령을 전달합니다. */
 	public void moveLeft() {
 		controller.moveLeft();
 	}
+
 	public void moveLeft2() {
 		controller.moveLeft2();
 	}
+
+	public void moveLeftSolo() {
+		controller.moveLeftSolo();
+	}
+
 	/** 오른쪽이동 명령을 전달합니다. */
 	public void moveRight() {
 		controller.moveRight();
 	}
+
 	public void moveRight2() {
 		controller.moveRight2();
+	}
+
+	public void moveRightSolo() {
+		controller.moveRightSolo();
 	}
 
 	/** 아래로이동 명령을 전달합니다. */
 	public void moveDown() {
 		controller.moveDown();
 	}
+
 	public void moveDown2() {
 		controller.moveDown2();
 	}
+
+	public void moveDownSolo() {
+		controller.moveDownSolo();
+	}
+
 	/** 아래로 빠르게 이동 명령을 전달합니다. */
 	public void fastDown() {
 		controller.fastDown();
 	}
+
 	/** 아래로 빠르게 이동 명령을 전달합니다. */
 	public void fastDown2() {
 		controller.fastDown2();
 	}
 
+	public void fastDownSolo() {
+		controller.fastDownSolo();
+	}
 
 	/** 일시정지 명령을 전달합니다. */
 	public void pause() {
 		removeKeyListener(keyListener1p);
+		removeKeyListener(keyListener2p);
 		controller.pause();
+	}
+
+	public void pauseSolo() {
+		removeKeyListener(keyListenerSolo);
+		controller.pauseSolo();
 	}
 
 	/** 계속하기 명령을 전달합니다. */
 	public void resume() {
 		addKeyListener(keyListener1p);
+		addKeyListener(keyListener2p);
 		controller.resume();
+	}
+
+	public void resumeSolo() {
+		addKeyListener(keyListenerSolo);
+		controller.resumeSolo();
 	}
 
 	/** 재시작 명령을 전달합니다. */
 	public void restart() {
 		addKeyListener(keyListener1p);
+		addKeyListener(keyListener2p);
 		controller.restart();
+	}
+
+	/** 재시작 명령을 전달합니다. */
+	public void restartSolo() {
+		addKeyListener(keyListenerSolo);
+		controller.restartSolo();
 	}
 
 	/** Main화면으로 이동 명령을 전달합니다. */

@@ -25,7 +25,7 @@ public class BlockS extends Block {
 
 	public BlockS(GameBoardSolo gameBoardSolo) {
 		super(gameBoardSolo);
-		initShape();
+		initShapeSolo();
 	}
 
 	/** Block 의 모양을 결정합니다. */
@@ -46,6 +46,14 @@ public class BlockS extends Block {
 		coord2 = new Point[] { new Point(-1, 1), new Point(-1, 0), new Point(0, 0), new Point(0, -1) };
 		tempCoord2 = new Point[] { new Point(-1, 1), new Point(-1, 0), new Point(0, 0), new Point(0, -1) };
 	}
+	public void initShapeSolo() {
+		setSpinBehaviorSolo(new SpinBlock3x3());
+		setTopLeftPointSolo(new Point(1, 4));
+		tempTopLeftPointSolo = new Point(2, 4);
+		color = new Color(224, 102, 245);
+		coordSolo = new Point[] { new Point(-1, 1), new Point(-1, 0), new Point(0, 0), new Point(0, -1) };
+		tempCoordSolo = new Point[] { new Point(-1, 1), new Point(-1, 0), new Point(0, 0), new Point(0, -1) };
+	}
 	/** 블럭의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord() {
@@ -59,6 +67,12 @@ public class BlockS extends Block {
 		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[1]), 0);
 		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[2]), 0);
 		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[3]), 0);
+	}
+	public void changeCoordSolo() {
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[0]), 0);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[1]), 0);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[2]), 0);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[3]), 0);
 	}
 
 }

@@ -385,6 +385,7 @@ public class GameBoard implements Runnable {
 	/** Game을 재시작합니다. */
 	public void restart() {
 		initGameBoard1();
+		initGameBoard2();
 		setStartTime();
 	}
 

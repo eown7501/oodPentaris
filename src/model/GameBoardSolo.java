@@ -182,8 +182,8 @@ public class GameBoardSolo implements Runnable {
 	public void setNextBlock() {
 		nextBlock = createRandomBlock();
 		NextBlockBoard = new int[BLOCK_MAX_NUM][BLOCK_MAX_NUM];
-		for (int i = 0; i < nextBlock.coord.length; i++)
-			NextBlockBoard[nextBlock.coord[i].getX() + 2][nextBlock.coord[i].getY() + 1] = 2;
+		for (int i = 0; i < nextBlock.coordSolo.length; i++)
+			NextBlockBoard[nextBlock.coordSolo[i].getX() + 2][nextBlock.coordSolo[i].getY() + 1] = 2;
 	}
 
 	/** 현재 Block을 설정합니다. */
@@ -196,27 +196,27 @@ public class GameBoardSolo implements Runnable {
 
 	/** Block에게 회전명령을 내립니다. */
 	public void spin() {
-		currentBlock.performSpin();
+		currentBlock.performSpinSolo();
 	}
 
 	/** Block에게 왼쪽 이동명령을 내립니다. */
 	public void moveLeft() {
-		currentBlock.moveLeft();
+		currentBlock.moveLeftSolo();
 	}
 
 	/** Block 에게 오른쪽 이동명령을 내립니다. */
 	public void moveRight() {
-		currentBlock.moveRight();
+		currentBlock.moveRightSolo();
 	}
 
 	/** Block에게 아래로 이동명령을 내립니다. */
 	public void moveDown() {
-		currentBlock.moveDown();
+		currentBlock.moveDownSolo();
 	}
 
 	/** Block에게 바로떨어트리는 명령을 내립니다. */
 	public void fastDown() {
-		currentBlock.fastDown();
+		currentBlock.fastDownSolo();
 	}
 
 	/** Controller의 update 메소드를 실행합니다. */
@@ -231,7 +231,7 @@ public class GameBoardSolo implements Runnable {
 	}
 
 	/** Game을 재개합니다. */
-	public void resumeSolo() {
+	public void resume() {
 		start = true;
 		pauseTime = System.nanoTime() - startPauseTime;
 	}
