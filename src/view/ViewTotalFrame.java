@@ -201,6 +201,10 @@ public class ViewTotalFrame extends JFrame {
 		controller.draw(g);
 	
 	}
+	public void drawSolo(Graphics g) {
+		controller.drawSolo(g);
+	
+	}
 	
 	/** SoloGame을 종료합니다. */
 	public void soloGameOver() {

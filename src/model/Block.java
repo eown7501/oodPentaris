@@ -7,7 +7,7 @@ import java.awt.Color;
  * 
  * @author 곽소정
  */
-public abstract class Block  {
+public abstract class Block {
 
 	/** Spin 행동자 를 담당할 Spinnable Type 의 변수입니다. */
 	private Spinnable spinnable;
@@ -16,7 +16,7 @@ public abstract class Block  {
 	/** Block이 올라갈 GameBoardSolo Type 의 변수입니다. */
 	protected GameBoard gameBoard;
 	/** Block의 행동 기준이 될 왼쪽위 위치좌표입니다. */
-
+	protected GameBoardSolo gameBoardSolo;
 	protected Point topLeftPoint;
 	/** topLeftPoint의 값을 임시로 저장할 변수입니다. */
 	protected Point topLeftPoint2;
@@ -35,7 +35,6 @@ public abstract class Block  {
 	/** Block 의 색을 담는 변수입니다. */
 	protected Color color;
 
-
 	/**
 	 * Block 을 생성합니다.
 	 * 
@@ -45,12 +44,19 @@ public abstract class Block  {
 	public Block(GameBoard gameBoard) {
 		this.gameBoard = gameBoard;
 	}
-	
+
+	public Block(GameBoardSolo gameBoardSolo) {
+		this.gameBoardSolo = gameBoardSolo;
+	}
+
 	/** Block의 모양을 결정합니다. */
 	public abstract void initShape(); // 상속받는 블럭에서 구현
+
 	public abstract void initShape2(); // 상속받는 블럭에서 구현
+
 	/** 블럭의 위치를 바꿉니다. */
 	public abstract void changeCoord(); // 상속받는 블럭에서 구현
+
 	/** 블럭의 위치를 바꿉니다. */
 	public abstract void changeCoord2(); // 상속받는 블럭에서 구현
 
@@ -81,9 +87,11 @@ public abstract class Block  {
 	public Point getTopLeftPoint() {
 		return topLeftPoint;
 	}
+
 	public Point getTopLeftPoint2() {
 		return topLeftPoint2;
 	}
+
 	/**
 	 * Block 의 TopLeftPoint를 설정합니다.
 	 * 
@@ -93,9 +101,11 @@ public abstract class Block  {
 	public void setTopLeftPoint(Point topLeftPoint) {
 		this.topLeftPoint = topLeftPoint;
 	}
+
 	public void setTopLeftPoint2(Point topLeftPoint2) {
 		this.topLeftPoint2 = topLeftPoint2;
 	}
+
 	/**
 	 * Block 의 회전행동자를 설정합니다.
 	 * 
@@ -105,6 +115,7 @@ public abstract class Block  {
 	public void setSpinBehavior(Spinnable spinnable) {
 		this.spinnable = spinnable;
 	}
+
 	public void setSpinBehavior2(Spinnable spinnable2) {
 		this.spinnable2 = spinnable2;
 	}
@@ -113,10 +124,12 @@ public abstract class Block  {
 	public void fixedAndSetNextBlock() {
 		gameBoard.fixedAndSetNextBlock();
 	}
+
 	/** Block GameBoard에 고정하고, next Block을 설정합니다. */
 	public void fixedAndSetNextBlock2() {
 		gameBoard.fixedAndSetNextBlock2();
 	}
+
 	/**
 	 * 회전할 때 벽이나 다른 도형에 충돌하는지 확인합니다.
 	 * 
@@ -133,6 +146,7 @@ public abstract class Block  {
 		}
 		return false;
 	}
+
 	public boolean isCollisionSpin2(Point topLeftPoint2) { // 회전가능여부
 		spinnable2.spin(tempCoord2);
 		for (int i = 0; i < tempCoord2.length; i++) {
@@ -158,6 +172,7 @@ public abstract class Block  {
 		}
 		return false;
 	}
+
 	public boolean isCollisionMove2(Point topLeftPoint2) {
 		for (int i = 0; i < coord2.length; i++) {
 			Point tempNextPoint2 = topLeftPoint2.setCurrentPoint2(coord2[i]);
@@ -166,6 +181,7 @@ public abstract class Block  {
 		}
 		return false;
 	}
+
 	/** Block 회전을 실행합니다. */
 	public void performSpin() { // 블록 스핀하기
 		gameBoard.revertMatrix();
@@ -180,6 +196,7 @@ public abstract class Block  {
 			}
 		}
 	}
+
 	public void performSpin2() { // 블록 스핀하기
 		gameBoard.revertMatrix2();
 		if (!isCollisionSpin2(topLeftPoint2)) {
@@ -193,6 +210,7 @@ public abstract class Block  {
 			}
 		}
 	}
+
 	/** Block 을 왼쪽으로 이동합니다. */
 	public void moveLeft() {
 		tempTopLeftPoint.setY(topLeftPoint.getY() - 1);
@@ -206,6 +224,7 @@ public abstract class Block  {
 			changeCoord();
 		}
 	}
+
 	public void moveLeft2() {
 		tempTopLeftPoint2.setY(topLeftPoint2.getY() - 1);
 		tempTopLeftPoint2.setX(topLeftPoint2.getX());
@@ -218,7 +237,6 @@ public abstract class Block  {
 			changeCoord2();
 		}
 	}
-
 
 	/** Block 을 오른쪽으로 이동합니다. */
 	public void moveRight() {
@@ -246,6 +264,7 @@ public abstract class Block  {
 			changeCoord2();
 		}
 	}
+
 	/** Block 을 아래로 이동합니다. */
 	public void moveDown() {
 		tempTopLeftPoint.setX(topLeftPoint.getX() + 1);
@@ -259,6 +278,7 @@ public abstract class Block  {
 			fixedAndSetNextBlock();
 		}
 	}
+
 	public void moveDown2() {
 		tempTopLeftPoint2.setX(topLeftPoint2.getX() + 1);
 		gameBoard.revertMatrix2();
@@ -285,6 +305,7 @@ public abstract class Block  {
 		else
 			return false;
 	}
+
 	public boolean isMoveDown2() {
 		Point x = new Point(topLeftPoint2.getX() + 1, topLeftPoint2.getY());
 		gameBoard.revertMatrix2();
@@ -324,19 +345,33 @@ public abstract class Block  {
 		}
 		gameBoard.update();
 
-		
 	}
+
 	public void drop2() {
-		tempTopLeftPoint2.setX(topLeftPoint2.getX()+1);
+		tempTopLeftPoint2.setX(topLeftPoint2.getX() + 1);
 		gameBoard.revertMatrix2();
 		if (!isCollisionMove2(tempTopLeftPoint2)) {
 			setTopLeftPoint2(tempTopLeftPoint2);
 			changeCoord2();
 		} else {
-			topLeftPoint2.setX(tempTopLeftPoint2.getX() -1);
+			topLeftPoint2.setX(tempTopLeftPoint2.getX() - 1);
 			changeCoord2();
 			fixedAndSetNextBlock2();
 		}
 		gameBoard.update();
+	}
+
+	public void dropSolo() {
+		tempTopLeftPoint.setX(topLeftPoint.getX() + 1);
+		gameBoardSolo.revertMatrix();
+		if (!isCollisionMove(tempTopLeftPoint)) {
+			setTopLeftPoint(tempTopLeftPoint);
+			changeCoord();
+		} else {
+			topLeftPoint.setX(tempTopLeftPoint.getX() - 1);
+			changeCoord();
+			fixedAndSetNextBlock();
+		}
+		gameBoardSolo.update();
 	}
 }

@@ -23,6 +23,11 @@ public class BlockO extends Block {
 
 	}
 
+	public BlockO(GameBoardSolo gameBoardSolo) {
+		super(gameBoardSolo);
+		initShape();
+	}
+
 	/** Block 의 모양을 결정합니다. */
 	@Override
 	public void initShape() {

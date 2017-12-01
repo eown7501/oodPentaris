@@ -33,7 +33,7 @@ public class ViewSoloGamePanel extends JPanel {
 	/** 스윙 컴포넌트가 자신의 모양을 그립니다. */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		totalFrame.draw(g);
+		totalFrame.drawSolo(g);
 	}
 
 	

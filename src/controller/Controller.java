@@ -2,7 +2,7 @@ package controller;
 
 import java.awt.Graphics;
 import model.GameBoard;
-
+import model.GameBoardSolo;
 import view.ViewTotalFrame;
 
 /**
@@ -18,6 +18,8 @@ public class Controller {
 	/** 명령을 전달할 GameBoardSolo Type 의 변수입니다. */
 	private GameBoard GameBoard;
 	/** GameMode 를 나타낼 Int Type 변수입니다. */
+	private GameBoardSolo GameBoardSolo;
+	/** GameMode 를 나타낼 Int Type 변수입니다. */
 	public int gameMode;
 
 	/** ViewTotalFrame이 생성되는 Controller 를 생성합니다. */
@@ -31,12 +33,15 @@ public class Controller {
 		GameBoard = new GameBoard(this);
 
 	}
+	public void initSolo() {
+		GameBoardSolo = new GameBoardSolo(this);
 
+	}
 	/** Solo Game을 시작합니다. */
 	public void startSoloGame() {
-		init();
+		initSolo();
 		gameMode = 1;
-		GameBoard.startGame();
+		GameBoardSolo.startSoloGame();
 		totalFrame.showSoloGamePanel();
 	}
 
@@ -63,6 +68,9 @@ public class Controller {
 	 */
 	public void draw(Graphics g) {
 		GameBoard.draw(g);
+	}
+	public void drawSolo(Graphics g) {
+		GameBoardSolo.drawSolo(g);
 	}
 
 	/** totalFrame 의 update 메소드를 실행합니다. */

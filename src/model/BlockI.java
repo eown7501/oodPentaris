@@ -21,7 +21,12 @@ public class BlockI extends Block {
 		initShape2();
 
 	}
-	
+
+	public BlockI(GameBoardSolo gameBoardSolo) {
+		super(gameBoardSolo);
+		initShape();
+	}
+
 	/** Block 의 모양을 결정합니다. */
 	@Override
 	public void initShape() {
@@ -32,6 +37,7 @@ public class BlockI extends Block {
 		coord = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 		tempCoord = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 	}
+
 	public void initShape2() {
 		setSpinBehavior2(new SpinBlock4x4());
 		setTopLeftPoint2(new Point(1, 4));
@@ -49,6 +55,7 @@ public class BlockI extends Block {
 		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[2]), 2);
 		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[3]), 2);
 	}
+
 	@Override
 	public void changeCoord2() {
 		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[0]), 2);
