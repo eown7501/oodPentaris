@@ -25,7 +25,7 @@ public class GameBoardSolo implements Runnable {
 	/** 명령을 받거나 전달할 Controller Type 변수입니다. */
 	private Controller controller;
 	/** 현재 Block을 저장할 변수입니다. */
-	private Block currentBlock;
+	Block currentBlock;
 	/** 다음 Block을 저장할 변수입니다. */
 	private Block nextBlock;
 	/** GameBoard를 저장할 2차원배열입니다. */
