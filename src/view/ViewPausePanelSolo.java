@@ -7,7 +7,8 @@ import java.awt.Graphics;
 import java.awt.event.*;
 
 /**
- * 이 ViewPausePanel은 Game진행 도중 esc를 눌렀을 시 Pause화면의 Panel을 구성하고 보여주는 클래스입니다.
+ * 이 ViewPausePanelSolo는 SoloGame진행 도중 esc를 눌렀을 시 Pause화면의 Panel을 구성하고 보여주는
+ * 클래스입니다.
  * 
  * @author 송민석
  * 
@@ -81,6 +82,7 @@ public class ViewPausePanelSolo extends JPanel implements IViewPanel {
 		this.add(goMainbt);
 	}
 
+	/** Button에 MouseListener를 삽입합니다. */
 	public void addListener() {
 		resumebt.addMouseListener(makeMouseListener());
 		restartbt.addMouseListener(makeMouseListener());

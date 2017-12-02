@@ -205,7 +205,7 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/** Block에게 회전명령을 내립니다. */
-	public void spin2() {
+	public void spin() {
 		currentBlock.performSpin2P();
 	}
 

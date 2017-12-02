@@ -7,7 +7,8 @@ import java.awt.Graphics;
 import java.awt.event.*;
 
 /**
- * 이 ViewPausePanel은 Game진행 도중 esc를 눌렀을 시 Pause화면의 Panel을 구성하고 보여주는 클래스입니다.
+ * 이 ViewPausePanel2P는 2P 또는 AI Game진행 도중 esc를 눌렀을 시 Pause화면의 Panel을 구성하고 보여주는
+ * 클래스입니다.
  * 
  * @author 송민석
  * 
@@ -46,7 +47,7 @@ public class ViewPausePanel2P extends JPanel implements IViewPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		totalFrame.draw(g);
-		totalFrame.draw2(g);
+		totalFrame.draw2P(g);
 
 	}
 

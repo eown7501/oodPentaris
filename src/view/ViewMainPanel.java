@@ -28,7 +28,9 @@ public class ViewMainPanel extends JPanel implements IViewPanel {
 
 	/**
 	 * ViewMainPanel을 생성합니다.
-	 * @param totalFrame - 명령을 전달받을 totalFrame 입니다.
+	 * 
+	 * @param totalFrame
+	 *            - 명령을 전달받을 totalFrame 입니다.
 	 */
 	public ViewMainPanel(ViewTotalFrame totalFrame) {
 

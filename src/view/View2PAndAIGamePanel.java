@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * 이 Class는 2PGameMode화면의 Panel을 구성하고 보여주는 클래스입니다.
+ * 이 Class는 AI와 2PGameMode화면의 Panel을 구성하고 보여주는 클래스입니다.
  * 
  * @author 송민석
  */
@@ -32,13 +32,15 @@ public class View2PAndAIGamePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		totalFrame.draw(g);
-		totalFrame.draw2(g);
+		totalFrame.draw2P(g);
 
 	}
 
+	/** 화면을 repaint 합니다. */
 	public void update() {
 		repaint();
 	}
+
 	/** 2PAndAI가 종료되었을시 win 메시지를 표시합니다. */
 	public void win() {
 		Graphics2D g2 = (Graphics2D) getGraphics();

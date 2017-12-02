@@ -37,14 +37,17 @@ public class ViewTotalFrame extends JFrame {
 	private ViewProfilePanel profilePanel;
 	/** ViewPausePanel Type 의 변수 입니다. */
 	private ViewPausePanel2P pausePanel;
+	/** ViewPausePanelSolo Type 의 변수 입니다. */
 	private ViewPausePanelSolo pausePanelSolo;
 	/** CardLayout Type 의 변수 입니다. */
 	private CardLayout card;
-	/** KeyListener Type 의 변수 입니다. */
+	/** 2P PlayMode나 AI 게임 내의 1P의 조작에 관련된 KeyListener Type 의 변수 입니다. */
 	private KeyListener keyListener1p;
-	/** Container Type 의 변수 입니다. */
+	/** 2P PlayMode나 AI 게임 내의 2P의 조작에 관련된 KeyListener Type 의 변수 입니다. */
 	private KeyListener keyListener2p;
+	/** SoloPlay 게임 내의 조작에 관련된 KeyListener Type 의 변수 입니다. */
 	private KeyListener keyListenerSolo;
+	/** Container Type 의 변수 입니다. */
 	private Container contentPane;
 
 	/**
@@ -67,7 +70,6 @@ public class ViewTotalFrame extends JFrame {
 		profilePanel = new ViewProfilePanel(this);
 		pausePanel = new ViewPausePanel2P(this);
 		pausePanelSolo = new ViewPausePanelSolo(this);
-
 		card = new CardLayout();
 		keyListener1p = makeKeyListener1p();
 		keyListener2p = makeKeyListener2p();
@@ -90,39 +92,44 @@ public class ViewTotalFrame extends JFrame {
 		setVisible(true);
 	}
 
-	/** 설정된 KeyListener를 추가합니다. */
-	public void addKeyListener() {
+	/** 1P의 KeyListener를 추가합니다. */
+	public void addKeyListener1P() {
 		addKeyListener(makeKeyListener1p());
 
 	}
 
-	public void addKeyListener2() {
+	/** 2P의 KeyListener를 추가합니다. */
+	public void addKeyListener2P() {
 		addKeyListener(makeKeyListener2p());
 
 	}
 
+	/** SoloPlay의 KeyListener를 추가합니다. */
 	public void addKeyListenerSolo() {
 		addKeyListener(makeKeyListenerSolo());
 
 	}
 
+	/** 1P의 KeyListener를 제거합니다. */
 	public void removeKeyListener() {
 		removeKeyListener(makeKeyListener1p());
 
 	}
 
-	public void removeKeyListener2() {
+	/** 2P의 KeyListener를 제거합니다. */
+	public void removeKeyListener2P() {
 		removeKeyListener(makeKeyListener2p());
 
 	}
 
+	/** Soloplay의 KeyListener를 제거합니다. */
 	public void removeKeyListenerSolo() {
 		removeKeyListener(makeKeyListenerSolo());
 
 	}
 
 	/**
-	 * KeyListener를 구현합니다.
+	 * 1P의 KeyListener를 구현합니다.
 	 * 
 	 * @return 이 KeyListener을 반환합니다.
 	 */
@@ -131,55 +138,65 @@ public class ViewTotalFrame extends JFrame {
 
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					moveLeft();
+					moveLeft1P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-					moveRight();
+					moveRight1P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-					moveDown();
+					moveDown1P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					pause();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					spin();
+					spin1P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					fastDown();
+					fastDown1P();
 				}
 			}
 		};
 
 	}
 
+	/**
+	 * 2P의 KeyListener를 구현합니다.
+	 * 
+	 * @return 이 KeyListener을 반환합니다.
+	 */
 	public KeyListener makeKeyListener2p() {
 		return new KeyAdapter() {
 
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_W) {
-					spin2();
+					spin2P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_A) {
-					moveLeft2();
+					moveLeft2P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_D) {
-					moveRight2();
+					moveRight2P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_S) {
-					moveDown2();
+					moveDown2P();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					pause();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-					fastDown2();
+					fastDown2P();
 				}
 
 			}
 		};
 	}
 
+	/**
+	 * Soloplay의 KeyListener를 구현합니다.
+	 * 
+	 * @return 이 KeyListener을 반환합니다.
+	 */
 	public KeyListener makeKeyListenerSolo() {
 		return new KeyAdapter() {
 
@@ -232,14 +249,14 @@ public class ViewTotalFrame extends JFrame {
 
 	/** 2PGame을 시작합니다. */
 	public void ZPGameStart() {
-		addKeyListener();
-		addKeyListener2();
+		addKeyListener1P();
+		addKeyListener2P();
 		controller.start2PGame();
 	}
 
 	/** AIGame을 시작합니다. */
 	public void AIGameStart() {
-		addKeyListener();
+		addKeyListener1P();
 	}
 
 	/** 화면을 repaint 합니다. */
@@ -258,11 +275,23 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
-	public void draw2(Graphics g) {
-		controller.draw2(g);
+	/**
+	 * Controller의 draw2P 메소드를 실행합니다.
+	 * 
+	 * @param g
+	 *            - controller에 draw2P 메소드를 전달합니다.
+	 */
+	public void draw2P(Graphics g) {
+		controller.draw2P(g);
 
 	}
 
+	/**
+	 * Controller의 drawSolo 메소드를 실행합니다.
+	 * 
+	 * @param g
+	 *            - controller에 drawSolo 메소드를 전달합니다.
+	 */
 	public void drawSolo(Graphics g) {
 		controller.drawSolo(g);
 
@@ -278,14 +307,15 @@ public class ViewTotalFrame extends JFrame {
 	/** 2PGame을 종료합니다. */
 	public void ZPGameLose() {
 		removeKeyListener();
-		removeKeyListener2();
+		removeKeyListener2P();
 		ZPAndAIGamePanel.lose();
 
 	}
 
+	/** 2PGame을 종료합니다. */
 	public void ZPGameWin() {
 		removeKeyListener();
-		removeKeyListener2();
+		removeKeyListener2P();
 		ZPAndAIGamePanel.lose();
 	}
 
@@ -354,79 +384,87 @@ public class ViewTotalFrame extends JFrame {
 		card.show(contentPane, "Pause");
 	}
 
-	/** PausePanel을 보여줍니다. */
+	/** PausePanelSolo을 보여줍니다. */
 	public void showPausePanelSolo() {
 		card.show(contentPane, "PauseSolo");
 	}
 
-	/** 회전 명령을 전달합니다. */
-	public void spin() {
-		controller.spin();
+	/** 1P 조작에 대헤 회전 명령을 전달합니다. */
+	public void spin1P() {
+		controller.spin1P();
 	}
 
-	public void spin2() {
-		controller.spin2();
+	/** 2P 조작에 대헤 회전 명령을 전달합니다. */
+	public void spin2P() {
+		controller.spin2P();
 	}
 
-	/** 회전 명령을 전달합니다. */
+	/** SoloPlay 조작에 대헤 회전 명령을 전달합니다. */
 	public void spinSolo() {
 		controller.spinSolo();
 	}
 
-	/** 왼쪽이동 명령을 전달합니다. */
-	public void moveLeft() {
-		controller.moveLeft();
+	/** 1P 조작에 대해 왼쪽이동 명령을 전달합니다. */
+	public void moveLeft1P() {
+		controller.moveLeft1P();
 	}
 
-	public void moveLeft2() {
-		controller.moveLeft2();
+	/** 2P 조작에 대해 왼쪽이동 명령을 전달합니다. */
+	public void moveLeft2P() {
+		controller.moveLeft2P();
 	}
 
+	/** SoloPlay 조작에 대해 왼쪽이동 명령을 전달합니다. */
 	public void moveLeftSolo() {
 		controller.moveLeftSolo();
 	}
 
-	/** 오른쪽이동 명령을 전달합니다. */
-	public void moveRight() {
-		controller.moveRight();
+	/** 1P 조작에 대해 오른쪽이동 명령을 전달합니다. */
+	public void moveRight1P() {
+		controller.moveRight1P();
 	}
 
-	public void moveRight2() {
-		controller.moveRight2();
+	/** 2P 조작에 대해 오른쪽이동 명령을 전달합니다. */
+	public void moveRight2P() {
+		controller.moveRight2P();
 	}
 
+	/** SoloPlay 조작에 대해 오른쪽이동 명령을 전달합니다. */
 	public void moveRightSolo() {
 		controller.moveRightSolo();
 	}
 
-	/** 아래로이동 명령을 전달합니다. */
-	public void moveDown() {
-		controller.moveDown();
+	/** 1P 조작에 대해 아래로이동 명령을 전달합니다. */
+	public void moveDown1P() {
+		controller.moveDown1P();
 	}
 
-	public void moveDown2() {
-		controller.moveDown2();
+	/** 2P 조작에 대해 아래로이동 명령을 전달합니다. */
+	public void moveDown2P() {
+		controller.moveDown2P();
 	}
 
+	/** SoloPlay 조작에 대해 아래로이동 명령을 전달합니다. */
 	public void moveDownSolo() {
 		controller.moveDownSolo();
 	}
 
-	/** 아래로 빠르게 이동 명령을 전달합니다. */
-	public void fastDown() {
-		controller.fastDown();
+	/** 1P 조작에 대해 아래로 빠르게 이동 명령을 전달합니다. */
+	public void fastDown1P() {
+		controller.fastDown1P();
 	}
 
-	/** 아래로 빠르게 이동 명령을 전달합니다. */
-	public void fastDown2() {
-		controller.fastDown2();
+	/** 2P 조작에 대해 아래로 빠르게 이동 명령을 전달합니다. */
+	public void fastDown2P() {
+		controller.fastDown2P();
 	}
 
+	/** SoloPlay 조작에 대해 아래로 빠르게 이동 명령을 전달합니다. */
 	public void fastDownSolo() {
 		controller.fastDownSolo();
 	}
 
-	/** 일시정지 명령을 전달합니다. */
+	/** 2P 또는 AI Play 중에 일시정지 명령을 전달합니다. */
 	public void pause() {
 		removeKeyListener(keyListener1p);
 		removeKeyListener(keyListener2p);
@@ -434,12 +472,13 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
+	/** SoloPlay 중에 일시정지 명령을 전달합니다. */
 	public void pauseSolo() {
 		removeKeyListener(keyListenerSolo);
 		controller.pauseSolo();
 	}
 
-	/** 계속하기 명령을 전달합니다. */
+	/** 2P 또는 AI Play 중에 일시정지를 했을 때, 계속하기 명령을 전달합니다. */
 	public void resume() {
 		addKeyListener(keyListener1p);
 		addKeyListener(keyListener2p);
@@ -447,12 +486,13 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
+	/** SoloPlay 중에 일시정지를 했을 때, 계속하기 명령을 전달합니다. */
 	public void resumeSolo() {
 		addKeyListener(keyListenerSolo);
 		controller.resumeSolo();
 	}
 
-	/** 재시작 명령을 전달합니다. */
+	/** 2P 또는 AI Play 중에 일시정지를 했을 때, 재시작 명령을 전달합니다. */
 	public void restart() {
 		addKeyListener(keyListener1p);
 		addKeyListener(keyListener2p);
@@ -460,13 +500,13 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
-	/** 재시작 명령을 전달합니다. */
+	/** SoloPlay 중에 일시정지를 했을 때, 재시작 명령을 전달합니다. */
 	public void restartSolo() {
 		addKeyListener(keyListenerSolo);
 		controller.restartSolo();
 	}
 
-	/** Main화면으로 이동 명령을 전달합니다. */
+	/** 일시정지를 했을 때, Main화면으로 이동 명령을 전달합니다. */
 	public void goMain() {
 		controller.goMain();
 	}

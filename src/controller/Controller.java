@@ -17,7 +17,7 @@ public class Controller {
 	/** 명령을 받을 TotalFrame Type 의 변수입니다. */
 	private ViewTotalFrame totalFrame;
 	/** 명령을 전달할 GameBoardSolo Type 의 변수입니다. */
-	private GameBoard1P GameBoard;
+	private GameBoard1P GameBoard1P;
 	/** GameMode 를 나타낼 Int Type 변수입니다. */
 	private GameBoard2P GameBoard2P;
 	/** GameMode 를 나타낼 Int Type 변수입니다. */
@@ -33,7 +33,7 @@ public class Controller {
 
 	/** Controller 의 멤버변수들을 초기화 합니다. */
 	public void init() {
-		GameBoard = new GameBoard1P(this);
+		GameBoard1P = new GameBoard1P(this);
 
 	}
 
@@ -59,7 +59,7 @@ public class Controller {
 		init();
 		init2();
 		gameMode = 2;
-		GameBoard.startGame();
+		GameBoard1P.startGame();
 		GameBoard2P.startGame();
 		totalFrame.show2PGamePanel();
 
@@ -78,10 +78,10 @@ public class Controller {
 	 *            전달합니다.
 	 */
 	public void draw(Graphics g) {
-		GameBoard.draw(g);
+		GameBoard1P.draw(g);
 	}
 
-	public void draw2(Graphics g) {
+	public void draw2P(Graphics g) {
 		GameBoard2P.draw(g);
 	}
 
@@ -95,13 +95,13 @@ public class Controller {
 	}
 
 	/** 회전 명령을 전달합니다. */
-	public void spin() {
-		GameBoard.spin();
+	public void spin1P() {
+		GameBoard1P.spin();
 		update();
 	}
 
-	public void spin2() {
-		GameBoard2P.spin2();
+	public void spin2P() {
+		GameBoard2P.spin();
 		update();
 	}
 
@@ -111,12 +111,12 @@ public class Controller {
 	}
 
 	/** 왼쪽이동 명령을 전달합니다. */
-	public void moveLeft() {
-		GameBoard.moveLeft();
+	public void moveLeft1P() {
+		GameBoard1P.moveLeft();
 		update();
 	}
 
-	public void moveLeft2() {
+	public void moveLeft2P() {
 		GameBoard2P.moveLeft2();
 		update();
 	}
@@ -127,12 +127,12 @@ public class Controller {
 	}
 
 	/** 오른쪽 이동 명령을 전달합니다. */
-	public void moveRight() {
-		GameBoard.moveRight();
+	public void moveRight1P() {
+		GameBoard1P.moveRight();
 		update();
 	}
 
-	public void moveRight2() {
+	public void moveRight2P() {
 		GameBoard2P.moveRight2();
 		update();
 	}
@@ -143,12 +143,12 @@ public class Controller {
 	}
 
 	/** 아래이동 명령을 전달합니다. */
-	public void moveDown() {
-		GameBoard.moveDown();
+	public void moveDown1P() {
+		GameBoard1P.moveDown();
 		update();
 	}
 
-	public void moveDown2() {
+	public void moveDown2P() {
 		GameBoard2P.moveDown2();
 		update();
 	}
@@ -159,12 +159,12 @@ public class Controller {
 	}
 
 	/** 바로내림 명령을 전달합니다. */
-	public void fastDown() {
-		GameBoard.fastDown();
+	public void fastDown1P() {
+		GameBoard1P.fastDown();
 		update();
 	}
 
-	public void fastDown2() {
+	public void fastDown2P() {
 		GameBoard2P.fastDown2();
 		update();
 	}
@@ -176,7 +176,7 @@ public class Controller {
 
 	/** Game 을 일시정지 합니다. */
 	public void pause() {
-		GameBoard.pause();
+		GameBoard1P.pause();
 		GameBoard2P.pause();
 		totalFrame.showPausePanel();
 	}
@@ -190,7 +190,7 @@ public class Controller {
 
 	/** Game 을 재개 합니다. */
 	public void resume() {
-		GameBoard.resume();
+		GameBoard1P.resume();
 		GameBoard2P.resume();
 		totalFrame.show2PGamePanel();
 		update();
@@ -205,7 +205,7 @@ public class Controller {
 
 	/** Game 을 재시작 합니다. */
 	public void restart() {
-		GameBoard.restart();
+		GameBoard1P.restart();
 		GameBoard2P.restart();
 		totalFrame.show2PGamePanel();
 		update();
