@@ -1,12 +1,12 @@
 package view;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
 
 /**
  * 이 ViewSoloGamePanel 클래스는 SoloGame화면의 Panel을 구성하고 보여주는 클래스입니다.
+ * 
  * @author 송민석
  */
 public class ViewSoloGamePanel extends JPanel {
@@ -16,7 +16,9 @@ public class ViewSoloGamePanel extends JPanel {
 
 	/**
 	 * ViewSoloGamePanel을 생성합니다.
-	 * @param totalFrame - 명령을 전달받을 totalFrame 입니다.
+	 * 
+	 * @param totalFrame
+	 *            - 명령을 전달받을 totalFrame 입니다.
 	 */
 	public ViewSoloGamePanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
@@ -35,8 +37,6 @@ public class ViewSoloGamePanel extends JPanel {
 		super.paintComponent(g);
 		totalFrame.drawSolo(g);
 	}
-
-	
 
 	/** Game이 끝났을시 GameOver 메시지를 표시 합니다. */
 	public void gameOver() {

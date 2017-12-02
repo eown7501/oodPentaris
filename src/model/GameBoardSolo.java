@@ -403,24 +403,20 @@ public class GameBoardSolo implements Runnable {
 		pauseTime = 0;
 	}
 
-	/** GameBoard의 AI Ranking 을 그립니다. */
-	public void drawAIRanking(Graphics g) {
-
-	}
-
 	/** Block을 Board에 고정시키고, 다음 Block을 설정합니다. */
 	public void fixedAndSetNextBlock() {
 		clear();
 		for (int i = 0; i < Board.length; i++)
 			for (int j = 0; j < Board[i].length; j++)
 				tempBoard[i][j] = Board[i][j];
+		setCurrentBlock();
 		if (isGameOver())
 			GameOver();
-		setCurrentBlock();
 	}
 
 	/** Game Over시 호출됩니다. */
 	public void GameOver() {
+		update();
 		start = false;
 		controller.soloGameOver();
 	}

@@ -106,6 +106,21 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
+	public void removeKeyListener() {
+		removeKeyListener(makeKeyListener1p());
+
+	}
+
+	public void removeKeyListener2() {
+		removeKeyListener(makeKeyListener2p());
+
+	}
+
+	public void removeKeyListenerSolo() {
+		removeKeyListener(makeKeyListenerSolo());
+
+	}
+
 	/**
 	 * KeyListener를 구현합니다.
 	 * 
@@ -113,14 +128,6 @@ public class ViewTotalFrame extends JFrame {
 	 */
 	public KeyListener makeKeyListener1p() {
 		return new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_UP) {
-					spin();
-				}
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					fastDown();
-				}
-			}
 
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -135,6 +142,12 @@ public class ViewTotalFrame extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					pause();
 				}
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					spin();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					fastDown();
+				}
 			}
 		};
 
@@ -142,12 +155,6 @@ public class ViewTotalFrame extends JFrame {
 
 	public KeyListener makeKeyListener2p() {
 		return new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
-
-				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-					fastDown2();
-				}
-			}
 
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_W) {
@@ -165,22 +172,24 @@ public class ViewTotalFrame extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					pause();
 				}
+				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+					fastDown2();
+				}
+
 			}
 		};
 	}
 
 	public KeyListener makeKeyListenerSolo() {
 		return new KeyAdapter() {
-			public void keyReleased(KeyEvent e) {
+
+			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_UP) {
 					spinSolo();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					fastDownSolo();
 				}
-			}
-
-			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					moveLeftSolo();
 				}
@@ -256,21 +265,22 @@ public class ViewTotalFrame extends JFrame {
 
 	/** SoloGame을 종료합니다. */
 	public void soloGameOver() {
-		removeKeyListener(keyListenerSolo);
+		removeKeyListenerSolo();
 		soloGamePanel.gameOver();
+	
 	}
 
 	/** 2PGame을 종료합니다. */
 	public void ZPGameLose() {
-		removeKeyListener(keyListener1p);
-		removeKeyListener(keyListener2p);
+		removeKeyListener();
+		removeKeyListener2();
 		ZPAndAIGamePanel.lose();
+		
 	}
 
 	public void ZPGameWin() {
-		ZPAndAIGamePanel.win();
-		removeKeyListener(keyListener1p);
-		removeKeyListener(keyListener2p);
+		removeKeyListener();
+		removeKeyListener2();
 		ZPAndAIGamePanel.lose();
 	}
 

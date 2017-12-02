@@ -678,11 +678,10 @@ public class GameBoard implements Runnable {
 		for (int i = 0; i < Board1.length; i++)
 			for (int j = 0; j < Board1[i].length; j++)
 				tempBoard1[i][j] = Board1[i][j];
-		if (isGameOver1()) {
-			ZPGameOver();
-			start = false;
-		}
 		setCurrentBlock();
+		if (isGameOver1())
+			ZPGameOver();
+
 	}
 
 	public void fixedAndSetNextBlock2() {
@@ -690,21 +689,13 @@ public class GameBoard implements Runnable {
 		for (int i = 0; i < Board2.length; i++)
 			for (int j = 0; j < Board2[i].length; j++)
 				tempBoard2[i][j] = Board2[i][j];
-
 		setCurrentBlock2();
-		if (isGameOver2()) {
+		if (isGameOver2())
 			ZPGameOver();
 
-		}
 	}
 
 	/** Game Over시 호출됩니다. */
-	public void GameOver() {
-		update();
-
-		controller.soloGameOver();
-
-	}
 
 	public void ZPGameOver() {
 		update();
