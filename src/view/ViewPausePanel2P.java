@@ -12,7 +12,7 @@ import java.awt.event.*;
  * @author 송민석
  * 
  */
-public class ViewPausePanel extends JPanel implements IViewPanel {
+public class ViewPausePanel2P extends JPanel implements IViewPanel {
 	/** ViewTotalFrame Type의 변수 입니다 */
 	private ViewTotalFrame totalFrame;
 	/** JButton Type의 변수 입니다 */
@@ -26,7 +26,7 @@ public class ViewPausePanel extends JPanel implements IViewPanel {
 	 * @param totalFrame
 	 *            - 명령을 전달받을 totalFrame 입니다.
 	 */
-	public ViewPausePanel(ViewTotalFrame totalFrame) {
+	public ViewPausePanel2P(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
 		init();
 
@@ -46,6 +46,7 @@ public class ViewPausePanel extends JPanel implements IViewPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		totalFrame.draw(g);
+		totalFrame.draw2(g);
 
 	}
 

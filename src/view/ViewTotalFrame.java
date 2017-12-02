@@ -36,7 +36,7 @@ public class ViewTotalFrame extends JFrame {
 	/** ViewProfilePanel Type 의 변수 입니다. */
 	private ViewProfilePanel profilePanel;
 	/** ViewPausePanel Type 의 변수 입니다. */
-	private ViewPausePanel pausePanel;
+	private ViewPausePanel2P pausePanel;
 	private ViewPausePanelSolo pausePanelSolo;
 	/** CardLayout Type 의 변수 입니다. */
 	private CardLayout card;
@@ -65,7 +65,7 @@ public class ViewTotalFrame extends JFrame {
 		helpPanel = new ViewHelpPanel(this);
 		controlMethodPanel = new ViewKeyGuidePanel(this);
 		profilePanel = new ViewProfilePanel(this);
-		pausePanel = new ViewPausePanel(this);
+		pausePanel = new ViewPausePanel2P(this);
 		pausePanelSolo = new ViewPausePanelSolo(this);
 
 		card = new CardLayout();
@@ -258,6 +258,11 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
+	public void draw2(Graphics g) {
+		controller.draw2(g);
+
+	}
+
 	public void drawSolo(Graphics g) {
 		controller.drawSolo(g);
 
@@ -267,7 +272,7 @@ public class ViewTotalFrame extends JFrame {
 	public void soloGameOver() {
 		removeKeyListenerSolo();
 		soloGamePanel.gameOver();
-	
+
 	}
 
 	/** 2PGame을 종료합니다. */
@@ -275,7 +280,7 @@ public class ViewTotalFrame extends JFrame {
 		removeKeyListener();
 		removeKeyListener2();
 		ZPAndAIGamePanel.lose();
-		
+
 	}
 
 	public void ZPGameWin() {
@@ -426,6 +431,7 @@ public class ViewTotalFrame extends JFrame {
 		removeKeyListener(keyListener1p);
 		removeKeyListener(keyListener2p);
 		controller.pause();
+
 	}
 
 	public void pauseSolo() {
@@ -438,6 +444,7 @@ public class ViewTotalFrame extends JFrame {
 		addKeyListener(keyListener1p);
 		addKeyListener(keyListener2p);
 		controller.resume();
+
 	}
 
 	public void resumeSolo() {
@@ -450,6 +457,7 @@ public class ViewTotalFrame extends JFrame {
 		addKeyListener(keyListener1p);
 		addKeyListener(keyListener2p);
 		controller.restart();
+
 	}
 
 	/** 재시작 명령을 전달합니다. */

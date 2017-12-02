@@ -69,10 +69,10 @@ public class Point {
 	 *            - 이동할 위치 입니다.
 	 * @return 이동할 위치에서 TopLeftPoint를 더한 위치를 반환합니다.
 	 */
-	public Point setCurrentPoint(Point point) {
+	public Point setCurrentPoint1P(Point point) {
 		return new Point(x + point.getX(), y + point.getY());
 	}
-	public Point setCurrentPoint2(Point point) {
+	public Point setCurrentPoint2P(Point point) {
 		return new Point(x + point.getX(), y + point.getY());
 	}
 	public Point setCurrentPointSolo(Point point) {

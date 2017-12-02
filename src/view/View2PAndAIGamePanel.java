@@ -32,6 +32,8 @@ public class View2PAndAIGamePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		totalFrame.draw(g);
+		totalFrame.draw2(g);
+
 	}
 
 	public void update() {

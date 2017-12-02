@@ -16,10 +16,14 @@ public class BlockZ extends Block {
 	 * @param gameBoard
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
-	public BlockZ(GameBoard gameBoard) {
+	public BlockZ(GameBoard1P gameBoard) {
 		super(gameBoard);
-		initShape();
-		initShape2();
+		initShape1P();
+	}
+
+	public BlockZ(GameBoard2P gameBoard2P) {
+		super(gameBoard2P);
+		initShape2P();
 	}
 
 	public BlockZ(GameBoardSolo gameBoardSolo) {
@@ -29,22 +33,22 @@ public class BlockZ extends Block {
 
 	/** Block 의 모양을 결정합니다. */
 	@Override
-	public void initShape() {
-		setSpinBehavior(new SpinBlock3x3());
-		setTopLeftPoint(new Point(1, 4));
-		tempTopLeftPoint = new Point(2, 4);
+	public void initShape1P() {
+		setSpinBehavior1P(new SpinBlock3x3());
+		setTopLeftPoint1P(new Point(1, 4));
+		tempTopLeftPoint1P = new Point(2, 4);
 		color = new Color(244, 217, 245);
-		coord = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
-		tempCoord = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
+		coord1P = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
+		tempCoord1P = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
 	}
 
-	public void initShape2() {
-		setSpinBehavior2(new SpinBlock3x3());
-		setTopLeftPoint2(new Point(1, 4));
-		tempTopLeftPoint2 = new Point(2, 4);
+	public void initShape2P() {
+		setSpinBehavior2P(new SpinBlock3x3());
+		setTopLeftPoint2P(new Point(1, 4));
+		tempTopLeftPoint2P = new Point(2, 4);
 		color = new Color(244, 217, 245);
-		coord2 = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
-		tempCoord2 = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
+		coord2P = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
+		tempCoord2P = new Point[] { new Point(-1, -1), new Point(-1, 0), new Point(0, 0), new Point(0, 1) };
 	}
 
 	public void initShapeSolo() {
@@ -58,18 +62,18 @@ public class BlockZ extends Block {
 
 	/** 블럭의 위치를 바꿉니다. */
 	@Override
-	public void changeCoord() {
-		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[0]), 1);
-		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[1]), 1);
-		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[2]), 1);
-		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[3]), 1);
+	public void changeCoord1P() {
+		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 1);
+		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 1);
+		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 1);
+		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 1);
 	}
 
-	public void changeCoord2() {
-		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[0]), 1);
-		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[1]), 1);
-		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[2]), 1);
-		gameBoard.changePoint2(topLeftPoint2.setCurrentPoint2(coord2[3]), 1);
+	public void changeCoord2P() {
+		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 1);
+		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 1);
+		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[2]), 1);
+		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 1);
 	}
 
 	public void changeCoordSolo() {
