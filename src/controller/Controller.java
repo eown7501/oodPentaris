@@ -117,7 +117,7 @@ public class Controller {
 	}
 
 	public void moveLeft2P() {
-		GameBoard2P.moveLeft2();
+		GameBoard2P.moveLeft();
 		update();
 	}
 
@@ -133,7 +133,7 @@ public class Controller {
 	}
 
 	public void moveRight2P() {
-		GameBoard2P.moveRight2();
+		GameBoard2P.moveRight();
 		update();
 	}
 
@@ -149,7 +149,7 @@ public class Controller {
 	}
 
 	public void moveDown2P() {
-		GameBoard2P.moveDown2();
+		GameBoard2P.moveDown();
 		update();
 	}
 
@@ -165,7 +165,7 @@ public class Controller {
 	}
 
 	public void fastDown2P() {
-		GameBoard2P.fastDown2();
+		GameBoard2P.fastDown();
 		update();
 	}
 
@@ -229,7 +229,7 @@ public class Controller {
 	}
 
 	/** SoloGame Over하면 호출됩니다. */
-	public void ZPGameOver() {
+	public void GameOver2P() {
 		totalFrame.ZPGameLose();
 	}
 

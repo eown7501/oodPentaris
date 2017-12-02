@@ -64,17 +64,17 @@ public class BlockT extends Block {
 	/** 블럭의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord1P() {
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 5);
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 5);
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 5);
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 5);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 5);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 5);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 5);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 5);
 	}
 
 	public void changeCoord2P() {
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 5);
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 5);
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[2]), 5);
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 5);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 5);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 5);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[2]), 5);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 5);
 	}
 
 	public void changeCoordSolo() {

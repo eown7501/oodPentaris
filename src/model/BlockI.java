@@ -10,28 +10,40 @@ import java.awt.Color;
 public class BlockI extends Block {
 
 	/**
-	 * GameBoard 위에 I Block을 생성합니다.
+	 * 1PGameBoard 위에 I Block을 생성합니다.
 	 * 
-	 * @param gameBoard1P
-	 *            - Block이 생성될 GameBoard 입니다.
+	 * @param gameBoard
+	 *            - Block이 생성될 1P GameBoard 입니다.
 	 */
-	public BlockI(GameBoard1P gameBoard1P) {
-		super(gameBoard1P);
+	public BlockI(GameBoard1P gameBoard) {
+		super(gameBoard);
 		initShape1P();
 
 	}
 
-	public BlockI(GameBoard2P gameBoard2P) {
-		super(gameBoard2P);
+	/**
+	 * 2P GameBoard 위에 I Block을 생성합니다.
+	 * 
+	 * @param gameBoard
+	 *            - Block이 생성될 2P GameBoard 입니다.
+	 */
+	public BlockI(GameBoard2P gameBoard) {
+		super(gameBoard);
 		initShape2P();
 	}
 
-	public BlockI(GameBoardSolo gameBoardSolo) {
-		super(gameBoardSolo);
+	/**
+	 * SoloPlay GameBoard 위에 I Block을 생성합니다.
+	 * 
+	 * @param gameBoard
+	 *            - Block이 생성될 SoloPlay GameBoard 입니다.
+	 */
+	public BlockI(GameBoardSolo gameBoard) {
+		super(gameBoard);
 		initShapeSolo();
 	}
 
-	/** Block 의 모양을 결정합니다. */
+	/** 1P Block 의 모양을 결정합니다. */
 	@Override
 	public void initShape1P() {
 		setSpinBehavior1P(new SpinBlock4x4());
@@ -42,6 +54,8 @@ public class BlockI extends Block {
 		tempCoord1P = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 	}
 
+	/** 2P Block 의 모양을 결정합니다. */
+	@Override
 	public void initShape2P() {
 		setSpinBehavior2P(new SpinBlock4x4());
 		setTopLeftPoint2P(new Point(1, 4));
@@ -51,6 +65,8 @@ public class BlockI extends Block {
 		tempCoord2P = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 	}
 
+	/** SoloPlay Block 의 모양을 결정합니다. */
+	@Override
 	public void initShapeSolo() {
 		setSpinBehaviorSolo(new SpinBlock4x4());
 		setTopLeftPointSolo(new Point(1, 4));
@@ -60,23 +76,26 @@ public class BlockI extends Block {
 		tempCoordSolo = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 	}
 
-	/** 블럭의 위치를 바꿉니다. */
+	/** 1P 블럭의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord1P() {
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 2);
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 2);
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 2);
-		gameBoard1P.changePoint1P(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 2);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 2);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 2);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 2);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 2);
 	}
 
+	/** 2P 블럭의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord2P() {
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 2);
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 2);
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[2]), 2);
-		gameBoard2P.changePoint2P(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 2);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 2);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 2);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[2]), 2);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 2);
 	}
 
+	/** SoloPlay 블럭의 위치를 바꿉니다. */
+	@Override
 	public void changeCoordSolo() {
 		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[0]), 2);
 		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[1]), 2);

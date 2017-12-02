@@ -5,17 +5,17 @@ import java.util.*;
 import controller.Controller;
 
 /**
- * 이 Class는 Solo Game Board, 현재 Block, 다음 Block 등이 구현된 클래스입니다. Controller 에게 명령을
- * 받거나, 전달합니다.
+ * 이 Class는 2PGame 또는 AIGame에서 1P Game Board, 현재 Block, 다음 Block 등이 구현된 클래스입니다.
+ * Controller 에게 명령을 받거나, 전달합니다.
  * 
- * @author 신승현
+ * @author 송민석
  *
  */
 public class GameBoard1P implements Runnable {
 
-	/** GameBoard의 Row 를 나타낼 변수입니다. */
+	/** 1P GameBoard의 Row 를 나타낼 변수입니다. */
 	public static final int ROWS = 22;
-	/** GameBoard의 Column 을 나타낼 변수입니다. */
+	/** 1P GameBoard의 Column 을 나타낼 변수입니다. */
 	public static final int COLS = 10;
 	/** 한 Block의 Size를 나타낼 변수입니다. */
 	public static final int BLOCK_SIZE = 30;
@@ -23,34 +23,20 @@ public class GameBoard1P implements Runnable {
 	public static final int BLOCK_MAX_NUM = 4;
 	/** 명령을 받거나 전달할 Controller Type 변수입니다. */
 	private Controller controller;
-	/** 현재 Block을 저장할 변수입니다. */
-	public Block currentBlock1;
-	/** 다음 Block을 저장할 변수입니다. */
-	private Block currentBlock2;
-	/** 다음 Block을 저장할 변수입니다. */
-	private Block nextBlock1;
-	/** GameBoard를 저장할 2차원배열입니다. */
-	private Block nextBlock2;
-	/** GameBoard를 저장할 2차원배열입니다. */
-	public int[][] Board1;
-	/** Board의 값을 임시로 저장할 변수입니다. */
-	private int[][] Board2;
-	/** Board의 값을 임시로 저장할 변수입니다. */
-	private int[][] tempBoard1;
-	/** 다음 블럭을 화면에 표시해줄 영역 입니다. */
-	private int[][] tempBoard2;
-	/** 다음 블럭을 화면에 표시해줄 영역 입니다. */
-	private int[][] NextBlockBoard1;
-	/** 다음 블럭을 화면에 표시해줄 영역 입니다. */
-	private int[][] NextBlockBoard2;
-	/** 점수를 저장할 변수입니다. */
-	private int score1;
-	/** 점수를 저장할 변수입니다. */
-	private int score2;
-	/** Level을 저장할 변수입니다. */
-	private int level1;
-	/** Level을 저장할 변수입니다. */
-	private int level2;
+	/** 현재 1P Block을 저장할 변수입니다. */
+	public Block currentBlock;
+	/** 다음 1P Block을 저장할 변수입니다. */
+	private Block nextBlock;
+	/** 1P GameBoard를 저장할 2차원배열입니다. */
+	public int[][] Board;
+	/** 1P Board의 값을 임시로 저장할 변수입니다. */
+	private int[][] tempBoard;
+	/** 1P Board에서 다음 블럭을 화면에 표시해줄 영역 입니다. */
+	private int[][] NextBlockBoard;
+	/** 1P의 점수를 저장할 변수입니다. */
+	private int score;
+	/** 1P의 Level을 저장할 변수입니다. */
+	private int level;
 	/** Start의 상태를 저장할 변수입니다. */
 	private boolean start;
 	/** Start Time을 저장할 변수입니다. */
@@ -63,33 +49,33 @@ public class GameBoard1P implements Runnable {
 	private long startPauseTime, pauseTime;
 
 	/**
-	 * GameBoardSolo 를 생성합니다.
+	 * GameBoard1P 를 생성합니다.
 	 * 
 	 * @param controller
-	 *            - 명령을 전달할 Controller 입니다.
+	 *            - 명령을 전달할 1P의 Controller 입니다.
 	 */
 	public GameBoard1P(Controller controller) {
 		this.controller = controller;
-		initGameBoard1();
+		initGameBoard();
 	}
 
-	/** GameBoard 를 초기화 합니다. */
-	private void initGameBoard1() { // 게임보드 초기상태 설정
+	/** 1P GameBoard 를 초기화 합니다. */
+	private void initGameBoard() { // 게임보드 초기상태 설정
 		start = true;
-		score1 = 0;
-		level1 = 1;
-		Board1 = new int[ROWS][COLS];
-		tempBoard1 = new int[ROWS][COLS];
-		for (int i = 0; i < Board1.length; i++) {
-			for (int j = 0; j < Board1[i].length; j++) {
-				Board1[i][j] = -1;
-				tempBoard1[i][j] = -1;
+		score = 0;
+		level = 1;
+		Board = new int[ROWS][COLS];
+		tempBoard = new int[ROWS][COLS];
+		for (int i = 0; i < Board.length; i++) {
+			for (int j = 0; j < Board[i].length; j++) {
+				Board[i][j] = -1;
+				tempBoard[i][j] = -1;
 			}
 		}
 		setCurrentBlock();
 	}
 
-	/** Solo Game 을 시작합니다. */
+	/** 1P Game 을 시작합니다. */
 	public void startGame() {
 		Thread s = new Thread(this);
 		s.start();
@@ -113,17 +99,17 @@ public class GameBoard1P implements Runnable {
 		}
 	}
 
-	/** Block 이 한 칸 떨어트립니다. */
+	/** 1P의 Block 이 한 칸 떨어트립니다. */
 	public void drop() {
-		currentBlock1.drop1P();
+		currentBlock.drop1P();
 
 	}
 
-	/** Level 을 조정합니다. */
+	/** 1P의 Level 을 조정합니다. */
 	public void setLevel() {
-		if (level1 - 1 < score1 / 50) {
-			if (level1 < 10)
-				level1++;
+		if (level - 1 < score / 50) {
+			if (level < 10)
+				level++;
 		}
 
 	}
@@ -133,25 +119,25 @@ public class GameBoard1P implements Runnable {
 
 		int speed = 0;
 
-		if (level1 == 1)
+		if (level == 1)
 			speed = 900;
-		if (level1 == 2)
+		if (level == 2)
 			speed = 810;
-		if (level1 == 3)
+		if (level == 3)
 			speed = 720;
-		if (level1 == 4)
+		if (level == 4)
 			speed = 630;
-		if (level1 == 5)
+		if (level == 5)
 			speed = 540;
-		if (level1 == 6)
+		if (level == 6)
 			speed = 450;
-		if (level1 == 7)
+		if (level == 7)
 			speed = 360;
-		if (level1 == 8)
+		if (level == 8)
 			speed = 270;
-		if (level1 == 9)
+		if (level == 9)
 			speed = 180;
-		if (level1 == 10)
+		if (level == 10)
 			speed = 90;
 		try {
 			Thread.sleep(speed);
@@ -162,9 +148,9 @@ public class GameBoard1P implements Runnable {
 	}
 
 	/**
-	 * Block 을 랜덤으로 생성합니다.
+	 * 1P의 Block 을 랜덤으로 생성합니다.
 	 * 
-	 * @return 랜덤으로 생성된 Block 입니다.
+	 * @return 랜덤으로 생성할 1P Block 입니다.
 	 */
 	public Block createRandomBlock() {
 		Random r = new Random();
@@ -199,45 +185,45 @@ public class GameBoard1P implements Runnable {
 		return block;
 	}
 
-	/** 다음 Block을 설정합니다. */
+	/** 1P의 다음 Block을 설정합니다. */
 	public void setNextBlock() {
-		nextBlock1 = createRandomBlock();
-		NextBlockBoard1 = new int[BLOCK_MAX_NUM][BLOCK_MAX_NUM];
-		for (int i = 0; i < nextBlock1.coord1P.length; i++)
-			NextBlockBoard1[nextBlock1.coord1P[i].getX() + 2][nextBlock1.coord1P[i].getY() + 1] = 2;
+		nextBlock = createRandomBlock();
+		NextBlockBoard = new int[BLOCK_MAX_NUM][BLOCK_MAX_NUM];
+		for (int i = 0; i < nextBlock.coord1P.length; i++)
+			NextBlockBoard[nextBlock.coord1P[i].getX() + 2][nextBlock.coord1P[i].getY() + 1] = 2;
 	}
 
-	/** 현재 Block을 설정합니다. */
+	/** 1P의 현재 Block을 설정합니다. */
 	public void setCurrentBlock() {
-		if (nextBlock1 == null)
+		if (nextBlock == null)
 			setNextBlock();
-		currentBlock1 = nextBlock1;
+		currentBlock = nextBlock;
 		setNextBlock();
 	}
 
-	/** Block에게 회전명령을 내립니다. */
+	/** 1P의 Block에게 회전명령을 내립니다. */
 	public void spin() {
-		currentBlock1.performSpin1P();
+		currentBlock.performSpin1P();
 	}
 
-	/** Block에게 왼쪽 이동명령을 내립니다. */
+	/** 1P의 Block에게 왼쪽 이동명령을 내립니다. */
 	public void moveLeft() {
-		currentBlock1.moveLeft1P();
+		currentBlock.moveLeft1P();
 	}
 
-	/** Block 에게 오른쪽 이동명령을 내립니다. */
+	/** 1P의 Block 에게 오른쪽 이동명령을 내립니다. */
 	public void moveRight() {
-		currentBlock1.moveRight1P();
+		currentBlock.moveRight1P();
 	}
 
-	/** Block에게 아래로 이동명령을 내립니다. */
+	/** 1P의 Block에게 아래로 이동명령을 내립니다. */
 	public void moveDown() {
-		currentBlock1.moveDown1P();
+		currentBlock.moveDown1P();
 	}
 
-	/** Block에게 바로떨어트리는 명령을 내립니다. */
+	/** 1P의 Block에게 바로떨어트리는 명령을 내립니다. */
 	public void fastDown() {
-		currentBlock1.fastDown1P();
+		currentBlock.fastDown1P();
 	}
 
 	/** Controller의 update 메소드를 실행합니다. */
@@ -245,7 +231,7 @@ public class GameBoard1P implements Runnable {
 		controller.update();
 	}
 
-	/** Game 을 Pause 합니다. */
+	/** Game 을 일시정지 합니다. */
 	public void pause() {
 		start = false;
 		startPauseTime = System.nanoTime();
@@ -259,15 +245,15 @@ public class GameBoard1P implements Runnable {
 
 	/** Game을 재시작합니다. */
 	public void restart() {
-		initGameBoard1();
+		initGameBoard();
 		setStartTime();
 	}
 
 	/**
-	 * GameBoard 화면을 그립니다.
+	 * 1P GameBoard 화면을 그립니다.
 	 * 
 	 * @param g
-	 *            - Controller에게 전달받은 Graphcis g 입니다.
+	 *            - Controller에게 전달받은 Graphics g 입니다.
 	 */
 	public void draw(Graphics g) {
 		drawBoard(g);
@@ -279,16 +265,16 @@ public class GameBoard1P implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 Board 부분을 그립니다.
+	 * 1P GameBoard의 Board 부분을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
 	 */
 	public void drawBoard(Graphics g) {
 
-		for (int i = 2; i < Board1.length; i++) {
-			for (int j = 0; j < Board1[i].length; j++) {
-				int color = Board1[i][j];
+		for (int i = 2; i < Board.length; i++) {
+			for (int j = 0; j < Board[i].length; j++) {
+				int color = Board[i][j];
 				switch (color) {
 				case 0:
 					g.setColor(new Color(224, 102, 245));
@@ -332,7 +318,7 @@ public class GameBoard1P implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 다음 Block을 그립니다.
+	 * 1P GameBoard의 다음 Block을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
@@ -343,11 +329,11 @@ public class GameBoard1P implements Runnable {
 		g2.setColor(Color.BLACK);
 		g2.setFont(new Font("SVN-Block", Font.BOLD, 30));
 		g2.drawString("Next", 580 + 10 * BLOCK_SIZE, 65);
-		for (int i = 0; i < NextBlockBoard1.length; i++) {
-			for (int j = 0; j < NextBlockBoard1[i].length; j++) {
-				int position = NextBlockBoard1[i][j];
+		for (int i = 0; i < NextBlockBoard.length; i++) {
+			for (int j = 0; j < NextBlockBoard[i].length; j++) {
+				int position = NextBlockBoard[i][j];
 				if (position == 2) {
-					g2.setColor(nextBlock1.getColor());
+					g2.setColor(nextBlock.getColor());
 				} else {
 					g2.setColor(new Color(66, 66, 66, 100));
 				}
@@ -361,7 +347,7 @@ public class GameBoard1P implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 Score을 그립니다.
+	 * 1P GameBoard의 Score을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
@@ -376,11 +362,11 @@ public class GameBoard1P implements Runnable {
 		g2.drawRoundRect(580 + 10 * BLOCK_SIZE, 250, BLOCK_SIZE * 4, BLOCK_SIZE * 1, 5, 5);
 		g2.setFont(new Font("Digital-7", Font.LAYOUT_RIGHT_TO_LEFT, 30));
 		g2.setColor(Color.GREEN);
-		g2.drawString(score1 + "", 580 + 10 * BLOCK_SIZE, 275);
+		g2.drawString(score + "", 580 + 10 * BLOCK_SIZE, 275);
 	}
 
 	/**
-	 * GameBoard의 Level을 그립니다.
+	 * 1P GameBoard의 Level을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
@@ -395,11 +381,11 @@ public class GameBoard1P implements Runnable {
 		g2.drawRoundRect(580 + 10 * BLOCK_SIZE, 345, BLOCK_SIZE * 4, BLOCK_SIZE * 1, 5, 5);
 		g2.setFont(new Font("Digital-7", Font.LAYOUT_RIGHT_TO_LEFT, 30));
 		g2.setColor(Color.GREEN);
-		g2.drawString(level1 + "", 580 + 10 * BLOCK_SIZE, 370);
+		g2.drawString(level + "", 580 + 10 * BLOCK_SIZE, 370);
 	}
 
 	/**
-	 * GameBoard의 PlayTime을 그립니다.
+	 * 1P GameBoard의 PlayTime을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
@@ -425,79 +411,78 @@ public class GameBoard1P implements Runnable {
 		pauseTime = 0;
 	}
 
-	/** Block을 Board에 고정시키고, 다음 Block을 설정합니다. */
-	public void fixedAndSetNextBlock1P() {
+	/** 1P Block을 Board에 고정시키고, 다음 Block을 설정합니다. */
+	public void fixedAndSetNextBlock() {
 		clear();
-		for (int i = 0; i < Board1.length; i++)
-			for (int j = 0; j < Board1[i].length; j++)
-				tempBoard1[i][j] = Board1[i][j];
+		for (int i = 0; i < Board.length; i++)
+			for (int j = 0; j < Board[i].length; j++)
+				tempBoard[i][j] = Board[i][j];
 		setCurrentBlock();
-		if (isGameOver1P())
-			GameOver1P();
+		if (isGameOver())
+			GameOver();
 
 	}
 
 	/** Game Over시 호출됩니다. */
-
-	public void GameOver1P() {
+	public void GameOver() {
 		update();
 		start = false;
-		controller.ZPGameOver();
+		controller.GameOver2P();
 
 	}
 
 	/**
-	 * Game Over 됬는지 확인합니다.
+	 * GameOver 됬는지 확인합니다.
 	 * 
-	 * @return Game Over 가 됬다면 true를 , 아니라면 false 를 반환합니다.
+	 * @return GameOver 가 됬다면 true를 , 아니라면 false 를 반환합니다.
 	 */
-	public boolean isGameOver1P() {
+	public boolean isGameOver() {
 		for (int i = 0; i < 2; i++)
-			for (int j = 0; j < Board1[i].length; j++)
-				if (Board1[i][j] != -1)
+			for (int j = 0; j < Board[i].length; j++)
+				if (Board[i][j] != -1)
 					return true;
 		return false;
 	}
 
 	/**
-	 * Board위의 Block위치를 바꿉니다.
+	 * 1P Board위의 Block위치를 바꿉니다.
 	 * 
 	 * @param position
 	 *            - Block의 위치입니다.
 	 * @param value
-	 *            - Block의 종류 입니다.
+	 *            - Block의 종류입니다.
 	 */
-	public void changePoint1P(Point position, int value) {
-		Board1[position.getX()][position.getY()] = value;
+	public void changePoint(Point position, int value) {
+		Board[position.getX()][position.getY()] = value;
 	}
 
 	/**
-	 * Block이 충돌하는지 확인합니다.
+	 * 1P Block이 충돌하는지 확인합니다.
 	 * 
 	 * @param position
 	 *            - Block 의 위치입니다.
 	 * @return - 충돌한다면 true를, 충돌하지않는다면 false 를 리턴합니다.
 	 */
-	public boolean isCollision1P(Point position) {
+	public boolean isCollision(Point position) {
 		if (position.getX() > ROWS - 1)
 			return true;
 		if (position.getY() < 0)
 			return true;
 		if (position.getY() > COLS - 1)
 			return true;
-		if (Board1[position.getX()][position.getY()] != -1)
+		if (Board[position.getX()][position.getY()] != -1)
 			return true;
 		return false;
 	}
 
 	/**
-	 * 회전할 때 충돌하는지 확인합니다.
+	 * 1P Block이 회전할 때 충돌하는지 확인합니다.
 	 * 
 	 * @param position
-	 *            - Block 의 위치입니다.
+	 *            - 1P Block 의 위치입니다.
 	 * @return 회전할 때 충돌한다면 true, 충돌하지 않는다면 false 를 리턴합니다.
 	 */
-	public boolean isCollistionSpin1P(Point position) {
+	public boolean isCollistionSpin(Point position) {
 		if (position.getX() > ROWS - 1)
 			return true;
 		if (position.getX() < 0)
@@ -506,24 +491,24 @@ public class GameBoard1P implements Runnable {
 			return true;
 		if (position.getY() > COLS - 1)
 			return true;
-		if (Board1[position.getX()][position.getY()] != -1)
+		if (Board[position.getX()][position.getY()] != -1)
 			return true;
 		return false;
 	}
 
-	/** tempBoard에 저장된 원래의 Board값을 되돌립니다. */
+	/** 1P tempBoard에 저장된 원래의 Board값을 되돌립니다. */
 	public void revertMatrix() {
-		for (int i = 0; i < Board1.length; i++)
-			for (int j = 0; j < Board1[i].length; j++)
-				Board1[i][j] = tempBoard1[i][j];
+		for (int i = 0; i < Board.length; i++)
+			for (int j = 0; j < Board[i].length; j++)
+				Board[i][j] = tempBoard[i][j];
 	}
 
-	/** 위에서부터 완성된Line을 삭제하고, 블럭들을 아래로 내립니다. */
+	/** 완성된 Line을 삭제하고, 블럭들을 아래로 내립니다. */
 	public void clear() {
-		for (int i = 0; i < Board1.length; i++) {
+		for (int i = 0; i < Board.length; i++) {
 			if (isFullRow(i)) {
 				deleteLine(i);
-				score1 += 10;
+				score += 10;
 			}
 		}
 		update();
@@ -538,12 +523,12 @@ public class GameBoard1P implements Runnable {
 	public void deleteLine(int line) {
 		int[][] temp = new int[line][COLS];
 		for (int i = 0; i < line; i++)
-			for (int j = 0; j < Board1[i].length; j++)
-				temp[i][j] = Board1[i][j];
+			for (int j = 0; j < Board[i].length; j++)
+				temp[i][j] = Board[i][j];
 		/////////////////////////////////////////////
 		for (int i = 0; i < temp.length; i++)
 			for (int j = 0; j < temp[i].length; j++)
-				Board1[i + 1][j] = temp[i][j];
+				Board[i + 1][j] = temp[i][j];
 	}
 
 	/**
@@ -554,8 +539,8 @@ public class GameBoard1P implements Runnable {
 	 * @return Line이 완성되었다면 true, 아니라면 false를 리턴합니다.
 	 */
 	public boolean isFullRow(int line) {
-		for (int i = 0; i < Board1[line].length; i++)
-			if (Board1[line][i] == -1)
+		for (int i = 0; i < Board[line].length; i++)
+			if (Board[line][i] == -1)
 				return false;
 		return true;
 	}

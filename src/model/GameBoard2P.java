@@ -5,17 +5,17 @@ import java.util.*;
 import controller.Controller;
 
 /**
- * 이 Class는 Solo Game Board, 현재 Block, 다음 Block 등이 구현된 클래스입니다. Controller 에게 명령을
- * 받거나, 전달합니다.
+ * 이 Class는 2PGame 또는 AIGame에서 2P Game Board, 현재 Block, 다음 Block 등이 구현된 클래스입니다.
+ * Controller 에게 명령을 받거나, 전달합니다.
  * 
  * @author 송민석
  *
  */
 public class GameBoard2P implements Runnable {
 
-	/** GameBoard의 Row 를 나타낼 변수입니다. */
+	/** 2P GameBoard의 Row 를 나타낼 변수입니다. */
 	public static final int ROWS = 22;
-	/** GameBoard의 Column 을 나타낼 변수입니다. */
+	/** 2P GameBoard의 Column 을 나타낼 변수입니다. */
 	public static final int COLS = 10;
 	/** 한 Block의 Size를 나타낼 변수입니다. */
 	public static final int BLOCK_SIZE = 30;
@@ -23,27 +23,19 @@ public class GameBoard2P implements Runnable {
 	public static final int BLOCK_MAX_NUM = 4;
 	/** 명령을 받거나 전달할 Controller Type 변수입니다. */
 	private Controller controller;
-	/** 현재 Block을 저장할 변수입니다. */
-	/** 다음 Block을 저장할 변수입니다. */
+	/** 현재 2P Block을 저장할 변수입니다. */
 	private Block currentBlock;
-	/** 다음 Block을 저장할 변수입니다. */
-	/** GameBoard를 저장할 2차원배열입니다. */
+	/** 다음 2P Block을 저장할 변수입니다. */
 	private Block nextBlock;
-	/** GameBoard를 저장할 2차원배열입니다. */
-
-	/** Board의 값을 임시로 저장할 변수입니다. */
+	/** 2P GameBoard를 저장할 2차원배열입니다. */
 	private int[][] Board;
-	/** Board의 값을 임시로 저장할 변수입니다. */
-	/** 다음 블럭을 화면에 표시해줄 영역 입니다. */
+	/** 2P Board의 값을 임시로 저장할 변수입니다. */
 	private int[][] tempBoard;
-	/** 다음 블럭을 화면에 표시해줄 영역 입니다. */
-	/** 다음 블럭을 화면에 표시해줄 영역 입니다. */
+	/** 2P Board에서 다음 블럭을 화면에 표시해줄 영역 입니다. */
 	private int[][] NextBlockBoard;
-	/** 점수를 저장할 변수입니다. */
-	/** 점수를 저장할 변수입니다. */
+	/** 2P의 점수를 저장할 변수입니다. */
 	private int score;
-	/** Level을 저장할 변수입니다. */
-	/** Level을 저장할 변수입니다. */
+	/** 2P의 Level을 저장할 변수입니다. */
 	private int level;
 	/** Start의 상태를 저장할 변수입니다. */
 	private boolean start;
@@ -57,17 +49,17 @@ public class GameBoard2P implements Runnable {
 	private long startPauseTime, pauseTime;
 
 	/**
-	 * GameBoardSolo 를 생성합니다.
+	 * GameBoard2P 를 생성합니다.
 	 * 
 	 * @param controller
-	 *            - 명령을 전달할 Controller 입니다.
+	 *            - 명령을 전달할 2P의 Controller 입니다.
 	 */
 	public GameBoard2P(Controller controller) {
 		this.controller = controller;
 		initGameBoard();
 	}
 
-	/** GameBoard 를 초기화 합니다. */
+	/** 2P GameBoard 를 초기화 합니다. */
 	private void initGameBoard() { // 게임보드 초기상태 설정
 		start = true;
 		score = 0;
@@ -83,7 +75,7 @@ public class GameBoard2P implements Runnable {
 		setCurrentBlock();
 	}
 
-	/** Solo Game 을 시작합니다. */
+	/** 2P Game 을 시작합니다. */
 	public void startGame() {
 		Thread s = new Thread(this);
 		s.start();
@@ -107,12 +99,12 @@ public class GameBoard2P implements Runnable {
 		}
 	}
 
-	/** Block 이 한 칸 떨어트립니다. */
+	/** 2P의 Block 이 한 칸 떨어트립니다. */
 	public void drop() {
 		currentBlock.drop2P();
 	}
 
-	/** Level 을 조정합니다. */
+	/** 2P의 Level 을 조정합니다. */
 	public void setLevel() {
 		if (level - 1 < score / 50) {
 			if (level < 10)
@@ -120,42 +112,43 @@ public class GameBoard2P implements Runnable {
 		}
 	}
 
-	public void sleep() {
-		int speed2 = 0;
+	/** Thread가 몇초 단위로 실행될지 설정합니다. */
+	public void sleep() {// 난이도 speed 설정
+		int speed = 0;
 		if (level == 1)
-			speed2 = 900;
+			speed = 900;
 		if (level == 2)
-			speed2 = 810;
+			speed = 810;
 		if (level == 3)
-			speed2 = 720;
+			speed = 720;
 		if (level == 4)
-			speed2 = 630;
+			speed = 630;
 		if (level == 5)
-			speed2 = 540;
+			speed = 540;
 		if (level == 6)
-			speed2 = 450;
+			speed = 450;
 		if (level == 7)
-			speed2 = 360;
+			speed = 360;
 		if (level == 8)
-			speed2 = 270;
+			speed = 270;
 		if (level == 9)
-			speed2 = 180;
+			speed = 180;
 		if (level == 10)
-			speed2 = 90;
+			speed = 90;
 		try {
-			Thread.sleep(speed2);
+			Thread.sleep(speed);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Block 을 랜덤으로 생성합니다.
+	 * 2P의 Block 을 랜덤으로 생성합니다.
 	 * 
-	 * @return 랜덤으로 생성된 Block 입니다.
+	 * @return 랜덤으로 생성할 2P Block 입니다.
 	 */
 
-	public Block createRandomBlock2() {
+	public Block createRandomBlock() {
 		Random r = new Random();
 		Block block = null;
 		int rNum = r.nextInt(7);
@@ -188,44 +181,44 @@ public class GameBoard2P implements Runnable {
 		return block;
 	}
 
-	/** 다음 Block을 설정합니다. */
-	public void setNextBlock2() {
-		nextBlock = createRandomBlock2();
+	/** 2P의 다음 Block을 설정합니다. */
+	public void setNextBlock() {
+		nextBlock = createRandomBlock();
 		NextBlockBoard = new int[BLOCK_MAX_NUM][BLOCK_MAX_NUM];
 		for (int i = 0; i < nextBlock.coord2P.length; i++)
 			NextBlockBoard[nextBlock.coord2P[i].getX() + 2][nextBlock.coord2P[i].getY() + 1] = 2;
 	}
 
-	/** 현재 Block을 설정합니다. */
+	/** 2P의 현재 Block을 설정합니다. */
 	public void setCurrentBlock() {
 		if (nextBlock == null)
-			setNextBlock2();
+			setNextBlock();
 		currentBlock = nextBlock;
-		setNextBlock2();
+		setNextBlock();
 	}
 
-	/** Block에게 회전명령을 내립니다. */
+	/** 2P의 Block에게 회전명령을 내립니다. */
 	public void spin() {
 		currentBlock.performSpin2P();
 	}
 
-	/** Block에게 왼쪽 이동명령을 내립니다. */
-	public void moveLeft2() {
+	/** 2P의 Block에게 왼쪽 이동명령을 내립니다. */
+	public void moveLeft() {
 		currentBlock.moveLeft2P();
 	}
 
-	/** Block 에게 오른쪽 이동명령을 내립니다. */
-	public void moveRight2() {
+	/** 2P의 Block 에게 오른쪽 이동명령을 내립니다. */
+	public void moveRight() {
 		currentBlock.moveRight2P();
 	}
 
-	/** Block에게 아래로 이동명령을 내립니다. */
-	public void moveDown2() {
+	/** 2P의 Block에게 아래로 이동명령을 내립니다. */
+	public void moveDown() {
 		currentBlock.moveDown2P();
 	}
 
-	/** Block에게 바로떨어트리는 명령을 내립니다. */
-	public void fastDown2() {
+	/** 2P의 Block에게 바로떨어트리는 명령을 내립니다. */
+	public void fastDown() {
 		currentBlock.fastDown2P();
 	}
 
@@ -234,7 +227,7 @@ public class GameBoard2P implements Runnable {
 		controller.update();
 	}
 
-	/** Game 을 Pause 합니다. */
+	/** Game 을 일시정지 합니다. */
 	public void pause() {
 		start = false;
 		startPauseTime = System.nanoTime();
@@ -253,28 +246,28 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/**
-	 * GameBoard 화면을 그립니다.
+	 * 2P GameBoard 화면을 그립니다.
 	 * 
 	 * @param g
-	 *            - Controller에게 전달받은 Graphcis g 입니다.
+	 *            - Controller에게 전달받은 Graphics g 입니다.
 	 */
 	public void draw(Graphics g) {
 
-		drawBoard2(g);
-		drawNextBlock2(g);
-		drawScore2(g);
-		drawLevel2(g);
-		drawPlayTime2(g);
+		drawBoard(g);
+		drawNextBlock(g);
+		drawScore(g);
+		drawLevel(g);
+		drawPlayTime(g);
 	}
 
 	/**
-	 * GameBoard의 Board 부분을 그립니다.
+	 * 2P GameBoard의 Board 부분을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
 	 */
 
-	public void drawBoard2(Graphics g) {
+	public void drawBoard(Graphics g) {
 		for (int i = 2; i < Board.length; i++) {
 			for (int j = 0; j < Board[i].length; j++) {
 				int color = Board[i][j];
@@ -322,13 +315,13 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 다음 Block을 그립니다.
+	 * 2P GameBoard의 다음 Block을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
 	 */
 
-	private void drawNextBlock2(Graphics g) {
+	private void drawNextBlock(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(2));
 		g2.setColor(Color.BLACK);
@@ -352,13 +345,13 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 Score을 그립니다.
+	 * 2P GameBoard의 Score을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
 	 */
 
-	private void drawScore2(Graphics g) {
+	private void drawScore(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(2));
 		g2.setColor(Color.BLACK);
@@ -372,13 +365,13 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 Level을 그립니다.
+	 * 2P GameBoard의 Level을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
 	 */
 
-	private void drawLevel2(Graphics g) {
+	private void drawLevel(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setStroke(new BasicStroke(2));
 		g2.setColor(Color.BLACK);
@@ -392,13 +385,13 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 PlayTime을 그립니다.
+	 * 2P GameBoard의 PlayTime을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
 	 */
 
-	private void drawPlayTime2(Graphics g) {
+	private void drawPlayTime(Graphics g) {
 		endTime = System.nanoTime();
 		playTime = (endTime - startTime - pauseTime) / 1000000000;
 		Graphics2D g2 = (Graphics2D) g;
@@ -420,23 +413,24 @@ public class GameBoard2P implements Runnable {
 		pauseTime = 0;
 	}
 
-	public void fixedAndSetNextBlock2P() {
-		clear2();
+	/** 2P Block을 Board에 고정시키고, 다음 Block을 설정합니다. */
+	public void fixedAndSetNextBlock() {
+		clear();
 		for (int i = 0; i < Board.length; i++)
 			for (int j = 0; j < Board[i].length; j++)
 				tempBoard[i][j] = Board[i][j];
 		setCurrentBlock();
-		if (isGameOver2())
-			ZPGameOver();
+		if (isGameOver())
+			GameOver();
 
 	}
 
 	/** Game Over시 호출됩니다. */
 
-	public void ZPGameOver() {
+	public void GameOver() {
 		update();
 		start = false;
-		controller.ZPGameOver();
+		controller.GameOver2P();
 
 	}
 
@@ -446,7 +440,7 @@ public class GameBoard2P implements Runnable {
 	 * @return Game Over 가 됬다면 true를 , 아니라면 false 를 반환합니다.
 	 */
 
-	public boolean isGameOver2() {
+	public boolean isGameOver() {
 		for (int i = 0; i < 2; i++)
 			for (int j = 0; j < Board[i].length; j++)
 				if (Board[i][j] != -1)
@@ -455,7 +449,7 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/**
-	 * Board위의 Block위치를 바꿉니다.
+	 * 2P Board위의 Block위치를 바꿉니다.
 	 * 
 	 * @param position
 	 *            - Block의 위치입니다.
@@ -463,19 +457,18 @@ public class GameBoard2P implements Runnable {
 	 *            - Block의 종류 입니다.
 	 */
 
-	public void changePoint2P(Point position, int value) {
+	public void changePoint(Point position, int value) {
 		Board[position.getX()][position.getY()] = value;
 	}
 
 	/**
-	 * Block이 충돌하는지 확인합니다.
+	 * 2P Block이 충돌하는지 확인합니다.
 	 * 
 	 * @param position
 	 *            - Block 의 위치입니다.
 	 * @return - 충돌한다면 true를, 충돌하지않는다면 false 를 리턴합니다.
 	 */
-
-	public boolean isCollision2P(Point position) {
+	public boolean isCollision(Point position) {
 		if (position.getX() > ROWS - 1)
 			return true;
 		if (position.getY() < 0)
@@ -488,14 +481,14 @@ public class GameBoard2P implements Runnable {
 	}
 
 	/**
-	 * 회전할 때 충돌하는지 확인합니다.
+	 * 2P Block이 회전할 때 충돌하는지 확인합니다.
 	 * 
 	 * @param position
-	 *            - Block 의 위치입니다.
+	 *            - 2P Block 의 위치입니다.
 	 * @return 회전할 때 충돌한다면 true, 충돌하지 않는다면 false 를 리턴합니다.
 	 */
 
-	public boolean isCollistionSpin2P(Point position) {
+	public boolean isCollistionSpin(Point position) {
 		if (position.getX() > ROWS - 1)
 			return true;
 		if (position.getX() < 0)
@@ -509,18 +502,18 @@ public class GameBoard2P implements Runnable {
 		return false;
 	}
 
-	/** tempBoard에 저장된 원래의 Board값을 되돌립니다. */
+	/** 2P tempBoard에 저장된 원래의 Board값을 되돌립니다. */
 	public void revertMatrix() {
 		for (int i = 0; i < Board.length; i++)
 			for (int j = 0; j < Board[i].length; j++)
 				Board[i][j] = tempBoard[i][j];
 	}
 
-	/** 위에서부터 완성된Line을 삭제하고, 블럭들을 아래로 내립니다. */
-	public void clear2() {
+	/** 완성된 Line을 삭제하고, 블럭들을 아래로 내립니다. */
+	public void clear() {
 		for (int i = 0; i < Board.length; i++) {
-			if (isFullRow2(i)) {
-				deleteLine2(i);
+			if (isFullRow(i)) {
+				deleteLine(i);
 				score += 10;
 			}
 		}
@@ -534,15 +527,15 @@ public class GameBoard2P implements Runnable {
 	 *            - 삭제할 line의 위치 입니다.
 	 */
 
-	public void deleteLine2(int line) {
-		int[][] temp2 = new int[line][COLS];
+	public void deleteLine(int line) {
+		int[][] temp = new int[line][COLS];
 		for (int i = 0; i < line; i++)
 			for (int j = 0; j < Board[i].length; j++)
-				temp2[i][j] = Board[i][j];
+				temp[i][j] = Board[i][j];
 		/////////////////////////////////////////////
-		for (int i = 0; i < temp2.length; i++)
-			for (int j = 0; j < temp2[i].length; j++)
-				Board[i + 1][j] = temp2[i][j];
+		for (int i = 0; i < temp.length; i++)
+			for (int j = 0; j < temp[i].length; j++)
+				Board[i + 1][j] = temp[i][j];
 	}
 
 	/**
@@ -553,7 +546,7 @@ public class GameBoard2P implements Runnable {
 	 * @return Line이 완성되었다면 true, 아니라면 false를 리턴합니다.
 	 */
 
-	public boolean isFullRow2(int line) {
+	public boolean isFullRow(int line) {
 		for (int i = 0; i < Board[line].length; i++)
 			if (Board[line][i] == -1)
 				return false;
