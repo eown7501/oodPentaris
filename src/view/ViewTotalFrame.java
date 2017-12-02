@@ -37,6 +37,7 @@ public class ViewTotalFrame extends JFrame {
 	private ViewProfilePanel profilePanel;
 	/** ViewPausePanel Type 의 변수 입니다. */
 	private ViewPausePanel pausePanel;
+	private ViewPausePanelSolo pausePanelSolo;
 	/** CardLayout Type 의 변수 입니다. */
 	private CardLayout card;
 	/** KeyListener Type 의 변수 입니다. */
@@ -65,6 +66,8 @@ public class ViewTotalFrame extends JFrame {
 		controlMethodPanel = new ViewKeyGuidePanel(this);
 		profilePanel = new ViewProfilePanel(this);
 		pausePanel = new ViewPausePanel(this);
+		pausePanelSolo = new ViewPausePanelSolo(this);
+
 		card = new CardLayout();
 		keyListener1p = makeKeyListener1p();
 		keyListener2p = makeKeyListener2p();
@@ -208,6 +211,8 @@ public class ViewTotalFrame extends JFrame {
 		contentPane.add("Control Method", controlMethodPanel);
 		contentPane.add("Profile", profilePanel);
 		contentPane.add("Pause", pausePanel);
+		contentPane.add("PauseSolo", pausePanelSolo);
+
 	}
 
 	/** SoloGame을 시작합니다. */
@@ -286,7 +291,6 @@ public class ViewTotalFrame extends JFrame {
 
 	/** SoloGamePanel을 보여줍니다. */
 	public void showSoloGamePanel() {
-
 		card.show(contentPane, "Solo Game");
 	}
 
@@ -333,6 +337,11 @@ public class ViewTotalFrame extends JFrame {
 	/** PausePanel을 보여줍니다. */
 	public void showPausePanel() {
 		card.show(contentPane, "Pause");
+	}
+
+	/** PausePanel을 보여줍니다. */
+	public void showPausePanelSolo() {
+		card.show(contentPane, "PauseSolo");
 	}
 
 	/** 회전 명령을 전달합니다. */

@@ -680,7 +680,7 @@ public class GameBoard implements Runnable {
 				tempBoard1[i][j] = Board1[i][j];
 		if (isGameOver1()) {
 			ZPGameOver();
-		start=false;
+			start = false;
 		}
 		setCurrentBlock();
 	}
@@ -694,14 +694,14 @@ public class GameBoard implements Runnable {
 		setCurrentBlock2();
 		if (isGameOver2()) {
 			ZPGameOver();
-	
-	}
+
+		}
 	}
 
 	/** Game Over시 호출됩니다. */
 	public void GameOver() {
 		update();
-	
+
 		controller.soloGameOver();
 
 	}

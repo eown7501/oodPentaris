@@ -100,7 +100,7 @@ public class GameBoardSolo implements Runnable {
 	/** Block 이 한 칸 떨어트립니다. */
 	public void drop() {
 		currentBlock.dropSolo();
-		
+
 	}
 
 	/** Level 을 조정합니다. */
@@ -275,7 +275,7 @@ public class GameBoardSolo implements Runnable {
 					g.setColor(new Color(244, 217, 245));
 					break;
 				case 2:
-					g.setColor(new Color(244,36,51));
+					g.setColor(new Color(244, 36, 51));
 					break;
 				case 3:
 					g.setColor(new Color(36, 244, 0));

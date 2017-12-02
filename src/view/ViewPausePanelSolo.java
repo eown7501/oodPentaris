@@ -12,7 +12,7 @@ import java.awt.event.*;
  * @author 송민석
  * 
  */
-public class ViewPausePanel extends JPanel implements IViewPanel {
+public class ViewPausePanelSolo extends JPanel implements IViewPanel {
 	/** ViewTotalFrame Type의 변수 입니다 */
 	private ViewTotalFrame totalFrame;
 	/** JButton Type의 변수 입니다 */
@@ -26,7 +26,7 @@ public class ViewPausePanel extends JPanel implements IViewPanel {
 	 * @param totalFrame
 	 *            - 명령을 전달받을 totalFrame 입니다.
 	 */
-	public ViewPausePanel(ViewTotalFrame totalFrame) {
+	public ViewPausePanelSolo(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
 		init();
 
@@ -45,7 +45,7 @@ public class ViewPausePanel extends JPanel implements IViewPanel {
 	/** 스윙 컴포넌트가 자신의 모양을 그립니다. */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		totalFrame.draw(g);
+		totalFrame.drawSolo(g);
 
 	}
 
@@ -81,12 +81,10 @@ public class ViewPausePanel extends JPanel implements IViewPanel {
 		this.add(goMainbt);
 	}
 
-	/** Button에 MouseListener를 삽입합니다. */
 	public void addListener() {
 		resumebt.addMouseListener(makeMouseListener());
 		restartbt.addMouseListener(makeMouseListener());
 		goMainbt.addMouseListener(makeMouseListener());
-
 	}
 
 	/** MouseLister를 구현합니다. */
@@ -120,10 +118,10 @@ public class ViewPausePanel extends JPanel implements IViewPanel {
 
 			public void mouseClicked(MouseEvent e) {
 				if (e.getSource() == resumebt) {
-					resume();
+					resumeSolo();
 				}
 				if (e.getSource() == restartbt) {
-					restart();
+					restartSolo();
 				}
 				if (e.getSource() == goMainbt) {
 					goMain();
@@ -134,13 +132,13 @@ public class ViewPausePanel extends JPanel implements IViewPanel {
 	}
 
 	/** 계속하기 명령을 전달합니다. */
-	public void resume() {
-		totalFrame.resume();
+	public void resumeSolo() {
+		totalFrame.resumeSolo();
 	}
 
 	/** 재시작 명령을 전달합니다. */
-	public void restart() {
-		totalFrame.restart();
+	public void restartSolo() {
+		totalFrame.restartSolo();
 	}
 
 	/** Main화면으로 이동 명령을 전달합니다. */

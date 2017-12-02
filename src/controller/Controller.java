@@ -33,10 +33,12 @@ public class Controller {
 		GameBoard = new GameBoard(this);
 
 	}
+
 	public void initSolo() {
 		GameBoardSolo = new GameBoardSolo(this);
 
 	}
+
 	/** Solo Game을 시작합니다. */
 	public void startSoloGame() {
 		initSolo();
@@ -69,6 +71,7 @@ public class Controller {
 	public void draw(Graphics g) {
 		GameBoard.draw(g);
 	}
+
 	public void drawSolo(Graphics g) {
 		GameBoardSolo.drawSolo(g);
 	}
@@ -83,23 +86,28 @@ public class Controller {
 		GameBoard.spin();
 		update();
 	}
+
 	public void spin2() {
 		GameBoard.spin2();
 		update();
 	}
+
 	public void spinSolo() {
 		GameBoardSolo.spin();
 		update();
 	}
+
 	/** 왼쪽이동 명령을 전달합니다. */
 	public void moveLeft() {
 		GameBoard.moveLeft();
 		update();
 	}
+
 	public void moveLeft2() {
 		GameBoard.moveLeft2();
 		update();
 	}
+
 	public void moveLeftSolo() {
 		GameBoardSolo.moveLeft();
 		update();
@@ -110,10 +118,12 @@ public class Controller {
 		GameBoard.moveRight();
 		update();
 	}
+
 	public void moveRight2() {
 		GameBoard.moveRight2();
 		update();
 	}
+
 	public void moveRightSolo() {
 		GameBoardSolo.moveRight();
 		update();
@@ -124,10 +134,12 @@ public class Controller {
 		GameBoard.moveDown();
 		update();
 	}
+
 	public void moveDown2() {
 		GameBoard.moveDown2();
 		update();
 	}
+
 	public void moveDownSolo() {
 		GameBoardSolo.moveDown();
 		update();
@@ -138,26 +150,29 @@ public class Controller {
 		GameBoard.fastDown();
 		update();
 	}
+
 	public void fastDown2() {
 		GameBoard.fastDown2();
 		update();
 	}
+
 	public void fastDownSolo() {
 		GameBoardSolo.fastDown();
 		update();
 	}
-	
+
 	/** Game 을 일시정지 합니다. */
 	public void pause() {
 		GameBoard.pause();
 		totalFrame.showPausePanel();
 	}
+
 	/** Game 을 일시정지 합니다. */
 	public void pauseSolo() {
 		GameBoardSolo.pause();
-		totalFrame.showPausePanel();
-	}
+		totalFrame.showPausePanelSolo();
 
+	}
 
 	/** Game 을 재개 합니다. */
 	public void resume() {
@@ -165,6 +180,7 @@ public class Controller {
 		totalFrame.show2PGamePanel();
 		update();
 	}
+
 	/** Game 을 재개 합니다. */
 	public void resumeSolo() {
 		GameBoardSolo.resume();
@@ -178,6 +194,7 @@ public class Controller {
 		totalFrame.show2PGamePanel();
 		update();
 	}
+
 	/** Game 을 재시작 합니다. */
 	public void restartSolo() {
 		GameBoardSolo.restart();
@@ -194,9 +211,10 @@ public class Controller {
 	public void soloGameOver() {
 		totalFrame.soloGameOver();
 	}
+
 	/** SoloGame Over하면 호출됩니다. */
 	public void ZPGameOver() {
-		totalFrame.ZPGameLose();		
+		totalFrame.ZPGameLose();
 	}
 
 }
