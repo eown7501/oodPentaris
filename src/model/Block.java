@@ -194,6 +194,8 @@ public abstract class Block {
 	/** Block 을 아래로 이동합니다. */
 	public void moveDown() {
 		tempTopLeftPoint.setX(topLeftPoint.getX() + 1);
+		tempTopLeftPoint.setY(topLeftPoint.getY());
+		//System.out.println(tempTopLeftPoint.getX()+" "+tempTopLeftPoint.getY());
 		gameBoard.revertMatrix();
 		if (!isCollisionMove(tempTopLeftPoint)) {
 			setTopLeftPoint(tempTopLeftPoint);
@@ -208,6 +210,7 @@ public abstract class Block {
 
 	/** Block 을 바로 떨어트립니다. */
 	public void fastDown() {
+		
 		while (isMoveDown())
 			moveDown();
 		changeCoord();
@@ -218,6 +221,7 @@ public abstract class Block {
 	/** Block 을 한칸 떨어트립니다. */
 	public void drop() {
 		tempTopLeftPoint.setX(topLeftPoint.getX() + 1);
+		tempTopLeftPoint.setY(topLeftPoint.getY());
 		gameBoard.revertMatrix();
 		if (!isCollisionMove(tempTopLeftPoint)) {
 			setTopLeftPoint(tempTopLeftPoint);
@@ -275,6 +279,7 @@ public abstract class Block {
 	
 	public void AIMoveDown() {
 		tempTopLeftPoint.setX(topLeftPoint.getX() + 1);
+		tempTopLeftPoint.setY(topLeftPoint.getY());
 		gameBoard.revertMatrix();
 		if (!isCollisionMove(tempTopLeftPoint)) {
 			setTopLeftPoint(tempTopLeftPoint);

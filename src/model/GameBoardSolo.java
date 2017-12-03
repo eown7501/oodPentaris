@@ -80,9 +80,10 @@ public class GameBoardSolo implements Runnable {
 		setCurrentBlock();
 	}
 
+	Thread t;
 	/** Solo Game 을 시작합니다. */
 	public void startSoloGame() {
-		Thread t = new Thread(this);
+		t = new Thread(this);
 		gameMode = 1;
 		timer = 0;
 		t.start();
@@ -155,12 +156,14 @@ public class GameBoardSolo implements Runnable {
 		if (level == 10)
 			speed = 90;
 		try {
-			Thread.sleep(30);
+			Thread.sleep(10);
 			timer += 10;
 			if(timer == speed) {
 				//currentBlock.AIMoveDown();
 				//AIbehavior.setBeforeHeight();
 				//AIbehavior.setNextHeight();
+				//AIbehavior.setVarHeight();
+				
 				//AIbehavior.setEmptySpace();
 				//AIbehavior.setBlockAndWallCS();
 				AIbehavior.setBestPoint();

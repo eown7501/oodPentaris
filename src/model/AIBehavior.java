@@ -2,26 +2,24 @@ package model;
 
 public class AIBehavior {
 
-	private static final double[] weight = { -5, 10, 15, -10 };// { 1, 1, 1, 1, 1, 1 };
+	private static final double[] weight = { -3.8, 3.7, 2.5, -8.8, -0.59, 8.2 };
 	public static final int COLS = 10;
 	public static final int ROWS = 22;
 
 	private GameBoardSolo gameBoard;
 	private int[] nextHeight;
 	private int[] beforeHeight;
-	private int[] moved;
 
 	private double AIScore;
-	
+
 	private double varHeight;
 	private int blockContactSurface;
 	private int wallContactSurface;
 	private int emptySpace;
-	
-	private int clearLineNum;
 	private int emptyBlock;
+	private int clearLineNum;
 
-	private int moveCount;
+	Point[] coord = new Point[4];
 
 	public AIBehavior(GameBoardSolo soloGameBoard) {
 		gameBoard = soloGameBoard;
@@ -31,25 +29,8 @@ public class AIBehavior {
 	public void init() {
 		nextHeight = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		beforeHeight = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		moved = new int[] { 0, 0, 0, 0 };
-
-		moveCount = 0;
-	}
-
-	public void AIMove() {
-		while (moved[0] > 0) {
-			gameBoard.currentBlock.performSpin();
-			moved[0]--;
-		}
-		while (moved[1] > 0) {
-			gameBoard.currentBlock.moveLeft();
-			moved[1]--;
-		}
-		while (moved[2] > 0) {
-			gameBoard.currentBlock.moveRight();
-			moved[2]--;
-		}
-		gameBoard.currentBlock.fastDown();
+		for (int i = 0; i < 4; i++)
+			coord[i] = new Point(0, 0);
 	}
 
 	public void setNextHeight() {
@@ -87,7 +68,7 @@ public class AIBehavior {
 		avrHeight = varHeight / 10;
 		varHeight = 0;
 		for (int i = 0; i < COLS; i++) {
-			varHeight = (nextHeight[i] - avrHeight) * (nextHeight[i] - avrHeight);
+			varHeight += (nextHeight[i] - avrHeight) * (nextHeight[i] - avrHeight);
 		}
 		varHeight /= 10;
 		// System.out.println("varHeight -> "+varHeight);
@@ -98,7 +79,7 @@ public class AIBehavior {
 		for (int i = 0; i < ROWS; i++)
 			if (isFullRow(i))
 				clearLineNum++;
-		// System.out.println("clearLine -> "+clearLineNum);
+		System.out.println("clearLine -> " + clearLineNum);
 	}
 
 	public boolean isFullRow(int line) {
@@ -128,8 +109,7 @@ public class AIBehavior {
 			if (!isEqualBlock(point, point[i].getX() + 1, point[i].getY()))
 				blockContactSurface += getSurfaceNum(point[i].getX() + 1, point[i].getY());
 		}
-		// System.out.println("empty contact wall -> " +
-		// emptySpace+","+blockContactSurface+","+wallContactSurface);
+
 	}
 
 	public void getEmpty(int x, int y, int i) {
@@ -177,7 +157,6 @@ public class AIBehavior {
 			floorBlock = 22;
 		}
 
-		// System.out.println("emptyblock -> " + emptySpaceAboveBlock);
 	}
 
 	public void circul() {
@@ -197,9 +176,8 @@ public class AIBehavior {
 		setClearLineNum();
 		setBlockAndWallCS();
 		setEmptyBlock();
-		AIScore = weight[0] * varHeight +  + weight[1] * blockContactSurface+ weight[2] * wallContactSurface + weight[3] * emptySpace;
-							// + weight[5] * emptySpaceAboveBlock weight[1] * clearLineNum
-		// System.out.print(AIScore);
+		AIScore = weight[0] * varHeight + weight[1] * blockContactSurface + weight[2] * wallContactSurface
+				+ weight[3] * emptySpace + weight[4] * emptyBlock + weight[5] * clearLineNum;
 		return AIScore;
 	}
 
@@ -208,95 +186,61 @@ public class AIBehavior {
 		int left = 0;
 		Block block = gameBoard.currentBlock;
 		Point point = new Point(0, 0);
+		Point bestPoint = new Point(0, 0);
 		for (int i = 0; i < 4; i++) { // 회전모양 4개
+			block.moveDown();
 			block.AIPerformSpin();
+
 			for (int j = 0; j < 4; j++)
 				left += block.AIMoveLeft();
-			// System.out.println("left ->"+left);
 			point.setX(block.topLeftPoint.getX());
 			point.setY(block.topLeftPoint.getY());
 			for (int j = 0; j < 10; j++) { // colomn 10개
 				block.AIFastDown();
 				if (maxAIScore < setAIScore()) {
 					maxAIScore = AIScore;
-					// System.out.print(AIScore + ",");
-					moved[0] = i + 1;
-					if (left < j) {
-						moved[1] = 0;
-						moved[2] = j - left;
-					} else {
-						moved[1] = left - j;
-						moved[2] = 0;
+					bestPoint.setX(block.topLeftPoint.getX());
+					bestPoint.setY(block.topLeftPoint.getY());
+
+					for (int k = 0; k < 4; k++) {
+						coord[k].setX(block.coord[k].getX());
+						coord[k].setY(block.coord[k].getY());
 					}
+
+					// System.out.println("varHeight -> "+varHeight);
+					// System.out.println("empty contact wall -> "
+					// +emptySpace+","+blockContactSurface+","+wallContactSurface);
+					// System.out.println("emptyblock -> " + emptyBlock);
+
 				}
-				point.setX(point.getX() + 1);
 				block.setTopLeftPoint(point);
 				block.AIMoveRight();
+				point.setX(block.topLeftPoint.getX());
+				point.setY(block.topLeftPoint.getY());
+
 			}
 			point.setX(1);
 			point.setY(4);
 			block.setTopLeftPoint(point);
 			left = 0;
 		}
-		AIMove();
-	}
 
-	/*
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * public void setBestPoint() { Point poss = new Point(2, 4); Block block =
-	 * gameBoard.currentBlock; double MaxAIScore = 0; int direction = 0;
-	 * block.setTopLeftPoint(poss); block.changeCoord();
-	 * 
-	 * for (int i = 0; i < 4; i++) { for (int j = 0; j < 4; j++) {
-	 * gameBoard.moveLeft(); moved[0] = block.getTopLeftPoint().getY()-poss.getY();
-	 * System.out.println(block.getTopLeftPoint().getX()+"@"+block.getTopLeftPoint()
-	 * .getY()); } //System.out.println(moved[0]+" "+moved[1]);
-	 * poss.setX(block.getTopLeftPoint().getX());
-	 * poss.setY(block.getTopLeftPoint().getY());
-	 * System.out.println(poss.getX()+" "+poss.getY()); for (int k = 0; k < COLS;
-	 * k++) { //System.out.println(moved[0]+" "+moved[1]); gameBoard.AIfastDown();
-	 * System.out.println(block.getTopLeftPoint().getX()+"+"+block.getTopLeftPoint()
-	 * .getY()); //setAIScore(); if (MaxAIScore <= AIScore) { MaxAIScore = AIScore;
-	 * moved[2] = moved[0]; moved[3] = moved[1]; }
-	 * 
-	 * block.setTopLeftPoint(poss); gameBoard.moveRight();
-	 * poss.setX(block.getTopLeftPoint().getX());
-	 * poss.setY(block.getTopLeftPoint().getY()); moved[0]++; } poss.setX(1);
-	 * poss.setY(4); block.setTopLeftPoint(poss); gameBoard.spin();
-	 * poss.setX(block.getTopLeftPoint().getX());
-	 * poss.setY(block.getTopLeftPoint().getY());
-	 * System.out.println(poss.getX()+" "+poss.getY()); for (int q = 0; q <
-	 * gameBoard.Board.length; q++) for (int j = 0; j < gameBoard.Board[i].length;
-	 * j++) { gameBoard.Board[i][j] = originalBoard[i][j]; gameBoard.tempBoard[i][j]
-	 * = originalBoard[i][j]; } moved[1]++; }
-	 * 
-	 * for(int i=0;i<4;i++) System.out.print(moved[i]+" "); System.out.println(); if
-	 * (moved[2] < 0) direction = -moved[2]; for (int i = 0; i < direction; i++) {
-	 * if (moved[2] < 0) gameBoard.moveLeft(); else gameBoard.moveRight(); } for
-	 * (int i = 0; i < moved[3]; i++) gameBoard.spin(); gameBoard.fastDown();
-	 * ////////////////////////////////// for (int i = 0; i < COLS; i++)
-	 * System.out.print(Height[i] + ", "); System.out.println(); for (int i = 0; i <
-	 * COLS; i++) System.out.print(nextHeight[i] + ", "); System.out.println();
-	 * System.out.println("sumHeight = " + sumHeight);
-	 * System.out.println("clearLineNum = " + clearLineNum);
-	 * System.out.println("blockContactSurface = " + blockContactSurface);
-	 * System.out.println("wallContactSurface = " + wallContactSurface);
-	 * System.out.println("floorContactSurface = " + floorContactSurface);
-	 * System.out.println("emptySpace = " + emptySpace);
-	 * System.out.println("emptySpcaeAboveBlock = " + emptySpaceAboveBlock);
-	 * System.out.println("AIScore = " + AIScore);
-	 * System.out.println("----------------------------------------------"); }
-	 * 
-	 */
+		for (int i = 0; i < 4; i++) {
+			block.coord[i].setX(coord[i].getX());
+			block.coord[i].setY(coord[i].getY());
+		}
+
+		block.setTopLeftPoint(bestPoint);
+		block.topLeftPoint.setX(5);
+		System.out.println(bestPoint.getX() + " " + bestPoint.getY() + " " + block.blockIndex);
+
+		gameBoard.drop();
+		try {
+			gameBoard.t.sleep(500);
+		} catch (InterruptedException e) {
+		}
+
+		block.fastDown();
+
+	}
 }
