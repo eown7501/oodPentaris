@@ -140,7 +140,7 @@ public class ViewGameModePanel extends JPanel implements IViewPanel {
 					totalFrame.ZPGameStart();
 				}
 				if (e.getSource() == AIGamebt) {
-					showAIGamePanel();
+					totalFrame.AIGameStart();
 				}
 				if (e.getSource() == backbt) {
 					showMainPanel();
@@ -148,21 +148,6 @@ public class ViewGameModePanel extends JPanel implements IViewPanel {
 			}
 
 		};
-	}
-
-	/** SoloGamePanel을 보여줍니다. */
-	public void showSoloGamePanel() {
-		totalFrame.showSoloGamePanel();
-	}
-
-	/** 2PGamePanel을 보여줍니다. */
-	public void show2PGamePanel() {
-		totalFrame.show2PGamePanel();
-	}
-
-	/** AIGamePanel을 보여줍니다. */
-	public void showAIGamePanel() {
-		totalFrame.showAIGamePanel();
 	}
 
 	/** MainPanel을 보여줍니다. */

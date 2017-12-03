@@ -273,6 +273,7 @@ public class ViewTotalFrame extends JFrame {
 	/** AIGame을 시작합니다. */
 	public void AIGameStart() {
 		addKeyListener1P();
+		controller.startAIGame();
 	}
 
 	/** 화면을 repaint 합니다. */

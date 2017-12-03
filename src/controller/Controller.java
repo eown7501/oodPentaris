@@ -67,7 +67,12 @@ public class Controller {
 
 	/** AI Game 을 시작합니다. */
 	public void startAIGame() {
-
+		init();
+		//init2();
+		gameMode = 3;
+		GameBoard1P.startGame();
+		totalFrame.showSoloGamePanel();
+		//totalFrame.show2PGamePanel();
 	}
 
 	/**
