@@ -1,20 +1,7 @@
 package ranking;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import view.ViewAIRankingPanel;
-import view.ViewRankingRegisterPanel;
-import view.ViewSoloRankingPanel;
+import java.util.StringTokenizer;
 
 /**
  * 이 Class는 랭킹의 입출력과 기능을 담당하는 Class 입니다.
@@ -23,301 +10,290 @@ import view.ViewSoloRankingPanel;
  *
  */
 public class RankingManager{
+
+	/** InputStream Type 의 변수입니다. */
+	private InputStream fis;
+	/** BufferedReader Type 의 변수입니다. */
+	private BufferedReader in;
+	/** OutputStream Type 의 변수입니다. */
+	private OutputStream fos;
+	/** PrintWriter Type 의 변수입니다. */
+	private PrintWriter out;
+	/** File Type 의 변수입니다. */
+	private File soloFile, AIFile;
+	/** FileReader Type 의 변수입니다. */
+	private FileReader fr;
+	/** StringTokenizer Type 의 변수입니다. */
+	private StringTokenizer token;
+	/** String Type 의 변수입니다. */
+	private String line, str;
+	/** int Type 의 변수입니다. */
+	private int soloIndex, AIIndex;
+	/** RankingData[] Type 의 변수입니다. */
+	private RankingData[] soloRankingData, AIRankingData;
 	
-	/** */
-	private BufferedWriter bw;
-	/** */
-	File soloFile = new File("SoloRanking.txt");
-	/** */
-	File AIFile = new File("AIRanking.txt");
-	
-	/** */
-	private int num1; //soloRankingData에 값을 넣을 때 이용하는 count
-	/** */
-	private int num2; //AIRankingData에 값을 넣을 때 이용하는 count
-	/** */
-	private RankingData[] soloRankingData;
-	/** */
-	private RankingData[] AIRankingData;
-	/** */
-	private ViewSoloRankingPanel viewSoloRanking;
-	/** */
-	private ViewAIRankingPanel viewAIRanking;
-	/** */
-	private ViewRankingRegisterPanel viewRankingRegister;
-	/** */
-	private JPanel secFrmPanel;
-	/** */
-	private JLabel secFrmLabel;
-	/** */
-	private JButton okbt;
-	
-	/** */
+	/** RankingManager 를 생성합니다. */
 	public RankingManager() {
 		soloRankingData = new RankingData[10];
 		AIRankingData =  new RankingData[10];
-		viewRankingRegister = new ViewRankingRegisterPanel(this);
-//		viewAIRanking = new ViewAIRankingPanel();
+		soloFile = new File("SoloRanking.txt");
+		AIFile = new File("AIRanking.txt");
+		createFile();
 	}
 
-	/**
-	 * 
-	 * @param data
-	 */
-	public void fillArray(RankingData[] data) {
-		for(int i = 0 ; i < data.length ; i++) {
-			soloRankingData[i] = new RankingData();
+	/** Ranking을 저장할 텍스트 파일이 있는지 검사하고 없을 경우 생성합니다.*/
+	public void createFile() {
+		try {
+			soloFile.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			AIFile.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		getSoloData();
+		getAIData();
+	}
+	
+	/** 텍스트 파일로부터 값을 읽어 SoloRankingData를 생성합니다. */
+	public void getSoloData() {
+		try {
+			fr = new FileReader(soloFile);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		in = new BufferedReader(fr);
+		token = null;
+		int i = 0;
+		try {
+			while((line = in.readLine()) != null) {
+				if(!line.equals("")) {
+					token = new StringTokenizer(line, "\n");
+					while(token.hasMoreTokens()) {
+						str = token.nextToken();
+						soloRankingData[i++] = new RankingData(str);
+					}
+				}
+				soloIndex = i;
+				for(int j = soloIndex ; j < 10 ; j++) {
+					soloRankingData[j] = new RankingData();
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/** 텍스트 파일로부터 값을 읽어 AIRankingData를 생성합니다. */
+	public void getAIData() {
+		try {
+			fr = new FileReader(AIFile);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		in = new BufferedReader(fr);
+		token = null;
+		int i = 0;
+		try {
+			while((line = in.readLine()) != null) {
+				if(!line.equals("")) {
+					token = new StringTokenizer(line, "\n");
+					while(token.hasMoreTokens()) {
+						str = token.nextToken();
+						AIRankingData[i++] = new RankingData(str);
+					}
+				}
+				AIIndex = i;
+				for(int j = AIIndex ; j < 10 ; j++) {
+					AIRankingData[j] = new RankingData();
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
 	/**
+	 * SoloRankingData에 정보를 저장합니다.
 	 * 
-	 * @param name
-	 * @param score
+	 * @param name - ViewSoloRankingRegisterPanel에게서 받은 매개변수입니다. 사용자의 이름을 나타냅니다.  
+	 * @param score - ViewSoloRankingRegisterPanel에게서 받은 받은 매개변수입니다. 사용자의 점수를 나타냅니다. 
 	 * @throws IOException
 	 */
 	public void registerSolo (String name, int score) throws IOException {
-		//이름과 점수를 배열에 등록 (+ 정렬)
-	
-		if(num1 < 10){
-			soloRankingData[num1++] = new RankingData(name, score);
-		} 
-		else if(num1 == 10) {
-			
-			if(score > soloRankingData[9].score) {
+		createFile();
+		getSoloData();
+		if (soloIndex == 0) {
+			soloRankingData[soloIndex] = new RankingData(name, score);
+		} else if (soloIndex > 0 && soloIndex < 10) {
+			sortSoloRanking(soloRankingData);
+		} else if (soloIndex == 10) {
+			if (soloRankingData[9].score < score) {
 				soloRankingData[9] = new RankingData(name, score);
-			} else {
-				new RankingSecFrm();
-			}	
+				soloIndex = 9;
+				sortSoloRanking(soloRankingData);
+			}
 		}
-		
-		soloRankingSorting(soloRankingData);
-		saveTXTinSoloRankingData();
+		saveTXTinSoloRankingData(soloRankingData);
 	}
 
 	/**
+	 * AIRankingData에 정보를 저장합니다.
 	 * 
-	 * @param name
-	 * @param score
+	 * @param name - ViewAIRankingRegisterPanel에게서 받은 매개변수입니다. 사용자의 이름을 나타냅니다.  
+	 * @param score - ViewAIRankingRegisterPanel에게서 받은 매개변수입니다. 사용자의 점수를 나타냅니다.  
 	 * @throws IOException
 	 */
 	public void registerAI (String name, int score) throws IOException {
-		
-		if(num2 < 10){
-			AIRankingData[num2++] = new RankingData(name, score);
-		} 
-		else if(num2 == 10) { //새로 등록할 값과 이전 값을 비교해서 등록
-			
-			if(score > AIRankingData[9].score) {
+		createFile();
+		getSoloData();
+		if (AIIndex == 0) {
+			AIRankingData[AIIndex] = new RankingData(name, score);
+		} else if (AIIndex > 0 && AIIndex < 10) {
+			sortSoloRanking(AIRankingData);
+		} else if (AIIndex == 10) {
+			if (AIRankingData[9].score < score) {
 				AIRankingData[9] = new RankingData(name, score);
-			} else {
-				new RankingSecFrm();
-			}	
+				AIIndex = 9;
+				sortSoloRanking(AIRankingData);
+			}
 		}
-		
-		AIRankingSorting(AIRankingData);
-		saveTXTinAIRankingData();
+		saveTXTinSoloRankingData(AIRankingData);
 	}
 	
 	/**
+	 * SoloRankingData를 정렬합니다.
 	 * 
-	 * @param data
+	 * @param data - soloRankingData를 매개변수로 받습니다.
 	 * @throws IOException
 	 */
-	public void soloRankingSorting(RankingData[] data) throws IOException {
-		
+	public void sortSoloRanking(RankingData[] data) throws IOException {
 		for(int i = 0 ; i < 9 ; i++)
 		{
 			for(int j = 1 ; j < 10-i ; j++)
 			{
 				if(data[j-1].score < data[j].score)
 				{
-					int tmpScore = data[j-1].score;
-					String tmpName = data[j-1].name;
-					data[j-1].score = data[j].score;
-					data[j-1].name = data[j].name;
-					data[j].score = tmpScore;
-					data[j].name = tmpName;
+					RankingData temp = soloRankingData[j-1];
+					soloRankingData[j-1] = soloRankingData[j];
+					soloRankingData[j] = temp;
 				}
 			}
 		}
-		saveTXTinSoloRankingData();
 	}
 	
 	/**
+	 * AIRankingData를 정렬합니다.
 	 * 
-	 * @param data
+	 * @param data - AIRankingData를 매개변수로 받습니다.
 	 * @throws IOException
 	 */
-	public void AIRankingSorting(RankingData[] data) throws IOException {
-		
+	public void sortAIRanking(RankingData[] data) throws IOException {
 		for(int i = 0 ; i < 9 ; i++)
 		{
 			for(int j = 1 ; j < 10-i ; j++)
 			{
 				if(data[j-1].score < data[j].score)
 				{
-					int tmpScore = data[j-1].score;
-					String tmpName = data[j-1].name;
-					data[j-1].score = data[j].score;
-					data[j-1].name = data[j].name;
-					data[j].score = tmpScore;
-					data[j].name = tmpName;
+					RankingData temp = AIRankingData[j-1];
+					AIRankingData[j-1] = AIRankingData[j];
+					AIRankingData[j] = temp;
 				}
 			}
 		}
-		saveTXTinAIRankingData();
 	}
 
-	/**
+	/** 
+	 * SoloRankingData를 초기화합니다.
 	 * 
+	 * @throws IOException
 	 */
-	public void showSoloRanking() {
-		viewSoloRanking = new ViewSoloRankingPanel(soloRankingData);
-	}
-
-	/**
-	 * 
-	 */
-	public void showAIRanking() {
-//		viewAIRanking = new ViewAIRankingPanel(AIRankingData);
-	}
-
-	/** 초기화하는 메소드 */
-	public void resetSoloData (RankingData[] data) throws IOException {
-		num1 = 0;
-		
-		for(int i = 0 ; i < data.length ; i++){
-			data[i] = new RankingData();
-		}
-		
-		this.soloRankingData = data;
-		resetTXT(0);
+	public void resetSoloData () throws IOException {
+		createFile();
+		soloFile = new File("SoloRanking.txt");
+		fos = new FileOutputStream(soloFile);
+		fos.close();
 	}
 	
 	/**
+	 * AIRankingData를 초기화합니다.
 	 * 
 	 * @throws IOException
 	 */
 	public void resetAIData () throws IOException {
-		num2 = 0;
-		
-		for(int i = 0 ; i < AIRankingData.length ; i++){
-			AIRankingData[i] = new RankingData();
-		}
-		resetTXT(1);
+		createFile();
+		soloFile = new File("AIRanking.txt");
+		fos = new FileOutputStream(AIFile);
+		fos.close();
 	}
 	
-	/**
-	 * 
-	 * @param resetNum
+	/** 
+	 * SoloRankingData를 텍스트 파일에 저장합니다.
+	 * @param data - 저장할 RankingData입니다.
 	 * @throws IOException
 	 */
-	public void resetTXT(int resetNum) throws IOException {
-		if(resetNum == 0){ //soloRankingData 초기화
-			soloFile.delete();
-		}
-		else if(resetNum == 1){ //AIRankingData 초기화
-			AIFile.delete();
-		}
-		else
-			System.out.println("reset Number error");
-	}
-	
-	/** 휘발성 안되게 txt에 저장해주는 메소드  */
-	public void saveTXTinSoloRankingData() throws IOException{
-		
-		if (!soloFile.exists()) {
-			try {
-				soloFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void saveTXTinSoloRankingData(RankingData[] data) throws IOException{
+		createFile();
+		File inFile = new File("tempFile.txt");
+		inFile.createNewFile();
+		fis = new FileInputStream(inFile);
+		in = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+		fos = new FileOutputStream(soloFile);
+		out = new PrintWriter(fos);
+		try {
+			if(soloIndex < 10) {
+			for(int i = 0 ; i < soloIndex+1 ; i++) {
+				out.println(data[i].str);
 			}
-		} else {
-			for(int i = 0 ; i < soloRankingData.length ; i++){
-				
-				String str = soloRankingData[i].name + " " + soloRankingData[i].score;
-				try {
-					bw = new BufferedWriter( new OutputStreamWriter( new FileOutputStream(soloFile)));
-					bw.write(str);
-					bw.newLine();
-					bw.close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			out.flush();
+			out.close();
+			in.close();
+			inFile.delete();
+			soloFile.renameTo(inFile);
 			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
-	
+
 	/**
+	 * AIRankingData를 텍스트 파일에 저장합니다.
 	 * 
+	 * @param - 저장할 RankingData입니다.
 	 * @throws IOException
 	 */
-	public void saveTXTinAIRankingData() throws IOException{
-		
-		if (!AIFile.exists()){
-			try {
-				AIFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void saveTXTinAIRankingData(RankingData[] data) throws IOException {
+		createFile();
+		File inFile = new File("tempFile.txt");
+		inFile.createNewFile();
+		fis = new FileInputStream(inFile);
+		in = new BufferedReader(new InputStreamReader(fis, "UTF-8"));
+		fos = new FileOutputStream(AIFile);
+		out = new PrintWriter(fos);
+		try {
+			if(AIIndex < 10) {
+			for(int i = 0 ; i < AIIndex+1 ; i++) {
+				out.println(data[i].str);
 			}
-		} else {
-			for(int i = 0 ; i < AIRankingData.length ; i++){
-				
-				String str = (char)(i+1)+" "+AIRankingData[i].name + " " + AIRankingData[i].score;
-				try {
-					bw = new BufferedWriter( new OutputStreamWriter( new FileOutputStream(AIFile)));
-					bw.write(str);
-					bw.newLine();
-					bw.close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			out.flush();
+			out.close();
+			in.close();
+			inFile.delete();
+			AIFile.renameTo(inFile);
 			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * 
-	 * @author 이은경
-	 *
-	 */
-	class RankingSecFrm extends JFrame{
-		
-		RankingSecFrm(){
-			setTitle("알림!");
-			setSize(350, 150);
-			secFrmPanel = new JPanel();
-			secFrmLabel = new JLabel("이름을 등록할 수 없습니다.");
-			okbt = new JButton("ok");
-
-			secFrmLabel.setFont(new Font("SVN-Block", Font.PLAIN, 16)); 
-			secFrmPanel.add(secFrmLabel, JLabel.CENTER);
-			okbt.addActionListener(new ActionListener(){
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					if(e.getSource() == okbt){
-						ok();
-					}
-				}
-				
-			});
-			
-			this.add(secFrmPanel, BorderLayout.CENTER);
-			this.add(okbt, BorderLayout.SOUTH);
-			
-			setLocationRelativeTo(null);
-			setVisible(true);
-		}
-		
-		public void ok(){
-			this.dispose();
-		}
-	}
 }

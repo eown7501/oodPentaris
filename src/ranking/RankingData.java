@@ -1,6 +1,5 @@
 package ranking;
 
-import java.io.*;
 import java.util.*;
 
 /**
@@ -10,11 +9,16 @@ import java.util.*;
  *
  */
 public class RankingData{
+	
 	/** 점수를 저장할 변수 입니다. */
 	int score;
 	/** 이름을 저장할 변수 입니다. */
 	String name;
-
+	/** 문자열을 저장할 변수입니다. */
+	String str;
+	/** token을 저장할 변수입니다. */
+	private StringTokenizer token;
+	
 	/** RankingData 를 생성합니다. */
 	public RankingData() {
 		this.score = 0;
@@ -29,6 +33,18 @@ public class RankingData{
 	public RankingData(String name, int score) {
 		this.score = score;
 		this.name = name;
+		str = name + " " +score;
 	}
-
+	
+	/**
+	 * RankingData 를 생성합니다.
+	 * @param str - 이 문자열을 가집니다.
+	 */
+	public RankingData(String str) {
+		this.str = str;
+		token = new StringTokenizer(this.str, " ");
+		name = token.nextToken();
+		if(token.hasMoreTokens())
+			score = Integer.parseInt(token.nextToken());
+	}
 }
