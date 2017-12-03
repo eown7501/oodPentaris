@@ -35,7 +35,7 @@ public class BlockM extends Block {
 	/** Block 의 모양을 결정합니다. */
 	@Override
 	public void initShape1P() {
-		setSpinBehavior1P(new SpinBlock2x2());
+		setSpinBehavior1P(new SpinBlock3x3());
 		setTopLeftPoint1P(new Point(1, 4));
 		tempTopLeftPoint1P = new Point(2, 4);
 		color = new Color(0, 244, 235);
@@ -44,7 +44,7 @@ public class BlockM extends Block {
 	}
 
 	public void initShape2P() {
-		setSpinBehavior2P(new SpinBlock2x2());
+		setSpinBehavior2P(new SpinBlock3x3());
 		setTopLeftPoint2P(new Point(1, 4));
 		tempTopLeftPoint2P = new Point(2, 4);
 		color = new Color(0, 244, 235);
@@ -54,7 +54,7 @@ public class BlockM extends Block {
 
 
 	public void initShapeSolo() {
-		setSpinBehaviorSolo(new SpinBlock2x2());
+		setSpinBehaviorSolo(new SpinBlock3x3());
 		setTopLeftPointSolo(new Point(1, 4));
 		tempTopLeftPointSolo = new Point(2, 4);
 		color = new Color(0, 244, 235);
