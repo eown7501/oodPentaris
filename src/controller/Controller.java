@@ -5,6 +5,7 @@ import model.GameBoard1P;
 import model.GameBoard2P;
 import model.GameBoardSolo;
 import view.ViewTotalFrame;
+import AI.GameBoardAI;
 
 /**
  * 이 Controller 클래스는 GameBoard Class 와 ViewTotalFrame Class 의 연결을 담당합니다.
@@ -22,6 +23,10 @@ public class Controller {
 	private GameBoard2P GameBoard2P;
 	/** GameMode 를 나타낼 Int Type 변수입니다. */
 	private GameBoardSolo GameBoardSolo;
+	/** 명령을 전달할 GameBoardAI 타입의 변수 입니다. */
+	private GameBoardAI gameBoardAI;
+	/** 명령을 전달할 GameBoardAI 타입의 변수 입니다. */
+	private GameBoardAI gameBoardAIP;
 	/** GameMode 를 나타낼 Int Type 변수입니다. */
 	public int gameMode;
 
@@ -45,6 +50,11 @@ public class Controller {
 		GameBoardSolo = new GameBoardSolo(this);
 
 	}
+	
+	public void initAI() {
+		gameBoardAI = new GameBoardAI(this);
+		gameBoardAIP = new GameBoardAI(this);
+	}
 
 	/** Solo Game을 시작합니다. */
 	public void startSoloGame() {
@@ -67,12 +77,12 @@ public class Controller {
 
 	/** AI Game 을 시작합니다. */
 	public void startAIGame() {
-		init();
-		//init2();
+		initAI();
 		gameMode = 3;
-		GameBoard1P.startGame();
-		totalFrame.showSoloGamePanel();
-		//totalFrame.show2PGamePanel();
+		totalFrame.gameMode = 3;
+		gameBoardAI.startAIGame();
+		gameBoardAIP.startPlayerGame();
+		totalFrame.showAIGamePanel();
 	}
 
 	/**
@@ -92,6 +102,11 @@ public class Controller {
 
 	public void drawSolo(Graphics g) {
 		GameBoardSolo.drawSolo(g);
+	}
+	
+	public void drawAI(Graphics g) {
+		gameBoardAI.draw(g);
+		gameBoardAIP.draw(g);
 	}
 
 	/** totalFrame 의 update 메소드를 실행합니다. */
@@ -190,7 +205,14 @@ public class Controller {
 	public void pauseSolo() {
 		GameBoardSolo.pause();
 		totalFrame.showPausePanelSolo();
-
+	}
+	
+	/** Game 을 일시정지 합니다. */
+	public void pauseAI() {
+		gameBoardAIP.pause();
+		gameBoardAI.pause();
+		totalFrame.showPausePanelAI();
+		update();
 	}
 
 	/** Game 을 재개 합니다. */
@@ -207,6 +229,14 @@ public class Controller {
 		totalFrame.showSoloGamePanel();
 		update();
 	}
+	
+	public void resumeAI() {
+		gameBoardAI.resume();
+		gameBoardAIP.resume();
+		totalFrame.showAIGamePanel();
+		update();
+	}
+	
 
 	/** Game 을 재시작 합니다. */
 	public void restart() {
@@ -220,6 +250,13 @@ public class Controller {
 	public void restartSolo() {
 		GameBoardSolo.restart();
 		totalFrame.showSoloGamePanel();
+		update();
+	}
+	
+	public void restartAI() {
+		gameBoardAI.restart();
+		gameBoardAIP.restart();
+		totalFrame.showAIGamePanel();
 		update();
 	}
 
@@ -244,6 +281,42 @@ public class Controller {
 	/** SoloGame Over하면 호출됩니다. */
 	public void GameOver2P() {
 		totalFrame.ZPGameLose();
+	}
+	
+	public void GameOverAI() {
+		gameBoardAI.start = false;
+		gameBoardAIP.start = false;
+		totalFrame.AIGameLose();
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+		}
+		totalFrame.showMainPanel();
+	}
+	
+	public void spinAI() {
+		gameBoardAIP.spin();
+		update();
+	}
+	
+	public void moveRightAI() {
+		gameBoardAIP.moveRight();
+		update();
+	}
+	
+	public void moveLeftAI() {
+		gameBoardAIP.moveLeft();
+		update();
+	}
+	
+	public void moveDownAI() {
+		gameBoardAIP.moveDown();
+		update();
+	}
+	
+	public void fastDownAI() {
+		gameBoardAIP.fastDown();
+		update();
 	}
 	
 }
