@@ -27,7 +27,7 @@ public class RankingManager{
 	private StringTokenizer token;
 	/** String Type 의 변수입니다. */
 	private String line, str;
-	/** int Type 의 변수입니다. */
+	/** 텍스트 파일로부터 값을 읽어올 때 이용할 int Type 의 변수입니다. */
 	private int soloIndex, AIIndex;
 	/** RankingData[] Type 의 변수입니다. */
 	private RankingData[] soloRankingData, AIRankingData;
@@ -55,8 +55,6 @@ public class RankingManager{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		getSoloData();
-		getAIData();
 	}
 	
 	/** 텍스트 파일로부터 값을 읽어 SoloRankingData를 생성합니다. */
@@ -79,8 +77,10 @@ public class RankingManager{
 						soloRankingData[i++] = new RankingData(str);
 					}
 				}
-				soloIndex = i;
-				for(int j = soloIndex ; j < 10 ; j++) {
+			}
+			soloIndex = i;
+			if( soloIndex < 10 ) {
+				for(int j = soloIndex + 1 ; j < 10 ; j++) {
 					soloRankingData[j] = new RankingData();
 				}
 			}
@@ -110,7 +110,9 @@ public class RankingManager{
 						AIRankingData[i++] = new RankingData(str);
 					}
 				}
-				AIIndex = i;
+			}
+			AIIndex = i;
+			if( AIIndex < 10 ) {
 				for(int j = AIIndex ; j < 10 ; j++) {
 					AIRankingData[j] = new RankingData();
 				}
@@ -133,7 +135,9 @@ public class RankingManager{
 		getSoloData();
 		if (soloIndex == 0) {
 			soloRankingData[soloIndex] = new RankingData(name, score);
+			saveTXTinSoloRankingData(soloRankingData);
 		} else if (soloIndex > 0 && soloIndex < 10) {
+			soloRankingData[soloIndex] = new RankingData(name, score);
 			sortSoloRanking(soloRankingData);
 		} else if (soloIndex == 10) {
 			if (soloRankingData[9].score < score) {
@@ -142,7 +146,6 @@ public class RankingManager{
 				sortSoloRanking(soloRankingData);
 			}
 		}
-		saveTXTinSoloRankingData(soloRankingData);
 	}
 
 	/**
@@ -154,19 +157,20 @@ public class RankingManager{
 	 */
 	public void registerAI (String name, int score) throws IOException {
 		createFile();
-		getSoloData();
+		getAIData();
 		if (AIIndex == 0) {
 			AIRankingData[AIIndex] = new RankingData(name, score);
+			saveTXTinAIRankingData(AIRankingData);
 		} else if (AIIndex > 0 && AIIndex < 10) {
-			sortSoloRanking(AIRankingData);
+			AIRankingData[AIIndex] = new RankingData(name, score);
+			sortAIRanking(AIRankingData);
 		} else if (AIIndex == 10) {
 			if (AIRankingData[9].score < score) {
 				AIRankingData[9] = new RankingData(name, score);
 				AIIndex = 9;
-				sortSoloRanking(AIRankingData);
+				sortAIRanking(AIRankingData);
 			}
 		}
-		saveTXTinSoloRankingData(AIRankingData);
 	}
 	
 	/**
@@ -188,6 +192,7 @@ public class RankingManager{
 				}
 			}
 		}
+		saveTXTinSoloRankingData(soloRankingData);
 	}
 	
 	/**
@@ -209,6 +214,7 @@ public class RankingManager{
 				}
 			}
 		}
+		saveTXTinAIRankingData(AIRankingData);
 	}
 
 	/** 
@@ -230,7 +236,7 @@ public class RankingManager{
 	 */
 	public void resetAIData () throws IOException {
 		createFile();
-		soloFile = new File("AIRanking.txt");
+		AIFile = new File("AIRanking.txt");
 		fos = new FileOutputStream(AIFile);
 		fos.close();
 	}
@@ -268,7 +274,7 @@ public class RankingManager{
 	/**
 	 * AIRankingData를 텍스트 파일에 저장합니다.
 	 * 
-	 * @param - 저장할 RankingData입니다.
+	 * @param data - 저장할 RankingData입니다.
 	 * @throws IOException
 	 */
 	public void saveTXTinAIRankingData(RankingData[] data) throws IOException {

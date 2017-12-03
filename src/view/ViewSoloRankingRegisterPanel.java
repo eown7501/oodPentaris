@@ -82,15 +82,15 @@ public class ViewSoloRankingRegisterPanel extends JPanel {
 
 	/** Contents의 기본 설정을 세팅합니다. */
 	public void addContents() {
-		nameLabel = new JLabel("nickname ( English / Number ) :");
+		nameLabel = new JLabel("nickname ( English / Number / no blank ) :");
 		nameSpace = new JTextField(10);
 		registerbtn = new JButton("register");
 		cancelbtn = new JButton("cancel");
 		
 		nameLabel.setBackground(new Color(90, 90, 90, 255));
 		nameLabel.setForeground(Color.WHITE);
-		nameLabel.setFont(new Font("Forte", Font.PLAIN, 40));
-		nameLabel.setBounds(240, 195, 600, 80);
+		nameLabel.setFont(new Font("Forte", Font.PLAIN, 30));
+		nameLabel.setBounds(225, 195, 600, 80);
 		
 		nameSpace.setBounds(320, 275, 400, 50);
 		nameSpace.setFont(new Font("Forte", Font.PLAIN, 20));
@@ -151,6 +151,7 @@ public class ViewSoloRankingRegisterPanel extends JPanel {
 					int score = totalFrame.getScore();
 					registerbtn.setForeground(Color.CYAN);
 					register(nameSpace.getText(), score);
+					nameSpace.setText("");
 					showSoloRankingPanel();
 				}
 				if (e.getSource() == cancelbtn) {
