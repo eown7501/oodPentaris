@@ -44,6 +44,6 @@ public class ViewSoloGamePanel extends JPanel {
 		g2.setFont(new Font("Chiller", Font.BOLD, 110));
 		g2.setColor(new Color(250, 0, 0, 250));
 		g2.drawString("Game Over", 320, 240);
-
+		totalFrame.showSoloRankingRegisterPanel();
 	}
 }

@@ -29,6 +29,14 @@ public class ViewTotalFrame extends JFrame {
 	private ViewSoloRankingPanel soloRankingPanel;
 	/** ViewAIRankingPanel Type 의 변수 입니다. */
 	private ViewAIRankingPanel AIRankingPanel;
+	/** ViewSoloRankingRegisterPanel Type 의 변수입니다. */
+	private ViewSoloRankingRegisterPanel registerSoloPanel;
+	/** ViewAIRankingRegisterPanel Type 의 변수입니다. */
+	private ViewAIRankingRegisterPanel registerAIPanel;
+	/** ViewSoloRankingResetPanel Type 의 변수입니다. */
+	private ViewSoloRankingResetPanel resetSoloPanel;
+	/** ViewAIRankingResetPanel Type 의 변수입니다. */
+	private ViewAIRankingResetPanel resetAIPanel;
 	/** ViewHelpPanel Type 의 변수 입니다. */
 	private ViewHelpPanel helpPanel;
 	/** ViewKeyGuidePanel Type 의 변수 입니다. */
@@ -65,6 +73,10 @@ public class ViewTotalFrame extends JFrame {
 		rankingPanel = new ViewRankingPanel(this);
 		soloRankingPanel = new ViewSoloRankingPanel(this);
 		AIRankingPanel = new ViewAIRankingPanel(this);
+		registerSoloPanel = new ViewSoloRankingRegisterPanel(this);
+		registerAIPanel = new ViewAIRankingRegisterPanel(this);
+		resetSoloPanel = new ViewSoloRankingResetPanel(this);
+		resetAIPanel = new ViewAIRankingResetPanel(this);
 		helpPanel = new ViewHelpPanel(this);
 		controlMethodPanel = new ViewKeyGuidePanel(this);
 		profilePanel = new ViewProfilePanel(this);
@@ -233,6 +245,10 @@ public class ViewTotalFrame extends JFrame {
 		contentPane.add("Ranking", rankingPanel);
 		contentPane.add("Solo Ranking", soloRankingPanel);
 		contentPane.add("AI Ranking", AIRankingPanel);
+		contentPane.add("Register SoloRanking", registerSoloPanel);
+		contentPane.add("Register AIRanking", registerAIPanel);
+		contentPane.add("Reset SoloRanking", resetSoloPanel);
+		contentPane.add("Reset AIRanking", resetAIPanel);
 		contentPane.add("Help", helpPanel);
 		contentPane.add("Control Method", controlMethodPanel);
 		contentPane.add("Profile", profilePanel);
@@ -363,7 +379,34 @@ public class ViewTotalFrame extends JFrame {
 	public void showAIRankingPanel() {
 		card.show(contentPane, "AI Ranking");
 	}
-
+	
+	/** SoloRankingRegisterPanel을 보여줍니다. 
+	 * @author 이은경
+	 */
+	public void showSoloRankingRegisterPanel() {
+		card.show(contentPane, "Register SoloRanking");
+	}
+	
+	/** AIRankingRegisterPanel을 보여줍니다. 
+	 * @author 이은경
+	 */
+	public void showAIRankingRegisterPanel() {
+		card.show(contentPane, "Register AIRanking");
+	}
+	
+	/** SoloRankingResetPanel을 보여줍니다.
+	 * @author 이은경
+	 */
+	public void showSoloRankingResetPanel() {
+		card.show(contentPane, "Reset SoloRanking");
+	}
+	
+	/** AIRankingResetPanel을 보여줍니다. 
+	 * @author 이은경
+	 */
+	public void showAIRankingResetPanel() {
+		card.show(contentPane, "Reset AIRanking");
+	}
 	/** HelpPanel을 보여줍니다. */
 	public void showHelpPanel() {
 		card.show(contentPane, "Help");
@@ -510,5 +553,11 @@ public class ViewTotalFrame extends JFrame {
 	public void goMain() {
 		controller.goMain();
 	}
-
+	
+	/** 사용자의 점수를 얻습니다. 
+	 * @author 이은경
+	 * @return int Type의 score를 반환합니다. */
+	public int getScore() {
+		return controller.getScore();
+	}
 }

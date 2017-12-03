@@ -222,6 +222,14 @@ public class Controller {
 	public void goMain() {
 		totalFrame.showMainPanel();
 	}
+	
+	/** 사용자의 점수를 얻습니다. 
+	 * 
+	 * @author 이은경
+	 * @return int Type의 score를 반환합니다. */
+	public int getScore() {
+		return GameBoardSolo.getScore();
+	}
 
 	/** SoloGame Over하면 호출됩니다. */
 	public void soloGameOver() {
@@ -232,5 +240,5 @@ public class Controller {
 	public void GameOver2P() {
 		totalFrame.ZPGameLose();
 	}
-
+	
 }
