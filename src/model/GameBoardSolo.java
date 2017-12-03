@@ -108,7 +108,6 @@ public class GameBoardSolo implements Runnable {
 		controller.update();
 		while (true) {
 			if (start) {
-<<<<<<< HEAD
 				if(gameMode==1) {
 					setLevel();
 					sleep();
@@ -117,10 +116,8 @@ public class GameBoardSolo implements Runnable {
 					setLevel();
 					sleep();
 				}
-=======
 				setLevel();
 				sleep();
->>>>>>> refs/heads/master
 			}
 		}
 	}
