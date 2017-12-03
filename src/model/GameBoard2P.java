@@ -20,7 +20,7 @@ public class GameBoard2P implements Runnable {
 	/** 한 Block의 Size를 나타낼 변수입니다. */
 	public static final int BLOCK_SIZE = 30;
 	/** Block의 최대 개수를 나타낼 변수입니다. */
-	public static final int BLOCK_MAX_NUM = 4;
+	public static final int BLOCK_MAX_NUM = 5;
 	/** 명령을 받거나 전달할 Controller Type 변수입니다. */
 	private Controller controller;
 	/** 현재 2P Block을 저장할 변수입니다. */
@@ -151,31 +151,64 @@ public class GameBoard2P implements Runnable {
 	public Block createRandomBlock() {
 		Random r = new Random();
 		Block block = null;
-		int rNum = r.nextInt(7);
+		int rNum = r.nextInt(18);
 		switch (rNum) {
 		case 0:
-			block = new BlockS(this);
+			block = new BlockC(this);
 			break;
 		case 1:
-			block = new BlockZ(this);
-			break;
-		case 2:
-			block = new BlockI(this);
-			break;
-		case 3:
-			block = new BlockL(this);
-			break;
-		case 4:
-			block = new BlockJ(this);
-			break;
-		case 5:
-			block = new BlockT(this);
-			break;
-		case 6:
 			block = new BlockO(this);
 			break;
+		case 2:
+			block = new BlockV(this);
+			break;
+		case 3:
+			block = new BlockP_(this);
+			break;
+		case 4:
+			block = new BlockT(this);
+			break;
+		case 5:
+			block = new BlockM(this);
+			break;
+		case 6:
+			block = new BlockL(this);
+			break;
+		case 7:
+			block = new BlockX(this);
+			break;
+		case 8:
+			block = new BlockH(this);
+			break;
+		case 9:
+			block = new BlockZ_(this);
+			break;
+		case 10:
+			block = new BlockY(this);
+			break;
+		case 11:
+			block = new BlockI(this);
+			break;
+		case 12:
+			block = new BlockP(this);
+			break;
+		case 13:
+			block = new BlockL_(this);
+			break;
+		case 14:
+			block = new BlockX_(this);
+			break;
+		case 15:
+			block = new BlockH_(this);
+			break;
+		case 16:
+			block = new BlockZ(this);
+			break;
+		case 17:
+			block = new BlockY_(this);
+			break;
 		default:
-			block = new BlockS(this);
+			block = new BlockI(this);
 			break;
 		}
 		return block;
@@ -268,6 +301,7 @@ public class GameBoard2P implements Runnable {
 	 */
 
 	public void drawBoard(Graphics g) {
+
 		for (int i = 2; i < Board.length; i++) {
 			for (int j = 0; j < Board[i].length; j++) {
 				int color = Board[i][j];
@@ -279,7 +313,7 @@ public class GameBoard2P implements Runnable {
 					g.setColor(new Color(244, 217, 245));
 					break;
 				case 2:
-					g.setColor(new Color(244, 36, 51));
+					g.setColor(new Color(244,36,51));
 					break;
 				case 3:
 					g.setColor(new Color(36, 244, 0));
@@ -293,6 +327,39 @@ public class GameBoard2P implements Runnable {
 				case 6:
 					g.setColor(new Color(245, 180, 0));
 					break;
+				case 7:
+					g.setColor(new Color(255, 91, 200));
+					break;
+				case 8:
+					g.setColor(new Color(220, 0, 255));
+					break;
+				case 9:
+					g.setColor(new Color(255, 110, 0));
+					break;
+				case 10:
+					g.setColor(new Color(255, 248, 63));
+					break;
+				case 11:
+					g.setColor(new Color(169, 232, 44));
+					break;
+				case 12:
+					g.setColor(new Color(46, 232, 179));
+					break;
+				case 13:
+					g.setColor(new Color(46, 228, 232));
+					break;
+				case 14:
+					g.setColor(new Color(24, 24, 226));
+					break;
+				case 15:
+					g.setColor(new Color(8, 145, 49));
+					break;
+				case 16:
+					g.setColor(new Color(98, 138, 193));
+					break;
+				case 17:
+					g.setColor(new Color(191, 255, 255));
+					break;
 
 				default:
 					if (j % 2 == 0)
@@ -301,6 +368,7 @@ public class GameBoard2P implements Runnable {
 						g.setColor(new Color(66, 66, 66, 140));
 					break;
 				}
+
 
 				g.fillRoundRect(10 + (j) * BLOCK_SIZE, 30 + (i - 2) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, 5, 5);
 				g.setColor(new Color(66, 66, 66, 180));
