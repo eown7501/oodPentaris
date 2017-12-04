@@ -161,9 +161,10 @@ public class GameBoardAI implements Runnable {
 		if (level == 10)
 			speed = 90;
 		try {
-			Thread.sleep(10);
-			timer += 10;
-			if (timer == speed) {
+			if(t.isAlive())
+				Thread.sleep(100);
+			timer += 150;
+			if (timer >= speed) {
 				drop();
 				timer = 0;
 			}
@@ -196,9 +197,9 @@ public class GameBoardAI implements Runnable {
 		if (level == 10)
 			speed = 90;
 		try {
-			Thread.sleep(10);
-			timer += 10;
-			if (timer == speed) {
+			Thread.sleep(100);
+			timer += 100;
+			if (timer >= speed) {
 				AIbehavior.setBestPoint();
 				timer = 0;
 			}
@@ -628,6 +629,7 @@ public class GameBoardAI implements Runnable {
 	/** Game Over시 호출됩니다. */
 	public void GameOver(int gameMode) {
 		start = false;
+		t.interrupt();
 		controller.GameOverAI(gameMode);
 	}
 

@@ -49,6 +49,8 @@ public class GameBoard2P implements Runnable {
 	private long startPauseTime, pauseTime;
 	
 	private int player;
+	
+	private Thread s;
 
 	/**
 	 * GameBoard2P 를 생성합니다.
@@ -80,7 +82,7 @@ public class GameBoard2P implements Runnable {
 	/** 2P Game 을 시작합니다. */
 	public void startGame() {
 		player = 2;
-		Thread s = new Thread(this);
+		s = new Thread(this);
 		s.start();
 		setStartTime();
 
@@ -95,8 +97,8 @@ public class GameBoard2P implements Runnable {
 		while (true) {
 			if (start) {
 				setLevel();
-				drop();
 				sleep();
+				drop();
 
 			}
 		}
@@ -501,6 +503,7 @@ public class GameBoard2P implements Runnable {
 	public void GameOver() {
 		update();
 		start = false;
+		s.interrupt();
 		controller.GameOver2P(player);
 
 	}

@@ -49,6 +49,8 @@ public class GameBoardSolo implements Runnable {
 	/** Pause를 시작한 시간, 총 Pause된 시간을 저장할 변수입니다. */
 	private long startPauseTime, pauseTime;
 
+	private Thread t;
+
 	/**
 	 * GameBoardSolo 를 생성합니다.
 	 * 
@@ -78,7 +80,7 @@ public class GameBoardSolo implements Runnable {
 
 	/** Solo Game 을 시작합니다. */
 	public void startSoloGame() {
-		Thread t = new Thread(this);
+		t = new Thread(this);
 		t.start();
 		setStartTime();
 	}
@@ -90,10 +92,11 @@ public class GameBoardSolo implements Runnable {
 	@Override
 	public void run() {
 		while (true) {
-			if (start)
+			if (start) {
+				setLevel();
+				sleep();
 				drop();
-			setLevel();
-			sleep();
+			}
 		}
 	}
 
@@ -308,7 +311,7 @@ public class GameBoardSolo implements Runnable {
 					g.setColor(new Color(244, 217, 245));
 					break;
 				case 2:
-					g.setColor(new Color(244,36,51));
+					g.setColor(new Color(244, 36, 51));
 					break;
 				case 3:
 					g.setColor(new Color(36, 244, 0));
@@ -363,7 +366,6 @@ public class GameBoardSolo implements Runnable {
 						g.setColor(new Color(66, 66, 66, 140));
 					break;
 				}
-
 
 				g.fillRoundRect(370 + (j) * BLOCK_SIZE, 10 + (i - 2) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, 5, 5);
 				g.setColor(new Color(66, 66, 66, 180));
@@ -485,6 +487,7 @@ public class GameBoardSolo implements Runnable {
 	public void GameOver() {
 		update();
 		start = false;
+		t.interrupt();
 		controller.soloGameOver();
 	}
 
@@ -602,10 +605,12 @@ public class GameBoardSolo implements Runnable {
 		return true;
 	}
 
-	/** 사용자의 점수를 얻습니다.
+	/**
+	 * 사용자의 점수를 얻습니다.
 	 * 
 	 * @author 이은경
-	 * @return 게임이 끝난 후 score를 반환합니다. */
+	 * @return 게임이 끝난 후 score를 반환합니다.
+	 */
 	public int getScore() {
 		return score;
 	}
