@@ -2,8 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
 /**
  * 이 ViewSoloGamePanel 클래스는 SoloGame화면의 Panel을 구성하고 보여주는 클래스입니다.
  * 
@@ -39,12 +37,25 @@ public class ViewAIGamePanel extends JPanel {
 	}
 
 	/** Game이 끝났을시 GameOver 메시지를 표시 합니다. */
-	public void gameOver() {
-		Graphics2D g2 = (Graphics2D) getGraphics();
-		g2.setFont(new Font("Chiller", Font.BOLD, 110));
-		g2.setColor(new Color(250, 0, 0, 250));
-		g2.drawString("Game Over", 320, 240);
-		//totalFrame.showMainPanel();
-		//totalFrame.showSoloRankingRegisterPanel();
+	public void gameOver(int gameMode) {
+		if(gameMode == 3) {
+			Graphics2D g2 = (Graphics2D) getGraphics();
+			g2.setFont(new Font("Chiller", Font.BOLD, 110));
+			g2.setColor(new Color(250, 0, 0, 250));
+			g2.drawString("WIN!!", 320, 240);
+			totalFrame.showAIRankingRegisterPanel();
+		}
+		else {
+			Graphics2D g2 = (Graphics2D) getGraphics();
+			g2.setFont(new Font("Chiller", Font.BOLD, 110));
+			g2.setColor(new Color(250, 0, 0, 250));
+			g2.drawString("LOSE", 320, 240);
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+			}
+			totalFrame.showMainPanel();
+		}
+
 	}
 }

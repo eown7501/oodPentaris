@@ -277,6 +277,9 @@ public class ViewTotalFrame extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					pauseAI();
 				}
+				if(e.getKeyCode() == KeyEvent.VK_S) {
+					AIFastDown();
+				}
 			}
 		};
 	}
@@ -372,24 +375,17 @@ public class ViewTotalFrame extends JFrame {
 	}
 
 	/** 2PGame을 종료합니다. */
-	public void ZPGameLose() {
+	public void ZPGameLose(int player) {
 		removeKeyListener();
 		removeKeyListener2P();
-		ZPAndAIGamePanel.lose();
+		ZPAndAIGamePanel.lose(player);
 
-	}
-
-	/** 2PGame을 종료합니다. */
-	public void ZPGameWin() {
-		removeKeyListener();
-		removeKeyListener2P();
-		ZPAndAIGamePanel.lose();
 	}
 
 	/** AIGame을 종료합니다. */
-	public void AIGameLose() {
+	public void AIGameLose(int gameMode) {
 		removeKeyListenerAI();
-		AIGamePanel.gameOver();
+		AIGamePanel.gameOver(gameMode);
 	}
 
 	/** MainPanel을 보여줍니다. */
@@ -628,6 +624,10 @@ public class ViewTotalFrame extends JFrame {
 		return controller.getScore();
 	}
 	
+	public int getAIScore() {
+		return controller.getAIScore();
+	}
+	
 	public void spinAI() {
 		controller.spinAI();
 	}
@@ -644,10 +644,12 @@ public class ViewTotalFrame extends JFrame {
 		controller.moveDownAI();
 	}
 	
-
-	
 	public void fastDownAI() {
 		controller.fastDownAI();
+	}
+	
+	public void AIFastDown() {
+		controller.AIFastDown();
 	}
 	
 	public void showPausePanelAI() {

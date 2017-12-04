@@ -38,7 +38,7 @@ public class GameBoard2P implements Runnable {
 	/** 2P의 Level을 저장할 변수입니다. */
 	private int level;
 	/** Start의 상태를 저장할 변수입니다. */
-	private boolean start;
+	public boolean start;
 	/** Start Time을 저장할 변수입니다. */
 	private long startTime;
 	/** End Time 을 저장할 변수입니다. */
@@ -47,6 +47,8 @@ public class GameBoard2P implements Runnable {
 	private double playTime;
 	/** Pause를 시작한 시간, 총 Pause된 시간을 저장할 변수입니다. */
 	private long startPauseTime, pauseTime;
+	
+	private int player;
 
 	/**
 	 * GameBoard2P 를 생성합니다.
@@ -77,6 +79,7 @@ public class GameBoard2P implements Runnable {
 
 	/** 2P Game 을 시작합니다. */
 	public void startGame() {
+		player = 2;
 		Thread s = new Thread(this);
 		s.start();
 		setStartTime();
@@ -218,7 +221,7 @@ public class GameBoard2P implements Runnable {
 	public void setNextBlock() {
 		nextBlock = createRandomBlock();
 		NextBlockBoard = new int[BLOCK_MAX_NUM][BLOCK_MAX_NUM];
-		for (int i = 0; i < nextBlock.coord2P.length; i++)
+		for (int i = 0; i < nextBlock.coord2P.length; i++) 
 			NextBlockBoard[nextBlock.coord2P[i].getX() + 2][nextBlock.coord2P[i].getY() + 1] = 2;
 	}
 
@@ -498,7 +501,7 @@ public class GameBoard2P implements Runnable {
 	public void GameOver() {
 		update();
 		start = false;
-		controller.GameOver2P();
+		controller.GameOver2P(player);
 
 	}
 

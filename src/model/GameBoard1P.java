@@ -38,7 +38,7 @@ public class GameBoard1P implements Runnable {
 	/** 1P의 Level을 저장할 변수입니다. */
 	private int level;
 	/** Start의 상태를 저장할 변수입니다. */
-	private boolean start;
+	public boolean start;
 	/** Start Time을 저장할 변수입니다. */
 	private long startTime;
 	/** End Time 을 저장할 변수입니다. */
@@ -47,6 +47,8 @@ public class GameBoard1P implements Runnable {
 	private double playTime;
 	/** Pause를 시작한 시간, 총 Pause된 시간을 저장할 변수입니다. */
 	private long startPauseTime, pauseTime;
+	
+	private int player;
 
 	/**
 	 * GameBoard1P 를 생성합니다.
@@ -77,6 +79,7 @@ public class GameBoard1P implements Runnable {
 
 	/** 1P Game 을 시작합니다. */
 	public void startGame() {
+		player = 1;
 		Thread s = new Thread(this);
 		s.start();
 		setStartTime();
@@ -492,7 +495,7 @@ public class GameBoard1P implements Runnable {
 	public void GameOver() {
 		update();
 		start = false;
-		controller.GameOver2P();
+		controller.GameOver2P(player);
 
 	}
 

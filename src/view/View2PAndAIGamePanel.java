@@ -41,19 +41,23 @@ public class View2PAndAIGamePanel extends JPanel {
 		repaint();
 	}
 
-	/** 2PAndAI가 종료되었을시 win 메시지를 표시합니다. */
-	public void win() {
-		Graphics2D g2 = (Graphics2D) getGraphics();
-		g2.setFont(new Font("Chiller", Font.BOLD, 110));
-		g2.setColor(new Color(250, 0, 0, 250));
-		g2.drawString("Game Over", 320, 240);
-	}
-
 	/** 2PAndAI가 종료되었을시 lose 메시지를 표시합니다. */
-	public void lose() {
+	public void lose(int player) {
 		Graphics2D g2 = (Graphics2D) getGraphics();
 		g2.setFont(new Font("Chiller", Font.BOLD, 110));
 		g2.setColor(new Color(250, 0, 0, 250));
-		g2.drawString("Game Over", 320, 240);
+		if(player==1) {
+			g2.drawString("Lose", 620, 240);
+			g2.drawString("WIN!!", 20, 240);
+		}
+		else {
+			g2.drawString("Lose", 20, 240);
+			g2.drawString("WIN!!", 620, 240);
+		}
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+		}
+		totalFrame.showMainPanel();
 	}
 }

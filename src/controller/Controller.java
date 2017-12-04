@@ -272,6 +272,10 @@ public class Controller {
 	public int getScore() {
 		return GameBoardSolo.getScore();
 	}
+	
+	public int getAIScore() {
+		return gameBoardAIP.getScore();
+	}
 
 	/** SoloGame Over하면 호출됩니다. */
 	public void soloGameOver() {
@@ -279,19 +283,16 @@ public class Controller {
 	}
 
 	/** SoloGame Over하면 호출됩니다. */
-	public void GameOver2P() {
-		totalFrame.ZPGameLose();
+	public void GameOver2P(int player) {
+		GameBoard1P.start = false;
+		GameBoard2P.start = false;
+		totalFrame.ZPGameLose(player);
 	}
 	
-	public void GameOverAI() {
+	public void GameOverAI(int gameMode) {
 		gameBoardAI.start = false;
 		gameBoardAIP.start = false;
-		totalFrame.AIGameLose();
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-		}
-		totalFrame.showMainPanel();
+		totalFrame.AIGameLose(gameMode);
 	}
 	
 	public void spinAI() {
@@ -316,6 +317,11 @@ public class Controller {
 	
 	public void fastDownAI() {
 		gameBoardAIP.fastDown();
+		update();
+	}
+	
+	public void AIFastDown() {
+		gameBoardAI.fastDown();
 		update();
 	}
 	

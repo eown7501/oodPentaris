@@ -65,6 +65,10 @@ public class GameBoardAI implements Runnable {
 		this.controller = controller;
 		initGameBoard();
 	}
+	
+	public int getScore() {
+		return score;
+	}
 
 	/** GameBoard 를 초기화 합니다. */
 	public void initGameBoard() { // 게임보드 초기상태 설정
@@ -611,7 +615,7 @@ public class GameBoardAI implements Runnable {
 		clear();
 		fixedBlock();
 		if (isGameOver())
-			GameOver();
+			GameOver(gameMode);
 		setCurrentBlock();
 	}
 
@@ -622,9 +626,9 @@ public class GameBoardAI implements Runnable {
 	}
 
 	/** Game Over시 호출됩니다. */
-	public void GameOver() {
+	public void GameOver(int gameMode) {
 		start = false;
-		controller.GameOverAI();
+		controller.GameOverAI(gameMode);
 	}
 
 	/**

@@ -77,7 +77,7 @@ public class ViewAIRankingRegisterPanel extends JPanel {
 		g2.setPaint(p1);
 		g2.fillRect(xx,yy+h/2,w,h/2);
 		g2.setClip(vOldClip);
-		totalFrame.draw(g);
+		totalFrame.drawAI(g);
 	}
 
 	/** Contents의 기본 설정을 세팅합니다. */
@@ -148,7 +148,7 @@ public class ViewAIRankingRegisterPanel extends JPanel {
 			}
 			public void mouseClicked(MouseEvent e) {
 				if (e.getSource() == registerbtn) {
-					int score = totalFrame.getScore();
+					int score = totalFrame.getAIScore();
 					registerbtn.setForeground(Color.CYAN);
 					register(nameSpace.getText(), score);
 					nameSpace.setText("");
