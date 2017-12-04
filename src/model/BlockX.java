@@ -44,12 +44,12 @@ public class BlockX extends Block {
 	}
 
 	public void initShape2P() {
-		setSpinBehavior1P(new SpinBlock3x3());
-		setTopLeftPoint1P(new Point(1, 4));
-		tempTopLeftPoint1P = new Point(2, 4);
+		setSpinBehavior2P(new SpinBlock3x3());
+		setTopLeftPoint2P(new Point(1, 4));
+		tempTopLeftPoint2P = new Point(2, 4);
 		color = new Color(255, 91, 200);
-		coord1P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
-		tempCoord1P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
+		coord2P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
+		tempCoord2P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
 	}
 
 	public void initShapeSolo() {
