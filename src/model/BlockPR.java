@@ -3,31 +3,31 @@ package model;
 import java.awt.Color;
 
 /**
- * 이 BlockX 클래스는 Block을 상속하고 있으며, X Block을 구현한 Class 입니다.
+ * 이 BlockP_ 클래스는 Block을 상속하고 있으며, P_ Block을 구현한 Class 입니다.
  * 
  * @author 곽소정
  *
  */
-public class BlockX extends Block {
+public class BlockPR extends Block {
 
 	/**
-	 * GameBoard 위에 X Block을 생성합니다.
+	 * GameBoard 위에 P_ Block을 생성합니다.
 	 * 
 	 * @param gameBoard
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
-	public BlockX(GameBoard1P gameBoard) {
+	public BlockPR(GameBoard1P gameBoard) {
 		super(gameBoard);
 		initShape1P();
 
 	}
 
-	public BlockX(GameBoardSolo gameBoardSolo) {
+	public BlockPR(GameBoardSolo gameBoardSolo) {
 		super(gameBoardSolo);
 		initShapeSolo();
 	}
 
-	public BlockX(GameBoard2P gameBoard2P) {
+	public BlockPR(GameBoard2P gameBoard2P) {
 		super(gameBoard2P);
 		initShape2P();
 	}
@@ -39,8 +39,8 @@ public class BlockX extends Block {
 		setTopLeftPoint1P(new Point(1, 4));
 		tempTopLeftPoint1P = new Point(2, 4);
 		color = new Color(255, 91, 200);
-		coord1P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
-		tempCoord1P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
+		coord1P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,-1) };
+		tempCoord1P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,-1) };
 	}
 
 	public void initShape2P() {
@@ -48,8 +48,8 @@ public class BlockX extends Block {
 		setTopLeftPoint2P(new Point(1, 4));
 		tempTopLeftPoint2P = new Point(2, 4);
 		color = new Color(255, 91, 200);
-		coord2P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
-		tempCoord2P = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
+		coord2P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,-1) };
+		tempCoord2P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,-1) };
 	}
 
 	public void initShapeSolo() {
@@ -57,8 +57,8 @@ public class BlockX extends Block {
 		setTopLeftPointSolo(new Point(1, 4));
 		tempTopLeftPointSolo = new Point(2, 4);
 		color = new Color(255, 91, 200);
-		coordSolo = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
-		tempCoordSolo = new Point[] { new Point(0, 0), new Point(1, 0), new Point(-1, 0), new Point(-1, -1), new Point(0, 1) };
+		coordSolo = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,-1) };
+		tempCoordSolo = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,-1) };
 	}
 
 
@@ -69,7 +69,7 @@ public class BlockX extends Block {
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 7);
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 7);
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 7);
-		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[4]), 1);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[4]), 7);
 		
 	}
 

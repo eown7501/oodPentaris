@@ -38,27 +38,27 @@ public class BlockT extends Block {
 		setSpinBehavior1P(new SpinBlock3x3());
 		setTopLeftPoint1P(new Point(1, 4));
 		tempTopLeftPoint1P = new Point(2, 4);
-		color = new Color(0, 92, 244);
-		coord1P = new Point[] { new Point(-1, 0), new Point(1, 0), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
-		tempCoord1P = new Point[] { new Point(-1, 0), new Point(1, 0), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
+		color = new Color(255, 248, 63);
+		coord1P = new Point[] { new Point(-1,0), new Point(-1,-1),new Point(-1,1),new Point(0,0),new Point(0,1)};
+		tempCoord1P = new Point[] { new Point(-1,0), new Point(-1,-1),new Point(-1,1),new Point(0,0),new Point(0,1)};
 	}
 
 	public void initShape2P() {
 		setSpinBehavior2P(new SpinBlock3x3());
 		setTopLeftPoint2P(new Point(1, 4));
 		tempTopLeftPoint2P = new Point(2, 4);
-		color = new Color(0, 92, 244);
-		coord2P = new Point[] { new Point(-1, 0), new Point(1, 0), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
-		tempCoord2P = new Point[] { new Point(-1, 0), new Point(1, 0), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
+		color = new Color(255, 248, 63);
+		coord2P = new Point[] { new Point(-1,0), new Point(-1,-1),new Point(-1,1),new Point(0,0),new Point(0,1)};
+		tempCoord2P = new Point[] { new Point(-1,0), new Point(-1,-1),new Point(-1,1),new Point(0,0),new Point(0,1)};
 	}
 
 	public void initShapeSolo() {
 		setSpinBehaviorSolo(new SpinBlock3x3());
 		setTopLeftPointSolo(new Point(1, 4));
 		tempTopLeftPointSolo = new Point(2, 4);
-		color = new Color(0, 92, 244);
-		coordSolo = new Point[] { new Point(-1, 0), new Point(1, 0), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
-		tempCoordSolo = new Point[] { new Point(-1, 0), new Point(1, 0), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
+		color = new Color(255, 248, 63);
+		coordSolo = new Point[] { new Point(-1,0), new Point(-1,-1),new Point(-1,1),new Point(0,0),new Point(0,1)};
+		tempCoordSolo = new Point[] { new Point(-1,0), new Point(-1,-1),new Point(-1,1),new Point(0,0),new Point(0,1)};
 	}
 
 
@@ -66,27 +66,27 @@ public class BlockT extends Block {
 	/** 블럭의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord1P() {
-		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 4);
-		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 4);
-		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 4);
-		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 4);
-		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[4]), 4);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 10);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 10);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 10);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 10);
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[4]), 10);
 		
 	}
 
 	public void changeCoord2P() {
-		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 4);
-		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 4);
-		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[2]), 4);
-		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 4);
-		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[4]), 4);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 10);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 10);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[2]), 10);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 10);
+		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[4]), 10);
 	}
 	public void changeCoordSolo() {
-		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[0]), 4);
-		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[1]), 4);
-		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[2]), 4);
-		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[3]), 4);
-		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[4]), 4);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[0]), 10);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[1]), 10);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[2]), 10);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[3]), 10);
+		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[4]), 10);
 	}
 
 }

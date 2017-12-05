@@ -158,61 +158,46 @@ public class GameBoard2P implements Runnable {
 	public Block createRandomBlock() {
 		Random r = new Random();
 		Block block = null;
-		int rNum = r.nextInt(18);
+		int rNum = r.nextInt(13);
 		switch (rNum) {
 		case 0:
 			block = new BlockC(this);
 			break;
 		case 1:
-			block = new BlockO(this);
+			block = new BlockHR(this);
 			break;
 		case 2:
-			block = new BlockV(this);
-			break;
-		case 3:
-			block = new BlockP_(this);
-			break;
-		case 4:
-			block = new BlockT(this);
-			break;
-		case 5:
-			block = new BlockM(this);
-			break;
-		case 6:
-			block = new BlockL(this);
-			break;
-		case 7:
-			block = new BlockX(this);
-			break;
-		case 8:
 			block = new BlockH(this);
 			break;
-		case 9:
-			block = new BlockZ_(this);
-			break;
-		case 10:
-			block = new BlockY(this);
-			break;
-		case 11:
+		case 3:
 			block = new BlockI(this);
 			break;
-		case 12:
-			block = new BlockP(this);
-			break;
-		case 13:
-			block = new BlockL_(this);
-			break;
-		case 14:
-			block = new BlockX_(this);
-			break;
-		case 15:
-			block = new BlockH_(this);
-			break;
-		case 16:
+		case 4:
 			block = new BlockZ(this);
 			break;
-		case 17:
-			block = new BlockY_(this);
+		case 5:
+			block = new BlockZR(this);
+			break;
+		case 6:
+			block = new BlockO(this);
+			break;
+		case 7:
+			block = new BlockPR(this);
+			break;
+		case 8:
+			block = new BlockP(this);
+			break;
+		case 9:
+			block = new BlockLR(this);
+			break;
+		case 10:
+			block = new BlockT(this);
+			break;
+		case 11:
+			block = new BlockV(this);
+			break;
+		case 12:
+			block = new BlockL(this);
 			break;
 		default:
 			block = new BlockI(this);
@@ -226,7 +211,7 @@ public class GameBoard2P implements Runnable {
 		nextBlock = createRandomBlock();
 		NextBlockBoard = new int[BLOCK_MAX_NUM][BLOCK_MAX_NUM];
 		for (int i = 0; i < nextBlock.coord2P.length; i++) 
-			NextBlockBoard[nextBlock.coord2P[i].getX() + 2][nextBlock.coord2P[i].getY() + 1] = 2;
+			NextBlockBoard[nextBlock.coord2P[i].getX() + 2][nextBlock.coord2P[i].getY() + 2] = 2;
 	}
 
 	/** 2P의 현재 Block을 설정합니다. */
@@ -352,22 +337,6 @@ public class GameBoard2P implements Runnable {
 				case 12:
 					g.setColor(new Color(46, 232, 179));
 					break;
-				case 13:
-					g.setColor(new Color(46, 228, 232));
-					break;
-				case 14:
-					g.setColor(new Color(24, 24, 226));
-					break;
-				case 15:
-					g.setColor(new Color(8, 145, 49));
-					break;
-				case 16:
-					g.setColor(new Color(98, 138, 193));
-					break;
-				case 17:
-					g.setColor(new Color(191, 255, 255));
-					break;
-
 				default:
 					if (j % 2 == 0)
 						g.setColor(new Color(66, 66, 66, 80));
