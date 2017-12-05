@@ -11,7 +11,7 @@ import java.awt.Color;
 public class BlockP extends Block {
 
 	/**
-	 * GameBoard 위에 P Block을 생성합니다.
+	 * 1P GameBoard 위에 P Block을 생성합니다.
 	 * 
 	 * @param gameBoard
 	 *            - Block이 생성될 GameBoard 입니다.
@@ -19,20 +19,31 @@ public class BlockP extends Block {
 	public BlockP(GameBoard1P gameBoard) {
 		super(gameBoard);
 		initShape1P();
-
 	}
-
+	
+	/**
+	 * Solo GameBoard 위에 P Block을 생성합니다.
+	 * 
+	 * @param gameBoard
+	 *            - Block이 생성될 GameBoard 입니다.
+	 */
 	public BlockP(GameBoardSolo gameBoardSolo) {
 		super(gameBoardSolo);
 		initShapeSolo();
 	}
-
+	
+	/**
+	 * 2P GameBoard 위에 P Block을 생성합니다.
+	 * 
+	 * @param gameBoard
+	 *            - Block이 생성될 GameBoard 입니다.
+	 */
 	public BlockP(GameBoard2P gameBoard2P) {
 		super(gameBoard2P);
 		initShape2P();
 	}
 
-	/** Block 의 모양을 결정합니다. */
+	/** 1P에서 사용될 P Block의 모양을 결정합니다. */
 	@Override
 	public void initShape1P() {
 		setSpinBehavior1P(new SpinBlock3x3());
@@ -42,7 +53,8 @@ public class BlockP extends Block {
 		coord1P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,1) };
 		tempCoord1P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,1) };
 	}
-
+	
+	/** 2P에서 사용될 P Block의 모양을 결정합니다. */
 	public void initShape2P() {
 		setSpinBehavior2P(new SpinBlock3x3());
 		setTopLeftPoint2P(new Point(1, 4));
@@ -51,7 +63,8 @@ public class BlockP extends Block {
 		coord2P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,1) };
 		tempCoord2P = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,1) };
 	}
-
+	
+	/** Solo에서 사용될 P Block의 모양을 결정합니다. */
 	public void initShapeSolo() {
 		setSpinBehaviorSolo(new SpinBlock3x3());
 		setTopLeftPointSolo(new Point(1, 4));
@@ -61,7 +74,7 @@ public class BlockP extends Block {
 		tempCoordSolo = new Point[] { new Point(0,-1),new Point(0,0),new Point(0,1),new Point(-1,0),new Point(-1,1) };
 	}
 
-	/** 블럭의 위치를 바꿉니다. */
+	/** 1P에서  P Block의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord1P() {
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 8);
@@ -69,9 +82,9 @@ public class BlockP extends Block {
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 8);
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 8);
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[4]), 8);
-		
 	}
-
+	
+	/** 2P에서  P Block의 위치를 바꿉니다. */
 	public void changeCoord2P() {
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 8);
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 8);
@@ -79,6 +92,8 @@ public class BlockP extends Block {
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 8);
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[4]), 8);
 	}
+	
+	/** Solo에서  P Block의 위치를 바꿉니다. */
 	public void changeCoordSolo() {
 		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[0]), 8);
 		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[1]), 8);

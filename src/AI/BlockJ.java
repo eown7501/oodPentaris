@@ -3,7 +3,7 @@ package AI;
 import java.awt.Color;
 
 /**
- * 이 BlockI 클래스는 Block을 상속하고 있으며, I Block을 구현한 Class 입니다.
+ * 이 BlockJ 클래스는 Block을 상속하고 있으며, J Block을 구현한 Class 입니다.
  * 
  * @author 곽소정
  */
@@ -21,7 +21,7 @@ public class BlockJ extends Block {
 		blockIndex = 4;
 	}
 
-	/** Block 의 모양을 결정합니다. */
+	/** J Block의 모양을 결정합니다. */
 	@Override
 	public void initShape() {
 		setSpinBehavior(new SpinBlock3x3());
@@ -32,7 +32,7 @@ public class BlockJ extends Block {
 		tempCoord = new Point[] { new Point(-1, -1), new Point(0, -1), new Point(0, 0), new Point(0, 1) };
 	}
 
-	/** 블럭의 위치를 바꿉니다. */
+	/** J Block의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord() {
 		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[0]), 4);

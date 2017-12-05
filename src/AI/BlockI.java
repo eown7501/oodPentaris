@@ -21,7 +21,7 @@ public class BlockI extends Block {
 		blockIndex = 2;
 	}
 
-	/** Block 의 모양을 결정합니다. */
+	/** I Block의 모양을 결정합니다. */
 	@Override
 	public void initShape() {
 		setSpinBehavior(new SpinBlock4x4());
@@ -32,7 +32,7 @@ public class BlockI extends Block {
 		tempCoord = new Point[] { new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(0, 2) };
 	}
 
-	/** 블럭의 위치를 바꿉니다. */
+	/** I Block의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord() {
 		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[0]), 2);

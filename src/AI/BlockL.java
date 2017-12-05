@@ -3,7 +3,7 @@ package AI;
 import java.awt.Color;
 
 /**
- * 이 BlockI 클래스는 Block을 상속하고 있으며, I Block을 구현한 Class 입니다.
+ * 이 BlockL 클래스는 Block을 상속하고 있으며, L Block을 구현한 Class 입니다.
  * 
  * @author 곽소정
  *
@@ -11,7 +11,7 @@ import java.awt.Color;
 public class BlockL extends Block {
 
 	/**
-	 * GameBoard 위에 I Block을 생성합니다.
+	 * GameBoard 위에 L Block을 생성합니다.
 	 * 
 	 * @param gameBoard
 	 *            - Block이 생성될 GameBoard 입니다.
@@ -22,7 +22,7 @@ public class BlockL extends Block {
 		blockIndex = 3;
 	}
 
-	/** Block 의 모양을 결정합니다. */
+	/** L Block의 모양을 결정합니다. */
 	@Override
 	public void initShape() {
 		setSpinBehavior(new SpinBlock3x3());
@@ -33,7 +33,7 @@ public class BlockL extends Block {
 		tempCoord = new Point[] { new Point(-1, 1), new Point(0, -1), new Point(0, 0), new Point(0, 1) };
 	}
 
-	/** 블럭의 위치를 바꿉니다. */
+	/** L Block의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord() {
 		gameBoard.changePoint(topLeftPoint.setCurrentPoint(coord[0]), 3);

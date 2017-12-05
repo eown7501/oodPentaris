@@ -11,7 +11,7 @@ import java.awt.Color;
 public class BlockC extends Block {
 
 	/**
-	 * GameBoard 위에 C Block을 생성합니다.
+	 * 1P GameBoard 위에 C Block을 생성합니다.
 	 * 
 	 * @param gameBoard
 	 *            - Block이 생성될 GameBoard 입니다.
@@ -21,18 +21,30 @@ public class BlockC extends Block {
 		initShape1P();
 
 	}
-
+	
+	/**
+	 * Solo GameBoard 위에 C Block을 생성합니다.
+	 * 
+	 * @param gameBoard
+	 *            - Block이 생성될 GameBoard 입니다.
+	 */
 	public BlockC(GameBoardSolo gameBoardSolo) {
 		super(gameBoardSolo);
 		initShapeSolo();
 	}
-
+	
+	/**
+	 * 2P GameBoard 위에 C Block을 생성합니다.
+	 * 
+	 * @param gameBoard
+	 *            - Block이 생성될 GameBoard 입니다.
+	 */
 	public BlockC(GameBoard2P gameBoard2P) {
 		super(gameBoard2P);
 		initShape2P();
 	}
 
-	/** Block 의 모양을 결정합니다. */
+	/** 1P에서 사용될 C Block의 모양을 결정합니다. */
 	@Override
 	public void initShape1P() {
 		setSpinBehavior1P(new SpinBlock3x3());
@@ -42,7 +54,8 @@ public class BlockC extends Block {
 		coord1P = new Point[] { new Point(-1, -1), new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(-1, 1) };
 		tempCoord1P = new Point[] { new Point(-1, -1), new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(-1, 1) };
 	}
-
+	
+	/** 2P에서 사용될 C Block의 모양을 결정합니다. */
 	public void initShape2P() {
 		setSpinBehavior2P(new SpinBlock3x3());
 		setTopLeftPoint2P(new Point(1, 4));
@@ -51,7 +64,8 @@ public class BlockC extends Block {
 		coord2P = new Point[] { new Point(-1, -1), new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(-1, 1) };
 		tempCoord2P = new Point[] { new Point(-1, -1), new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(-1, 1) };
 	}
-
+	
+	/** Solo에서 사용될 C Block의 모양을 결정합니다. */
 	public void initShapeSolo() {
 		setSpinBehaviorSolo(new SpinBlock3x3());
 		setTopLeftPointSolo(new Point(1, 4));
@@ -61,18 +75,17 @@ public class BlockC extends Block {
 		tempCoordSolo = new Point[] { new Point(-1, -1), new Point(0, -1), new Point(0, 0), new Point(0, 1), new Point(-1, 1) };
 	}
 
-
-	/** 블럭의 위치를 바꿉니다. */
+	/** 1P에서  C Block의 위치를 바꿉니다. */
 	@Override
 	public void changeCoord1P() {
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[0]), 0);
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[1]), 0);
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[2]), 0);
 		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[3]), 0);
-		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[4]), 0);
-		
+		gameBoard1P.changePoint(topLeftPoint1P.setCurrentPoint1P(coord1P[4]), 0);	
 	}
-
+	
+	/** 2P에서  C Block의 위치를 바꿉니다. */
 	public void changeCoord2P() {
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[0]), 0);
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[1]), 0);
@@ -80,6 +93,8 @@ public class BlockC extends Block {
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[3]), 0);
 		gameBoard2P.changePoint(topLeftPoint2P.setCurrentPoint2P(coord2P[4]), 0);
 	}
+	
+	/** Solo에서  C Block의 위치를 바꿉니다. */
 	public void changeCoordSolo() {
 		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[0]), 0);
 		gameBoardSolo.changePointSolo(topLeftPointSolo.setCurrentPointSolo(coordSolo[1]), 0);
