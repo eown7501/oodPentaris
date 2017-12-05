@@ -99,7 +99,7 @@ public class GameBoardAI implements Runnable {
 		AIbehavior = new AIBehavior(this);
 		gameMode = 3;
 		timer = 0;
-		Thread t = new Thread(this);
+		t = new Thread(this);
 		t.start();
 		setStartTime();
 	}
@@ -169,7 +169,7 @@ public class GameBoardAI implements Runnable {
 				timer = 0;
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			return;
 		}
 	}
 
@@ -204,7 +204,7 @@ public class GameBoardAI implements Runnable {
 				timer = 0;
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			return;
 		}
 	}
 

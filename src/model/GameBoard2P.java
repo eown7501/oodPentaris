@@ -143,7 +143,7 @@ public class GameBoard2P implements Runnable {
 		try {
 			Thread.sleep(speed);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			return;
 		}
 	}
 

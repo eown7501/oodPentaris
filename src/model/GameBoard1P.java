@@ -146,7 +146,7 @@ public class GameBoard1P implements Runnable {
 		try {
 			Thread.sleep(speed);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			return;
 		}
 
 	}
