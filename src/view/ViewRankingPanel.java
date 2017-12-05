@@ -90,6 +90,7 @@ public class ViewRankingPanel extends JPanel implements IViewPanel {
 
 	/**
 	 * MouseLister를 구현합니다.
+	 * @return MouseAdapter 를 반환합니다.
 	 */
 	public MouseListener makeMouseListener() {
 		return new MouseAdapter() {

@@ -65,7 +65,9 @@ public class ViewProfilePanel extends JPanel implements IViewPanel {
 		backbt.addMouseListener(makeMouseListener());
 	}
 
-	/** MouseLister를 구현합니다. */
+	/** MouseLister를 구현합니다. 
+	 * @return MouseAdapter 를 반환합니다.
+	 */
 	public MouseListener makeMouseListener() {
 
 		return new MouseAdapter() {

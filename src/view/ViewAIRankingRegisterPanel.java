@@ -122,7 +122,7 @@ public class ViewAIRankingRegisterPanel extends JPanel {
 	}
 
 	/** MouseLister를 구현합니다. 
-	 * @return MouseEvent를 반환합니다. 
+	 * @return MouseAdapter 를 반환합니다. 
 	 */
 	public MouseListener makeListener() {
 		return new MouseAdapter() {
