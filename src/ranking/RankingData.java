@@ -6,7 +6,6 @@ import java.util.*;
  * 이 Class는 RankingData를 저장합니다.
  * 
  * @author 이은경
- *
  */
 public class RankingData{
 	
@@ -27,8 +26,9 @@ public class RankingData{
 	
 	/**
 	 * RankingData 를 생성합니다.
-	 * @param name - 이 이름을 가집니다.
-	 * @param score - 이 점수를 가집니다.
+	 * 
+	 * @param name 이 이름을 가집니다.
+	 * @param score 이 점수를 가집니다.
 	 */
 	public RankingData(String name, int score) {
 		this.score = score;
@@ -38,7 +38,8 @@ public class RankingData{
 	
 	/**
 	 * RankingData 를 생성합니다.
-	 * @param str - 이 문자열을 가집니다.
+	 * 
+	 * @param str 이 문자열을 가집니다.
 	 */
 	public RankingData(String str) {
 		this.str = str;

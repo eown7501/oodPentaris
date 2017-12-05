@@ -9,9 +9,11 @@ import java.awt.event.*;
 
 /**
  * 이 ViewKeyGuidePanel 클래스는 KeyGuide화면의 Panel을 구성하고 보여주는 클래스입니다. 
+ * 
  * @author 이은경
  */
 public class ViewKeyGuidePanel extends JPanel implements IViewPanel {
+	
 	/** ViewTotalFrame Type의 변수 입니다. */
 	private ViewTotalFrame totalFrame;
 	/** JLabel Type의 변수 입니다. */
@@ -27,7 +29,8 @@ public class ViewKeyGuidePanel extends JPanel implements IViewPanel {
 
 	/**
 	 * ViewKeyGuidePanel을 생성합니다.
-	 * @param totalFrame - 명령을 전달받을 totalFrame 입니다.
+	 * 
+	 * @param totalFrame 명령을 전달받을 totalFrame 입니다.
 	 */
 	public ViewKeyGuidePanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
@@ -76,6 +79,7 @@ public class ViewKeyGuidePanel extends JPanel implements IViewPanel {
 	}
 
 	/** MouseLister를 구현합니다. 
+	 * 
 	 * @return MouseAdapter 를 반환합니다.
 	 */
 	@Override

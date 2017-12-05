@@ -23,7 +23,6 @@ import ranking.RankingManager;
  * 이 ViewSoloRankingRegisterPanel 클래스는 SoloRanking을 등록하는 화면의 Panel을 구성하고 보여주는 클래스입니다.
  * 
  * @author 이은경
- * 
  */
 public class ViewSoloRankingRegisterPanel extends JPanel {
 
@@ -40,7 +39,8 @@ public class ViewSoloRankingRegisterPanel extends JPanel {
 
 	/**
 	 * ViewSoloRankingRegisterPanel을 생성합니다.
-	 * @param totalFrame - 명령을 전달받을 totalFrame 입니다.
+	 * 
+	 * @param totalFrame 명령을 전달받을 totalFrame 입니다.
 	 */
 	public ViewSoloRankingRegisterPanel(ViewTotalFrame totalFrame) {
 		rankingManager = new RankingManager();
@@ -122,7 +122,8 @@ public class ViewSoloRankingRegisterPanel extends JPanel {
 	}
 
 	/** MouseLister를 구현합니다. 
-	 * @return MouseEvent를 반환합니다. 
+	 * 
+	 * @return MouseAdapter 를 반환합니다. 
 	 */
 	public MouseListener makeListener() {
 		return new MouseAdapter() {
@@ -165,8 +166,8 @@ public class ViewSoloRankingRegisterPanel extends JPanel {
 	/**
 	 * 랭킹에 정보를 등록합니다.
 	 * 
-	 * @param name - 사용자가 등록할 name 입니다.
-	 * @param score - 사용자의 점수입니다.
+	 * @param name 사용자가 등록할 name 입니다.
+	 * @param score 사용자의 점수입니다.
 	 */
 	public void register(String name, int score) {
 		try {

@@ -14,9 +14,9 @@ import javax.swing.*;
  * 이 ViewRankingPanel 클래스는 Ranking화면의 Panel을 구성하고 보여주는 클래스입니다.
  * 
  * @author 이은경
- * 
  */
 public class ViewRankingPanel extends JPanel implements IViewPanel {
+	
 	/** ViewTotalFrame Type의 변수 입니다. */
 	private ViewTotalFrame totalFrame;
 	/** JButton Type의 변수 입니다. */
@@ -30,7 +30,8 @@ public class ViewRankingPanel extends JPanel implements IViewPanel {
 
 	/**
 	 * ViewRankingPanel을 생성합니다.
-	 * @param totalFrame - 명령을 전달받을 totalFrame 입니다.
+	 * 
+	 * @param totalFrame 명령을 전달받을 totalFrame 입니다.
 	 */
 	public ViewRankingPanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
@@ -90,6 +91,7 @@ public class ViewRankingPanel extends JPanel implements IViewPanel {
 
 	/**
 	 * MouseLister를 구현합니다.
+	 * 
 	 * @return MouseAdapter 를 반환합니다.
 	 */
 	public MouseListener makeMouseListener() {

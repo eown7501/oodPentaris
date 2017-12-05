@@ -43,7 +43,8 @@ public class ViewAIRankingPanel extends JPanel {
 
 	/**
 	 *  ViewAIRankingpanel을 생성합니다. 
-	 * @param totalFrame - 명령을 전달 받을 totalFrame 입니다.
+	 *  
+	 * @param totalFrame 명령을 전달 받을 totalFrame 입니다.
 	 */
 	public ViewAIRankingPanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
@@ -182,6 +183,7 @@ public class ViewAIRankingPanel extends JPanel {
 	}
 
 	/** MouseLister를 구현합니다. 
+	 * 
 	 * @return MouseAdapter 를 반환합니다. 
 	 */
 	public MouseListener makeListener() {

@@ -30,7 +30,8 @@ public class ViewSoloRankingResetPanel extends JPanel {
 	
 	/**
 	 * ViewSoloRankingResetPanel을 생성합니다.
-	 * @param totalFrame - 명령을 전달받을 totalFrame 입니다.
+	 * 
+	 * @param totalFrame 명령을 전달받을 totalFrame 입니다.
 	 */
 	ViewSoloRankingResetPanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
@@ -84,7 +85,8 @@ public class ViewSoloRankingResetPanel extends JPanel {
 	}
 	
 	/** ActionLister를 구현합니다. 
-	 * @return ActionEvent를 반환합니다. 
+	 * 
+	 * @return ActionListener 를 반환합니다. 
 	 */
 	public ActionListener makeListener() {
 		return new ActionListener() {
@@ -108,7 +110,8 @@ public class ViewSoloRankingResetPanel extends JPanel {
 	}
 	
 	/** MouseAdapter를 구현합니다. 
-	 * @return MouseEvent를 반환합니다. 
+	 * 
+	 * @return MouseAdapter 를 반환합니다. 
 	 */
 	public MouseAdapter makeListener2() {
 		return new MouseAdapter() {

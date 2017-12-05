@@ -30,7 +30,8 @@ public class ViewAIRankingResetPanel extends JPanel {
 	
 	/**
 	 * ViewAIRankingResetPanel을 생성합니다.
-	 * @param totalFrame - 명령을 전달받을 totalFrame 입니다.
+	 * 
+	 * @param totalFrame 명령을 전달받을 totalFrame 입니다.
 	 */
 	ViewAIRankingResetPanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
@@ -84,6 +85,7 @@ public class ViewAIRankingResetPanel extends JPanel {
 	}
 	
 	/** ActionLister를 구현합니다. 
+	 * 
 	 * @return ActionListener 를 반환합니다. 
 	 */
 	public ActionListener makeListener() {
@@ -108,6 +110,7 @@ public class ViewAIRankingResetPanel extends JPanel {
 	}
 	
 	/** MouseAdapter를 구현합니다. 
+	 * 
 	 * @return MouseAdapter 를 반환합니다. 
 	 */
 	public MouseAdapter makeListener2() {

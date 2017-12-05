@@ -43,7 +43,8 @@ public class ViewSoloRankingPanel extends JPanel {
 
 	/**
 	 *  ViewSoloRankingpanel을 생성합니다. 
-	 * @param totalFrame - 명령을 전달 받을 totalFrame 입니다.
+	 *  
+	 * @param totalFrame 명령을 전달 받을 totalFrame 입니다.
 	 */
 	public ViewSoloRankingPanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
@@ -182,7 +183,8 @@ public class ViewSoloRankingPanel extends JPanel {
 	}
 
 	/** MouseLister를 구현합니다. 
-	 * @return MouseEvent를 반환합니다. 
+	 * 
+	 * @return MouseAdapter 를 반환합니다. 
 	 */
 	public MouseListener makeListener() {
 		return new MouseAdapter() {
