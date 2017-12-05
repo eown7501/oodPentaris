@@ -63,7 +63,7 @@ public class ViewTotalFrame extends JFrame {
 	private KeyListener keyListenerSolo;
 	/** Container Type 의 변수 입니다. */
 	private Container contentPane;
-	/**GameMode 를 나타내는 정수 입니다. */
+	/** GameMode 를 나타내는 정수 입니다. */
 	public int gameMode;
 
 	/**
@@ -132,12 +132,12 @@ public class ViewTotalFrame extends JFrame {
 		addKeyListener(keyListenerSolo);
 
 	}
-	
+
 	/** AIPlay의 KeyListener를 추가합니다. */
 	public void addKeyListenerAI() {
 		addKeyListener(keyListenerAI);
 	}
-	
+
 	/** AI의 KeyListener를 제거합니다. */
 	public void removeKeyListenerAI() {
 		removeKeyListener(keyListenerAI);
@@ -255,7 +255,13 @@ public class ViewTotalFrame extends JFrame {
 			}
 		};
 	}
-	
+
+	/**
+	 * AI Play 의 KeyListener를 구현합니다.
+	 * 
+	 * @author 신승현
+	 * @return 이 KeyListener을 반환합니다.
+	 */
 	public KeyListener makeKeyListenerAI() {
 		return new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -277,7 +283,7 @@ public class ViewTotalFrame extends JFrame {
 				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					pauseAI();
 				}
-				if(e.getKeyCode() == KeyEvent.VK_S) {
+				if (e.getKeyCode() == KeyEvent.VK_S) {
 					AIFastDown();
 				}
 			}
@@ -302,8 +308,8 @@ public class ViewTotalFrame extends JFrame {
 		contentPane.add("Profile", profilePanel);
 		contentPane.add("Pause", pausePanel);
 		contentPane.add("PauseSolo", pausePanelSolo);
-		contentPane.add("AI Game",AIGamePanel);
-		contentPane.add("AI Pause",pausePanelAI);
+		contentPane.add("AI Game", AIGamePanel);
+		contentPane.add("AI Pause", pausePanelAI);
 	}
 
 	/** SoloGame을 시작합니다. */
@@ -362,7 +368,14 @@ public class ViewTotalFrame extends JFrame {
 		controller.drawSolo(g);
 
 	}
-	
+
+	/**
+	 * controller의 drawAI 메소드를 실행합니다.
+	 * 
+	 * @author 신승현
+	 * @param g
+	 *            - controller의 drawAI 에게 전달합니다.
+	 */
 	public void drawAI(Graphics g) {
 		controller.drawAI(g);
 	}
@@ -402,7 +415,7 @@ public class ViewTotalFrame extends JFrame {
 	public void showSoloGamePanel() {
 		card.show(contentPane, "Solo Game");
 	}
-	
+
 	/** 2PGamePanel을 보여줍니다. */
 	public void show2PGamePanel() {
 		card.show(contentPane, "2P And AI Game");
@@ -427,34 +440,43 @@ public class ViewTotalFrame extends JFrame {
 	public void showAIRankingPanel() {
 		card.show(contentPane, "AI Ranking");
 	}
-	
-	/** SoloRankingRegisterPanel을 보여줍니다. 
+
+	/**
+	 * SoloRankingRegisterPanel을 보여줍니다.
+	 * 
 	 * @author 이은경
 	 */
 	public void showSoloRankingRegisterPanel() {
 		card.show(contentPane, "Register SoloRanking");
 	}
-	
-	/** AIRankingRegisterPanel을 보여줍니다. 
+
+	/**
+	 * AIRankingRegisterPanel을 보여줍니다.
+	 * 
 	 * @author 이은경
 	 */
 	public void showAIRankingRegisterPanel() {
 		card.show(contentPane, "Register AIRanking");
 	}
-	
-	/** SoloRankingResetPanel을 보여줍니다.
+
+	/**
+	 * SoloRankingResetPanel을 보여줍니다.
+	 * 
 	 * @author 이은경
 	 */
 	public void showSoloRankingResetPanel() {
 		card.show(contentPane, "Reset SoloRanking");
 	}
-	
-	/** AIRankingResetPanel을 보여줍니다. 
+
+	/**
+	 * AIRankingResetPanel을 보여줍니다.
+	 * 
 	 * @author 이은경
 	 */
 	public void showAIRankingResetPanel() {
 		card.show(contentPane, "Reset AIRanking");
 	}
+
 	/** HelpPanel을 보여줍니다. */
 	public void showHelpPanel() {
 		card.show(contentPane, "Help");
@@ -568,7 +590,7 @@ public class ViewTotalFrame extends JFrame {
 		removeKeyListener(keyListenerSolo);
 		controller.pauseSolo();
 	}
-	
+
 	public void pauseAI() {
 		removeKeyListener(keyListenerAI);
 		controller.pauseAI();
@@ -587,7 +609,12 @@ public class ViewTotalFrame extends JFrame {
 		addKeyListener(keyListenerSolo);
 		controller.resumeSolo();
 	}
-	
+
+	/**
+	 * AI Play 중에 일시정지를 했을 때, 계속하기 명령을 전달합니다.
+	 * 
+	 * @author 신승현
+	 */
 	public void resumeAI() {
 		addKeyListener(keyListenerAI);
 		controller.resumeAI();
@@ -606,7 +633,12 @@ public class ViewTotalFrame extends JFrame {
 		addKeyListener(keyListenerSolo);
 		controller.restartSolo();
 	}
-	
+
+	/**
+	 * AI Play 중에 일시정지를 했을 때, 재시작 명령을 전달합니다.
+	 * 
+	 * @author 신승현
+	 */
 	public void restartAI() {
 		addKeyListener(keyListenerAI);
 		controller.restartAI();
@@ -614,45 +646,62 @@ public class ViewTotalFrame extends JFrame {
 
 	/** 일시정지를 했을 때, Main화면으로 이동 명령을 전달합니다. */
 	public void goMain() {
+		System.gc();
 		controller.goMain();
 	}
-	
-	/** 사용자의 점수를 얻습니다. 
+
+	/**
+	 * 사용자의 점수를 얻습니다.
+	 * 
 	 * @author 이은경
-	 * @return int Type의 score를 반환합니다. */
+	 * @return int Type의 score를 반환합니다.
+	 */
 	public int getScore() {
 		return controller.getScore();
 	}
-	
+
+	/**
+	 * 사용자의 점수를 얻습니다.
+	 * 
+	 * @author 신승현
+	 * @return int Type의 score를 반환합니다.
+	 */
 	public int getAIScore() {
 		return controller.getAIScore();
 	}
-	
+
+	/** AI Game 일때 회전명령을 전달합니다. */
 	public void spinAI() {
 		controller.spinAI();
 	}
-	
+
+	/** AI Game 일때 왼쪽 이동명령을 전달합니다. */
 	public void moveLeftAI() {
 		controller.moveLeftAI();
 	}
-	
+
+	/** AI Game 일때 오른쪽 이동명령을 전달합니다. */
 	public void moveRightAI() {
 		controller.moveRightAI();
 	}
-	
+
+	/** AI Game 일때 아래로  이동명령을 전달합니다. */
 	public void moveDownAI() {
 		controller.moveDownAI();
 	}
-	
+
+	/** AI Game 일때 바로내림 명령을 전달합니다. */
 	public void fastDownAI() {
 		controller.fastDownAI();
 	}
-	
+
+	/** AI Game 일때 AI에게 바로내림 명령을 전달합니다. */
 	public void AIFastDown() {
 		controller.AIFastDown();
 	}
-	
+
+	/** AIPausePanel을 보여줍니다. */
 	public void showPausePanelAI() {
-		card.show(contentPane,"AI Pause");
+		card.show(contentPane, "AI Pause");
 	}
 }

@@ -94,11 +94,13 @@ public class GameBoard1P implements Runnable {
 	 */
 	@Override
 	public void run() {
+		controller.update();
 		while (true) {
+			System.out.print("");
 			if (start) {
 				setLevel();
-				sleep();
 				drop();
+				sleep();
 			}
 		}
 	}
@@ -146,7 +148,7 @@ public class GameBoard1P implements Runnable {
 		try {
 			Thread.sleep(speed);
 		} catch (InterruptedException e) {
-			return;
+			e.printStackTrace();
 		}
 
 	}

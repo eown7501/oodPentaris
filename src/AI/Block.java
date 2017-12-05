@@ -5,7 +5,7 @@ import java.awt.Color;
 /**
  * 이 Block Class는 블록의 위치, Color, 회전, 이동 이 구현된 Class 입니다.
  * 
- * @author 곽소정
+ * @author 신승현
  */
 public abstract class Block {
 
@@ -39,10 +39,10 @@ public abstract class Block {
 	}
 
 	/** Block의 모양을 결정합니다. */
-	public abstract void initShape(); // 상속받는 블럭에서 구현
+	public abstract void initShape();
 
 	/** 블럭의 위치를 바꿉니다. */
-	public abstract void changeCoord(); // 상속받는 블럭에서 구현
+	public abstract void changeCoord();
 
 	/**
 	 * Block의 Color를 반환합니다.
@@ -235,6 +235,9 @@ public abstract class Block {
 		gameBoard.update();
 	}
 	
+	/**
+	 * AI가 쓰는 회전메소드입니다. tempBoard와 화면에 반영되지않습니다.
+	 */
 	public void AIPerformSpin() {
 		gameBoard.revertMatrix();
 		if (!isCollisionSpin(topLeftPoint)) {
@@ -248,6 +251,10 @@ public abstract class Block {
 		}
 	}
 	
+	/**
+	 * AI가 쓰는 왼쪽이동입니다. tempBoard와 화면에 반영되지않습니다.
+	 * @return 왼쪽으로이동한다면 1을 아니라면 0을 반환합니다.
+	 */
 	public int AIMoveLeft() {
 		tempTopLeftPoint.setY(topLeftPoint.getY() - 1);
 		tempTopLeftPoint.setX(topLeftPoint.getX());
@@ -263,6 +270,10 @@ public abstract class Block {
 		}
 	}
 	
+	/**
+	 * AI가 쓰는 오른쪽이동입니다. tempBoard와 화면에 반영되지않습니다.
+	 * @return 오른쪽으로 이동한다면 1을 아니라면 0을 반환합니다.
+	 */
 	public int AIMoveRight() {
 		tempTopLeftPoint.setY(topLeftPoint.getY() + 1);
 		tempTopLeftPoint.setX(topLeftPoint.getX());
@@ -278,6 +289,9 @@ public abstract class Block {
 		}
 	}
 	
+	/**
+	 * AI가 쓰는 아래로이동입니다. tempBoard와 화면에 반영되지않습니다.
+	 */
 	public void AIMoveDown() {
 		tempTopLeftPoint.setX(topLeftPoint.getX() + 1);
 		tempTopLeftPoint.setY(topLeftPoint.getY());
@@ -291,11 +305,12 @@ public abstract class Block {
 		}
 	}
 	
+	/**
+	 * AI가 쓰는 FastDown입니다. tempBoard와 화면에 반영되지않습니다.
+	 */
 	public void AIFastDown() {
 		while (isMoveDown())
 			AIMoveDown();
 		changeCoord();
 	}
-	
-
 }

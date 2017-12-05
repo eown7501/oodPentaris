@@ -91,11 +91,13 @@ public class GameBoardSolo implements Runnable {
 	 */
 	@Override
 	public void run() {
+		controller.update();
 		while (true) {
+			System.out.print("");
 			if (start) {
 				setLevel();
-				sleep();
 				drop();
+				sleep();
 			}
 		}
 	}
@@ -103,7 +105,6 @@ public class GameBoardSolo implements Runnable {
 	/** Block 이 한 칸 떨어트립니다. */
 	public void drop() {
 		currentBlock.dropSolo();
-
 	}
 
 	/** Level 을 조정합니다. */
@@ -139,7 +140,7 @@ public class GameBoardSolo implements Runnable {
 		try {
 			Thread.sleep(speed);
 		} catch (InterruptedException e) {
-			return;
+			e.printStackTrace();
 		}
 	}
 

@@ -50,9 +50,11 @@ public class GameBoardAI implements Runnable {
 	private long startPauseTime, pauseTime;
 	/** 게임을 시작할 스레드입니다. */
 	public Thread t;
-
+	/** AI행동을담당하는 AIBehavior 입니다. */
 	private AIBehavior AIbehavior;
+	/** gameMode를 나타내는 정수입니다. */
 	public int gameMode;
+	/** drop타이머 입니다. */
 	private int timer;
 
 	/**
@@ -66,6 +68,10 @@ public class GameBoardAI implements Runnable {
 		initGameBoard();
 	}
 	
+	/**
+	 * 점수를 얻는 메소드입니다.
+	 * @return 점수를 반환합니다.
+	 */
 	public int getScore() {
 		return score;
 	}
@@ -95,6 +101,7 @@ public class GameBoardAI implements Runnable {
 		setStartTime();
 	}
 
+	/** AI Game을 시작합니다.  */
 	public void startAIGame() {
 		AIbehavior = new AIBehavior(this);
 		gameMode = 3;
@@ -107,11 +114,13 @@ public class GameBoardAI implements Runnable {
 	/**
 	 * 인터페이스 Runnable를 구현하고있는 객체를 사용해 thread를 작성하면, thread를 기동하면 , 객체의 run 메소드가 그 개별
 	 * 실행 thread로 불려갑니다.
+	 * gameMode가 1이라면 Player모드로, 2라면 AI모드로 기동합니다.
 	 */
 	@Override
 	public void run() {
 		controller.update();
 		while (true) {
+			System.out.print("");
 			if (start) {
 				if (gameMode == 1) {
 					setLevel();
@@ -137,8 +146,8 @@ public class GameBoardAI implements Runnable {
 				level++;
 	}
 
-	/** Thread가 몇초 단위로 실행될지 설정합니다. */
-	private void sleep1() { // 난이도 speed 설정
+	/** Thread가 몇초 단위로 실행될지 설정합니다. Player 전용 sleep 메소드 입니다. */
+	private void sleep1() {
 		int speed = 0;
 		if (level == 1)
 			speed = 1000;
@@ -169,12 +178,12 @@ public class GameBoardAI implements Runnable {
 				timer = 0;
 			}
 		} catch (InterruptedException e) {
-			return;
+			e.printStackTrace();
 		}
 	}
 
-	/** Thread가 몇초 단위로 실행될지 설정합니다. */
-	private void sleep() { // 난이도 speed 설정
+	/** Thread가 몇초 단위로 실행될지 설정합니다.AI 전용 sleep 메소드 입니다.  */
+	private void sleep() {
 		int speed = 0;
 		if (level == 1)
 			speed = 1000;
@@ -200,11 +209,11 @@ public class GameBoardAI implements Runnable {
 			Thread.sleep(100);
 			timer += 100;
 			if (timer >= speed) {
-				AIbehavior.setBestPoint();
+				AIbehavior.putBestPoint();
 				timer = 0;
 			}
 		} catch (InterruptedException e) {
-			return;
+			e.printStackTrace();
 		}
 	}
 
@@ -316,6 +325,7 @@ public class GameBoardAI implements Runnable {
 
 	/**
 	 * GameBoard 화면을 그립니다.
+	 * gameMode가 1이라면 Player에 관한 draw를, 3이라면AI 에 관한 draw함수를 실행합니다.
 	 * 
 	 * @param g
 	 *            - Controller에게 전달받은 Graphcis g 입니다.
@@ -337,7 +347,7 @@ public class GameBoardAI implements Runnable {
 	}
 
 	/**
-	 * GameBoard의 Board 부분을 그립니다.
+	 * GameBoardAI의 Board 부분을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
@@ -390,7 +400,7 @@ public class GameBoardAI implements Runnable {
 	}
 
 	/**
-	 * 1P GameBoard의 다음 Block을 그립니다.
+	 * GameBoardAI의 다음 Block을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.
@@ -419,7 +429,7 @@ public class GameBoardAI implements Runnable {
 	}
 
 	/**
-	 * 1P GameBoard의 Score을 그립니다.
+	 * GameBoardAI의 Score을 그립니다.
 	 * 
 	 * @param g
 	 *            - draw에게 전달받은 Graphics g 입니다.

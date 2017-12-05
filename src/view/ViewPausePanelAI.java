@@ -119,11 +119,9 @@ public class ViewPausePanelAI extends JPanel implements IViewPanel {
 
 			public void mouseClicked(MouseEvent e) {
 				if (e.getSource() == resumebt) {
-					System.out.println("Asdsasd");
 					resumeAI();
 				}
 				if (e.getSource() == restartbt) {
-					System.out.println("Asdsasd");
 					restartAI();
 				}
 				if (e.getSource() == goMainbt) {
