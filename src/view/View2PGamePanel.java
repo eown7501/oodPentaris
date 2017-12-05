@@ -6,17 +6,17 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
- * 이 Class는 AI와 2PGameMode화면의 Panel을 구성하고 보여주는 클래스입니다.
+ * 이 Class는 2PGame화면의 Panel을 구성하고 보여주는 클래스입니다.
  * 
  * @author 송민석
  */
-public class View2PAndAIGamePanel extends JPanel {
+public class View2PGamePanel extends JPanel {
 
 	/** ViewTotalFrame Type의 변수 입니다. */
 	private ViewTotalFrame totalFrame;
 
-	/** View2PAndAIGamePanel을 생성합니다. */
-	public View2PAndAIGamePanel(ViewTotalFrame totalFrame) {
+	/** View2PGamePanel을 생성합니다. */
+	public View2PGamePanel(ViewTotalFrame totalFrame) {
 		this.totalFrame = totalFrame;
 		init();
 	}
@@ -41,16 +41,15 @@ public class View2PAndAIGamePanel extends JPanel {
 		repaint();
 	}
 
-	/** 2PAndAI가 종료되었을시 lose 메시지를 표시합니다. */
+	/** 2P 플레이가 종료되었을시 lose와 win 메시지를 표시합니다. */
 	public void lose(int player) {
 		Graphics2D g2 = (Graphics2D) getGraphics();
 		g2.setFont(new Font("Chiller", Font.BOLD, 110));
 		g2.setColor(new Color(250, 0, 0, 250));
-		if(player==1) {
+		if (player == 1) {
 			g2.drawString("Lose", 620, 240);
 			g2.drawString("WIN!!", 20, 240);
-		}
-		else {
+		} else {
 			g2.drawString("Lose", 20, 240);
 			g2.drawString("WIN!!", 620, 240);
 		}

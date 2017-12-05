@@ -5,7 +5,7 @@ import java.util.*;
 import controller.Controller;
 
 /**
- * 이 Class는 2PGame 또는 AIGame에서 1P Game Board, 현재 Block, 다음 Block 등이 구현된 클래스입니다.
+ * 이 Class는 2PGame 에서 1P의 Game Board, 현재 Block, 다음 Block 등이 구현된 클래스입니다.
  * Controller 에게 명령을 받거나, 전달합니다.
  * 
  * @author 송민석
@@ -47,9 +47,9 @@ public class GameBoard1P implements Runnable {
 	private double playTime;
 	/** Pause를 시작한 시간, 총 Pause된 시간을 저장할 변수입니다. */
 	private long startPauseTime, pauseTime;
-	
+	/** int type의 변수입니다. */
 	private int player;
-	
+	/** Thread를 구현할 변수입니다. */
 	private Thread s;
 
 	/**
@@ -307,7 +307,7 @@ public class GameBoard1P implements Runnable {
 					g.setColor(new Color(244, 217, 245));
 					break;
 				case 2:
-					g.setColor(new Color(244,36,51));
+					g.setColor(new Color(244, 36, 51));
 					break;
 				case 3:
 					g.setColor(new Color(36, 244, 0));

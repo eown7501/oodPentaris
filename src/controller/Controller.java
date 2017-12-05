@@ -36,23 +36,31 @@ public class Controller {
 		totalFrame = new ViewTotalFrame(this);
 	}
 
-	/** Controller 의 멤버변수들을 초기화 합니다. */
+	/**
+	 * 1P Controller 의 멤버변수들을 초기화 합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void init() {
 		GameBoard1P = new GameBoard1P(this);
 
 	}
-	
-	/** Controller 의 멤버변수들을 초기화 합니다. */
+
+	/**
+	 * 2P Controller 의 멤버변수들을 초기화 합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void init2() {
 		GameBoard2P = new GameBoard2P(this);
 	}
-	
+
 	/** Controller 의 멤버변수들을 초기화 합니다. */
 	public void initSolo() {
 		GameBoardSolo = new GameBoardSolo(this);
 
 	}
-	
+
 	public void initAI() {
 		gameBoardAI = new GameBoardAI(this);
 		gameBoardAIP = new GameBoardAI(this);
@@ -66,7 +74,11 @@ public class Controller {
 		totalFrame.showSoloGamePanel();
 	}
 
-	/** 2P Game 을 시작합니다. */
+	/**
+	 * 2P Game을 시작합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void start2PGame() {
 		init();
 		init2();
@@ -89,6 +101,8 @@ public class Controller {
 
 	/**
 	 * GameBoard1P 의 draw 메소드를 실행합니다.
+	 * 
+	 * @author 송민석
 	 * @param g
 	 *            - totalFrame에서 받은 매개변수 입니다. 이 Graphics g를 GameBoard의 draw 메소드에
 	 *            전달합니다.
@@ -100,6 +114,7 @@ public class Controller {
 	/**
 	 * GameBoard2P 의 draw 메소드를 실행합니다.
 	 * 
+	 * @author 송민석
 	 * @param g
 	 *            - totalFrame에서 받은 매개변수 입니다. 이 Graphics g를 GameBoard의 draw 메소드에
 	 *            전달합니다.
@@ -118,7 +133,7 @@ public class Controller {
 	public void drawSolo(Graphics g) {
 		GameBoardSolo.drawSolo(g);
 	}
-	
+
 	/**
 	 * gameBoardAI, gameBoardAIP 의 draw 메소드를 실행합니다.
 	 * 
@@ -136,13 +151,21 @@ public class Controller {
 		totalFrame.update();
 	}
 
-	/** 회전 명령을 전달합니다. */
+	/**
+	 * 1P의 회전 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void spin1P() {
 		GameBoard1P.spin();
 		update();
 	}
 
-	/** 회전 명령을 전달합니다. */
+	/**
+	 * 2P의 회전 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void spin2P() {
 		GameBoard2P.spin();
 		update();
@@ -154,13 +177,21 @@ public class Controller {
 		update();
 	}
 
-	/** 왼쪽이동 명령을 전달합니다. */
+	/**
+	 * 1P의 왼쪽이동 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void moveLeft1P() {
 		GameBoard1P.moveLeft();
 		update();
 	}
 
-	/** 왼쪽이동 명령을 전달합니다. */
+	/**
+	 * 2P의 왼쪽이동 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void moveLeft2P() {
 		GameBoard2P.moveLeft();
 		update();
@@ -172,13 +203,21 @@ public class Controller {
 		update();
 	}
 
-	/** 오른쪽 이동 명령을 전달합니다. */
+	/**
+	 * 1P의 오른쪽 이동 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void moveRight1P() {
 		GameBoard1P.moveRight();
 		update();
 	}
 
-	/** 오른쪽 이동 명령을 전달합니다. */
+	/**
+	 * 2P의 오른쪽 이동 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void moveRight2P() {
 		GameBoard2P.moveRight();
 		update();
@@ -190,13 +229,21 @@ public class Controller {
 		update();
 	}
 
-	/** 아래이동 명령을 전달합니다. */
+	/**
+	 * 1P의 아래이동 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void moveDown1P() {
 		GameBoard1P.moveDown();
 		update();
 	}
 
-	/** 아래이동 명령을 전달합니다. */
+	/**
+	 * 2P의 아래이동 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void moveDown2P() {
 		GameBoard2P.moveDown();
 		update();
@@ -208,13 +255,21 @@ public class Controller {
 		update();
 	}
 
-	/** 바로내림 명령을 전달합니다. */
+	/**
+	 * 1P의 바로내림 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void fastDown1P() {
 		GameBoard1P.fastDown();
 		update();
 	}
 
-	/** 바로내림 명령을 전달합니다. */
+	/**
+	 * 2P의 바로내림 명령을 전달합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void fastDown2P() {
 		GameBoard2P.fastDown();
 		update();
@@ -226,7 +281,11 @@ public class Controller {
 		update();
 	}
 
-	/** Game 을 일시정지 합니다. */
+	/**
+	 * 2P Game 을 일시정지 합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void pause() {
 		GameBoard1P.pause();
 		GameBoard2P.pause();
@@ -238,7 +297,7 @@ public class Controller {
 		GameBoardSolo.pause();
 		totalFrame.showPausePanelSolo();
 	}
-	
+
 	/** Game 을 일시정지 합니다. */
 	public void pauseAI() {
 		gameBoardAIP.pause();
@@ -247,7 +306,11 @@ public class Controller {
 		update();
 	}
 
-	/** Game 을 재개 합니다. */
+	/**
+	 * 2P Game 을 재개 합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void resume() {
 		GameBoard1P.resume();
 		GameBoard2P.resume();
@@ -261,7 +324,7 @@ public class Controller {
 		totalFrame.showSoloGamePanel();
 		update();
 	}
-	
+
 	/** Game 을 재개 합니다. */
 	public void resumeAI() {
 		gameBoardAI.resume();
@@ -269,9 +332,12 @@ public class Controller {
 		totalFrame.showAIGamePanel();
 		update();
 	}
-	
 
-	/** Game 을 재시작 합니다. */
+	/**
+	 * 2P Game 을 재시작 합니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void restart() {
 		GameBoard1P.restart();
 		GameBoard2P.restart();
@@ -285,7 +351,7 @@ public class Controller {
 		totalFrame.showSoloGamePanel();
 		update();
 	}
-	
+
 	/** Game 을 재시작 합니다. */
 	public void restartAI() {
 		gameBoardAI.restart();
@@ -298,18 +364,22 @@ public class Controller {
 	public void goMain() {
 		totalFrame.showMainPanel();
 	}
-	
-	/** 사용자의 점수를 얻습니다. 
+
+	/**
+	 * 사용자의 점수를 얻습니다.
 	 * 
 	 * @author 이은경
-	 * @return int Type의 score를 반환합니다. */
+	 * @return int Type의 score를 반환합니다.
+	 */
 	public int getScore() {
 		return GameBoardSolo.getScore();
 	}
-	
-	/** AI GAME 에서 Player의 점수를 얻습니다. 
+
+	/**
+	 * AI GAME 에서 Player의 점수를 얻습니다.
 	 * 
-	 * @return int Type의 score를 반환합니다. */
+	 * @return int Type의 score를 반환합니다.
+	 */
 	public int getAIScore() {
 		return gameBoardAIP.getScore();
 	}
@@ -319,54 +389,58 @@ public class Controller {
 		totalFrame.soloGameOver();
 	}
 
-	/** 2P Game이 game over하면 호출됩니다. */
+	/**
+	 * 2P Game이 game over하면 호출됩니다.
+	 * 
+	 * @author 송민석
+	 */
 	public void GameOver2P(int player) {
 		GameBoard1P.start = false;
 		GameBoard2P.start = false;
 		totalFrame.ZPGameLose(player);
 	}
-	
+
 	/** AI Game이 game over 하면 호출됩니다. */
 	public void GameOverAI(int gameMode) {
 		gameBoardAI.start = false;
 		gameBoardAIP.start = false;
 		totalFrame.AIGameLose(gameMode);
 	}
-	
+
 	/** 회전명령을 전달합니다 . */
 	public void spinAI() {
 		gameBoardAIP.spin();
 		update();
 	}
-	
+
 	/** 오른쪽 이동명령을 전달합니다. */
 	public void moveRightAI() {
 		gameBoardAIP.moveRight();
 		update();
 	}
-	
+
 	/** 왼쪽 이동명령을 전달합니다. */
 	public void moveLeftAI() {
 		gameBoardAIP.moveLeft();
 		update();
 	}
-	
-	/** 아래 이동명령을 전달합니다.  */
+
+	/** 아래 이동명령을 전달합니다. */
 	public void moveDownAI() {
 		gameBoardAIP.moveDown();
 		update();
 	}
-	
+
 	/** 바로내림 명령을 전달합니다. */
 	public void fastDownAI() {
 		gameBoardAIP.fastDown();
 		update();
 	}
-	
+
 	/** AI 에게 바로내림명령을 전달합니다. AI의 블럭을 강제로 내릴때 사용됩니다. */
 	public void AIFastDown() {
 		gameBoardAI.fastDown();
 		update();
 	}
-	
+
 }

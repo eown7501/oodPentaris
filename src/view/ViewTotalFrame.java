@@ -21,8 +21,8 @@ public class ViewTotalFrame extends JFrame {
 	private ViewGameModePanel gameModePanel;
 	/** ViewSoloGamePanel Type 의 변수 입니다. */
 	private ViewSoloGamePanel soloGamePanel;
-	/** View2PAndAIGamePanel Type 의 변수 입니다. */
-	private View2PAndAIGamePanel ZPAndAIGamePanel;
+	/** View2PGamePanel Type 의 변수 입니다. */
+	private View2PGamePanel ZPGamePanel;
 	/** ViewRankingPanel Type 의 변수 입니다. */
 	private ViewRankingPanel rankingPanel;
 	/** ViewSoloRankingPanel Type 의 변수 입니다. */
@@ -43,8 +43,8 @@ public class ViewTotalFrame extends JFrame {
 	private ViewKeyGuidePanel controlMethodPanel;
 	/** ViewProfilePanel Type 의 변수 입니다. */
 	private ViewProfilePanel profilePanel;
-	/** ViewPausePanel Type 의 변수 입니다. */
-	private ViewPausePanel2P pausePanel;
+	/** ViewPausePanel2P Type 의 변수 입니다. */
+	private ViewPausePanel2P pausePanel2P;
 	/** ViewPausePanelSolo Type 의 변수 입니다. */
 	private ViewPausePanelSolo pausePanelSolo;
 	/** ViewPausePanelAI Type 의 변수 입니다. */
@@ -77,7 +77,7 @@ public class ViewTotalFrame extends JFrame {
 		mainPanel = new ViewMainPanel(this);
 		gameModePanel = new ViewGameModePanel(this);
 		soloGamePanel = new ViewSoloGamePanel(this);
-		ZPAndAIGamePanel = new View2PAndAIGamePanel(this);
+		ZPGamePanel = new View2PGamePanel(this);
 		rankingPanel = new ViewRankingPanel(this);
 		soloRankingPanel = new ViewSoloRankingPanel(this);
 		AIRankingPanel = new ViewAIRankingPanel(this);
@@ -88,7 +88,7 @@ public class ViewTotalFrame extends JFrame {
 		helpPanel = new ViewHelpPanel(this);
 		controlMethodPanel = new ViewKeyGuidePanel(this);
 		profilePanel = new ViewProfilePanel(this);
-		pausePanel = new ViewPausePanel2P(this);
+		pausePanel2P = new ViewPausePanel2P(this);
 		pausePanelSolo = new ViewPausePanelSolo(this);
 		pausePanelAI = new ViewPausePanelAI(this);
 		AIGamePanel = new ViewAIGamePanel(this);
@@ -138,11 +138,6 @@ public class ViewTotalFrame extends JFrame {
 		addKeyListener(keyListenerAI);
 	}
 
-	/** AI의 KeyListener를 제거합니다. */
-	public void removeKeyListenerAI() {
-		removeKeyListener(keyListenerAI);
-	}
-
 	/** 1P의 KeyListener를 제거합니다. */
 	public void removeKeyListener() {
 		removeKeyListener(keyListener1p);
@@ -159,6 +154,11 @@ public class ViewTotalFrame extends JFrame {
 	public void removeKeyListenerSolo() {
 		removeKeyListener(keyListenerSolo);
 
+	}
+
+	/** AI의 KeyListener를 제거합니다. */
+	public void removeKeyListenerAI() {
+		removeKeyListener(keyListenerAI);
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class ViewTotalFrame extends JFrame {
 		contentPane.add("Main", mainPanel);
 		contentPane.add("Game Mode", gameModePanel);
 		contentPane.add("Solo Game", soloGamePanel);
-		contentPane.add("2P And AI Game", ZPAndAIGamePanel);
+		contentPane.add("2P And AI Game", ZPGamePanel);
 		contentPane.add("Ranking", rankingPanel);
 		contentPane.add("Solo Ranking", soloRankingPanel);
 		contentPane.add("AI Ranking", AIRankingPanel);
@@ -306,7 +306,7 @@ public class ViewTotalFrame extends JFrame {
 		contentPane.add("Help", helpPanel);
 		contentPane.add("Control Method", controlMethodPanel);
 		contentPane.add("Profile", profilePanel);
-		contentPane.add("Pause", pausePanel);
+		contentPane.add("Pause", pausePanel2P);
 		contentPane.add("PauseSolo", pausePanelSolo);
 		contentPane.add("AI Game", AIGamePanel);
 		contentPane.add("AI Pause", pausePanelAI);
@@ -391,7 +391,7 @@ public class ViewTotalFrame extends JFrame {
 	public void ZPGameLose(int player) {
 		removeKeyListener();
 		removeKeyListener2P();
-		ZPAndAIGamePanel.lose(player);
+		ZPGamePanel.lose(player);
 
 	}
 
@@ -685,7 +685,7 @@ public class ViewTotalFrame extends JFrame {
 		controller.moveRightAI();
 	}
 
-	/** AI Game 일때 아래로  이동명령을 전달합니다. */
+	/** AI Game 일때 아래로 이동명령을 전달합니다. */
 	public void moveDownAI() {
 		controller.moveDownAI();
 	}

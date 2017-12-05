@@ -41,7 +41,7 @@ public class ViewSoloGamePanel extends JPanel {
 			totalFrame.drawAI(g);
 	}
 
-	/** Game이 끝났을시 GameOver 메시지를 표시 합니다. */
+	/** Solo Game이 끝났을시 GameOver 메시지를 표시 합니다. */
 	public void gameOver() {
 		Graphics2D g2 = (Graphics2D) getGraphics();
 		g2.setFont(new Font("Chiller", Font.BOLD, 110));
