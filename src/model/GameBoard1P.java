@@ -473,9 +473,9 @@ public class GameBoard1P implements Runnable {
 	}
 
 	/**
-	 * GameOver 됬는지 확인합니다.
+	 * GameOver 를 확인합니다.
 	 * 
-	 * @return GameOver 가 됬다면 true를 , 아니라면 false 를 반환합니다.
+	 * @return GameOver 라면 true를 , 아니라면 false 를 반환합니다.
 	 */
 	public boolean isGameOver() {
 		for (int i = 0; i < 2; i++)

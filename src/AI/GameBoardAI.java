@@ -642,9 +642,9 @@ public class GameBoardAI implements Runnable {
 	}
 
 	/**
-	 * Game Over 됬는지 확인합니다.
+	 * Game Over 를 확인합니다.
 	 * 
-	 * @return Game Over 가 됬다면 true를 , 아니라면 false 를 반환합니다.
+	 * @return gameover 이라면 true를, 아니라면 false 를 반환합니다.
 	 */
 	public boolean isGameOver() {
 		for (int i = 0; i < 2; i++)

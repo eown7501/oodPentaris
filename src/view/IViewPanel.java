@@ -3,8 +3,7 @@ package view;
 import java.awt.event.*;
 
 /**
- * 이 인터페이스는 ViewPanel들을 정의한 interface입니다.
- * 
+ * 이 IViewPanel 은 ViewPanel 들을 구현하는 Interface 입니다.
  * @author 송민석
  *
  */
