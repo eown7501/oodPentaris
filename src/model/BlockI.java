@@ -12,9 +12,7 @@ public class BlockI extends Block {
 
 	/**
 	 * 1P GameBoard 위에 I Block을 생성합니다.
-	 * 
-	 * @param gameBoard
-	 *            - Block이 생성될 GameBoard 입니다.
+	 * @param gameBoard - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockI(GameBoard1P gameBoard) {
 		super(gameBoard);
@@ -23,9 +21,7 @@ public class BlockI extends Block {
 	
 	/**
 	 * Solo GameBoard 위에 I Block을 생성합니다.
-	 * 
-	 * @param gameBoard
-	 *            - Block이 생성될 GameBoard 입니다.
+	 * @param gameBoardSolo - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockI(GameBoardSolo gameBoardSolo) {
 		super(gameBoardSolo);
@@ -34,9 +30,7 @@ public class BlockI extends Block {
 	
 	/**
 	 * 2P GameBoard 위에 I Block을 생성합니다.
-	 * 
-	 * @param gameBoard
-	 *            - Block이 생성될 GameBoard 입니다.
+	 * @param gameBoard2P - Block이 생성될 GameBoard 입니다.   
 	 */
 	public BlockI(GameBoard2P gameBoard2P) {
 		super(gameBoard2P);

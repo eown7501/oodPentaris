@@ -616,11 +616,6 @@ public class GameBoardAI implements Runnable {
 		pauseTime = 0;
 	}
 
-	/** GameBoard의 AI Ranking 을 그립니다. */
-	public void drawAIRanking(Graphics g) {
-
-	}
-
 	/** Block을 Board에 고정시키고, 다음 Block을 설정합니다. */
 	public void fixedAndSetNextBlock() {
 		clear();
@@ -636,7 +631,10 @@ public class GameBoardAI implements Runnable {
 				tempBoard[i][j] = Board[i][j];
 	}
 
-	/** Game Over시 호출됩니다. */
+	/** 
+	 * Game Over시 호출됩니다.
+	 * @param gameMode - gameOver를 호출한 객체를판단하는 값 입니다.
+	 */
 	public void GameOver(int gameMode) {
 		start = false;
 		t.interrupt();

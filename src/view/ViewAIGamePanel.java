@@ -36,7 +36,10 @@ public class ViewAIGamePanel extends JPanel {
 		totalFrame.drawAI(g);
 	}
 
-	/** Game이 끝났을시 GameOver 메시지를 표시 합니다. */
+	/**
+	 *  Game이 끝났을시 GameOver 메시지를 표시 합니다.
+	 * @param gameMode - 어떤 플레이어가 이기고 졌는지를 확인할 변수 입니다.
+	 */
 	public void gameOver(int gameMode) {
 		if(gameMode == 3) {
 			Graphics2D g2 = (Graphics2D) getGraphics();

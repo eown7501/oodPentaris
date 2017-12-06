@@ -404,7 +404,10 @@ public class Controller {
 		totalFrame.ZPGameLose(player);
 	}
 
-	/** AI Game이 game over 하면 호출됩니다. */
+	/** 
+	 * AI Game이 game over 하면 호출됩니다.
+	 * @param gameMode - 어떤 객체가 호출했는지를 알아낼 값입니다.
+	 */
 	public void GameOverAI(int gameMode) {
 		gameBoardAI.start = false;
 		gameBoardAIP.start = false;

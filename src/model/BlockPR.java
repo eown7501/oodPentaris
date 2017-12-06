@@ -24,7 +24,7 @@ public class BlockPR extends Block {
 	/**
 	 * Solo GameBoard 위에 PR Block을 생성합니다.
 	 * 
-	 * @param gameBoard
+	 * @param gameBoardSolo
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockPR(GameBoardSolo gameBoardSolo) {
@@ -35,7 +35,7 @@ public class BlockPR extends Block {
 	/**
 	 * 2P GameBoard 위에 PR Block을 생성합니다.
 	 * 
-	 * @param gameBoard
+	 * @param gameBoard2P
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockPR(GameBoard2P gameBoard2P) {

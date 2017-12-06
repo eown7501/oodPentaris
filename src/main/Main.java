@@ -12,7 +12,7 @@ public class Main {
 	/**
 	 * Controller 객체를 생성합니다.
 	 * 
-	 * @param args
+	 * @param args - 없음
 	 */
 	public static void main(String[] args) {
 		new Controller();

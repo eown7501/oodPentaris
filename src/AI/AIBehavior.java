@@ -43,8 +43,8 @@ public class AIBehavior {
 	/**
 	 * AIBehavior 을 생성합니다..
 	 * 
-	 * @param GameBoardAI
-	 *            AI가 미리 놔둬볼 gameBoard 입니다.
+	 * @param GameBoardAI -  AI가 미리 놔둬볼 gameBoard 입니다.
+	 *           
 	 */
 	public AIBehavior(GameBoardAI soloGameBoard) {
 		gameBoard = soloGameBoard;
@@ -221,7 +221,10 @@ public class AIBehavior {
 		setEmptyBlock();
 	}
 
-	/** AIScore를 설정합니다. */
+	/**
+	 *  AIScore를 설정합니다.
+	 * @return - 점수를 반환합니다.
+	 */
 	public double setAIScore() {
 		AIScore = 0;
 		setNextHeight();

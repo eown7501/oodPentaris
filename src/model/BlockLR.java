@@ -11,10 +11,8 @@ import java.awt.Color;
 public class BlockLR extends Block {
 
 	/**
-	 * 1P GameBoard 위에 LR Block을 생성합니다.
-	 * 
-	 * @param gameBoard
-	 *            - Block이 생성될 GameBoard 입니다.
+	 * 1P GameBoard 위에 LR Block을 생성합니다.     
+	 * @param gameBoard  - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockLR(GameBoard1P gameBoard) {
 		super(gameBoard);
@@ -24,7 +22,7 @@ public class BlockLR extends Block {
 	/**
 	 * Solo GameBoard 위에 LR Block을 생성합니다.
 	 * 
-	 * @param gameBoard
+	 * @param gameBoardSolo
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockLR(GameBoardSolo gameBoardSolo) {
@@ -35,7 +33,7 @@ public class BlockLR extends Block {
 	/**
 	 * 2P GameBoard 위에 LR Block을 생성합니다.
 	 * 
-	 * @param gameBoard
+	 * @param gameBoard2P
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockLR(GameBoard2P gameBoard2P) {
