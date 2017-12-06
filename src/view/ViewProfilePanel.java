@@ -19,7 +19,7 @@ public class ViewProfilePanel extends JPanel implements IViewPanel {
 	/** JButton Type의 변수 입니다 */
 	private JButton backbt;
 	/** images에 저장된 이미지 사용할 변수 입니다 */
-	private ImageIcon profile = new ImageIcon("images/profile.png");
+	private ImageIcon profile = new ImageIcon(getClass().getClassLoader().getResource("images/profile.png"));
 	/** image를 반환할 변수 입니다 */
 	private Image img = profile.getImage();
 	/** 폰트 색상을 지정할 변수 입니다 */

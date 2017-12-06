@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
 
 /**
  * 이 ViewKeyGuidePanel 클래스는 KeyGuide화면의 Panel을 구성하고 보여주는 클래스입니다. 
@@ -21,11 +22,13 @@ public class ViewKeyGuidePanel extends JPanel implements IViewPanel {
 	/** JButton Type의 변수 입니다. */
 	private JButton backbt;
 	/** images에 저장된 이미지 사용할 변수 입니다. */
-	private ImageIcon image = new ImageIcon("images/키설정.png");
+	private ImageIcon image = new ImageIcon(getClass().getClassLoader().getResource("images/keyset.png"));
 	/** image를 반환할 변수 입니다. */
 	private Image im = image.getImage();
 	/** 폰트 색상을 지정할 변수 입니다. */
 	private Color setFontColor = new Color(244, 29, 0);
+	
+	
 
 	/**
 	 * ViewKeyGuidePanel을 생성합니다.

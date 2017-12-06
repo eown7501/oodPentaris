@@ -20,7 +20,7 @@ public class ViewMainPanel extends JPanel implements IViewPanel {
 	/** JButton Type의 변수 입니다. */
 	private JButton gameModebt, rankingbt, helpbt, quitbt;
 	/** images에 저장된 이미지 사용할 변수 입니다. */
-	private ImageIcon image = new ImageIcon("images/Basic.png");
+	private ImageIcon image = new ImageIcon(getClass().getClassLoader().getResource("images/Basic.png"));
 	/** image를 반환할 변수 입니다. */
 	private Image im = image.getImage();
 	/** 폰트 색상을 지정할 변수 입니다. */
