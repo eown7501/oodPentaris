@@ -43,7 +43,7 @@ public class AIBehavior {
 	/**
 	 * AIBehavior 을 생성합니다..
 	 * 
-	 * @param GameBoardAI -  AI가 미리 놔둬볼 gameBoard 입니다.
+	 * @param soloGameBoard -  AI가 미리 놔둬볼 gameBoard 입니다.
 	 *           
 	 */
 	public AIBehavior(GameBoardAI soloGameBoard) {
