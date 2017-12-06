@@ -390,10 +390,14 @@ public class Controller {
 	}
 
 	/**
-	 * 2P Game이 game over하면 호출됩니다.
+	 * * 2P Game이 game over하면 호출됩니다.
 	 * 
 	 * @author 송민석
+	 * @param player
+	 *            1P 와 2P 를 나타내며 Win Lose를 구분합니다.
+	 * 
 	 */
+
 	public void GameOver2P(int player) {
 		GameBoard1P.start = false;
 		GameBoard2P.start = false;

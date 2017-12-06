@@ -387,7 +387,12 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
-	/** 2PGame을 종료합니다. */
+	/**
+	 * 2PGame을 종료합니다.
+	 * 
+	 * @param player
+	 *            1P 와 2P 를 나타내며 Win Lose를 구분합니다.
+	 */
 	public void ZPGameLose(int player) {
 		removeKeyListener();
 		removeKeyListener2P();
@@ -395,7 +400,12 @@ public class ViewTotalFrame extends JFrame {
 
 	}
 
-	/** AIGame을 종료합니다. */
+	/**
+	 * AIGame을 종료합니다.
+	 * 
+	 * @param gameMode
+	 *            1P 와 2P 를 나타내며 Win Lose를 구분합니다.
+	 */
 	public void AIGameLose(int gameMode) {
 		removeKeyListenerAI();
 		AIGamePanel.gameOver(gameMode);

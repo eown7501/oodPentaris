@@ -1,6 +1,4 @@
 /AI/
-/controller/
-/main/
-/model/
-/ranking/
 /view/
+/model/
+/controller/

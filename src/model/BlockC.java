@@ -25,7 +25,7 @@ public class BlockC extends Block {
 	/**
 	 * Solo GameBoard 위에 C Block을 생성합니다.
 	 * 
-	 * @param gameBoard
+	 * @param gameBoardSolo
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockC(GameBoardSolo gameBoardSolo) {
@@ -36,7 +36,7 @@ public class BlockC extends Block {
 	/**
 	 * 2P GameBoard 위에 C Block을 생성합니다.
 	 * 
-	 * @param gameBoard
+	 * @param gameBoard2P
 	 *            - Block이 생성될 GameBoard 입니다.
 	 */
 	public BlockC(GameBoard2P gameBoard2P) {

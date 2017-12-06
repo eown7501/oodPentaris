@@ -155,7 +155,7 @@ public abstract class Block {
 	/**
 	 * 2P Block 의 TopLeftPoint를 설정합니다.
 	 * 
-	 * @param topLeftPoint
+	 * @param topLeftPoint2
 	 *            - 2P의 현재 TopLeftPoint를 설정합니다.
 	 */
 	public void setTopLeftPoint2P(Point topLeftPoint2) {
@@ -165,7 +165,7 @@ public abstract class Block {
 	/**
 	 * SoloPlay Block 의 TopLeftPoint를 설정합니다.
 	 * 
-	 * @param topLeftPoint
+	 * @param topLeftPointSolo
 	 *            - SoloPlay의 현재 TopLeftPoint를 설정합니다.
 	 */
 	public void setTopLeftPointSolo(Point topLeftPointSolo) {
