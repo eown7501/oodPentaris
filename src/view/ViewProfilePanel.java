@@ -36,7 +36,10 @@ public class ViewProfilePanel extends JPanel implements IViewPanel {
 		init();
 	}
 
-	/** 스윙 컴포넌트가 자신의 모양을 그립니다. */
+	/** 스윙 컴포넌트가 자신의 모양을 그립니다. 
+	 * 
+	 * @param g 그래픽 변수를 받습니다.
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
@@ -68,7 +71,7 @@ public class ViewProfilePanel extends JPanel implements IViewPanel {
 
 	/** MouseLister를 구현합니다. 
 	 * 
-	 * @return MouseAdapter 를 반환합니다.
+	 * @return MouseAdapter MouseAdapter를 반환합니다.
 	 */
 	public MouseListener makeMouseListener() {
 

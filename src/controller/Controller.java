@@ -369,7 +369,8 @@ public class Controller {
 	 * 사용자의 점수를 얻습니다.
 	 * 
 	 * @author 이은경
-	 * @return int Type의 score를 반환합니다.
+	 * @return GameBoardSolo.getScore()
+	 * 								int Type의 score를 반환합니다.
 	 */
 	public int getScore() {
 		return GameBoardSolo.getScore();

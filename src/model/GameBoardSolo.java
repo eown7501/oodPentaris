@@ -579,7 +579,7 @@ public class GameBoardSolo implements Runnable {
 	 * 사용자의 점수를 얻습니다.
 	 * 
 	 * @author 이은경
-	 * @return 게임이 끝난 후 score를 반환합니다.
+	 * @return score 게임이 끝난 후 사용자의 점수를 반환합니다.
 	 */
 	public int getScore() {
 		return score;

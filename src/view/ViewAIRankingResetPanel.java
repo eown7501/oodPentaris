@@ -86,7 +86,7 @@ public class ViewAIRankingResetPanel extends JPanel {
 	
 	/** ActionLister를 구현합니다. 
 	 * 
-	 * @return ActionListener 를 반환합니다. 
+	 * @return ActionListener ActionListener를 반환합니다. 
 	 */
 	public ActionListener makeListener() {
 		return new ActionListener() {
@@ -111,7 +111,7 @@ public class ViewAIRankingResetPanel extends JPanel {
 	
 	/** MouseAdapter를 구현합니다. 
 	 * 
-	 * @return MouseAdapter 를 반환합니다. 
+	 * @return MouseAdapter MouseAdapter를 반환합니다. 
 	 */
 	public MouseAdapter makeListener2() {
 		return new MouseAdapter() {

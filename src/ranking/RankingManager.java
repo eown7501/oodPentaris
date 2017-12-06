@@ -127,7 +127,7 @@ public class RankingManager{
 	 * 
 	 * @param name 사용자의 이름을 나타냅니다. ViewSoloRankingRegisterPanel에게서 받은 매개변수입니다.
 	 * @param score 사용자의 점수를 나타냅니다. ViewSoloRankingRegisterPanel에게서 받은 받은 매개변수입니다. 
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void registerSolo (String name, int score) throws IOException {
 		createFile();
@@ -152,7 +152,7 @@ public class RankingManager{
 	 * 
 	 * @param name 사용자의 이름을 나타냅니다. ViewAIRankingRegisterPanel에게서 받은 매개변수입니다.
 	 * @param score 사용자의 점수를 나타냅니다. ViewAIRankingRegisterPanel에게서 받은 매개변수입니다.
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void registerAI (String name, int score) throws IOException {
 		createFile();
@@ -176,7 +176,7 @@ public class RankingManager{
 	 * SoloRankingData를 정렬합니다.
 	 * 
 	 * @param data soloRankingData를 매개변수로 받습니다.
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void sortSoloRanking(RankingData[] data) throws IOException {
 		for(int i = 0 ; i < 9 ; i++)
@@ -198,7 +198,7 @@ public class RankingManager{
 	 * AIRankingData를 정렬합니다.
 	 * 
 	 * @param data AIRankingData를 매개변수로 받습니다.
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void sortAIRanking(RankingData[] data) throws IOException {
 		for(int i = 0 ; i < 9 ; i++)
@@ -219,7 +219,7 @@ public class RankingManager{
 	/** 
 	 * SoloRankingData를 초기화합니다.
 	 * 
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void resetSoloData () throws IOException {
 		createFile();
@@ -231,7 +231,7 @@ public class RankingManager{
 	/**
 	 * AIRankingData를 초기화합니다.
 	 * 
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void resetAIData () throws IOException {
 		createFile();
@@ -244,7 +244,7 @@ public class RankingManager{
 	 * SoloRankingData를 텍스트 파일에 저장합니다.
 	 * 
 	 * @param data 저장할 RankingData입니다.
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void saveTXTinSoloRankingData(RankingData[] data) throws IOException{
 		createFile();
@@ -275,7 +275,7 @@ public class RankingManager{
 	 * AIRankingData를 텍스트 파일에 저장합니다.
 	 * 
 	 * @param data 저장할 RankingData입니다.
-	 * @throws IOException
+	 * @throws IOException 예외를 던집니다.
 	 */
 	public void saveTXTinAIRankingData(RankingData[] data) throws IOException {
 		createFile();

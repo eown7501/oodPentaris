@@ -664,7 +664,8 @@ public class ViewTotalFrame extends JFrame {
 	 * 사용자의 점수를 얻습니다.
 	 * 
 	 * @author 이은경
-	 * @return int Type의 score를 반환합니다.
+	 * @return controller.getScore()
+	 * 								 int Type의 score를 반환합니다.
 	 */
 	public int getScore() {
 		return controller.getScore();
