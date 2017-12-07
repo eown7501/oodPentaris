@@ -50,6 +50,10 @@ public class Controller {
 		playMusic(0);
 	}
 
+	/**
+	 * Music 재생합니다.
+	 * @param index - 음악을 구분할 값 입니다.
+	 */
 	public void playMusic(int index) {
 		if (index == 0) {
 			clipIntro.start();
@@ -72,7 +76,10 @@ public class Controller {
 
 	}
 
-	/** Music 을 정지합니다. */
+	/**
+	 * Music 을 정지합니다.
+	 * @param index - 음악을 구분할 값 입니다.
+	 */
 	public void stopMusic(int index) {
 		if (index == 0)
 			clipIntro.stop();
@@ -84,6 +91,7 @@ public class Controller {
 			clipLanding.stop();
 	}
 
+	/** Music 을 만듭니다. */
 	public void makeMusic() {
 		makeIntroMusic();
 		makeOriginMusic();
@@ -124,7 +132,7 @@ public class Controller {
 		} catch (Exception e) {
 		}
 	}
-
+	/** Landing Music 을 만듭니다. */
 	public void makeLandingMusic() {
 		URL landing = getClass().getClassLoader().getResource("musics/Landing.wav");
 		try {
