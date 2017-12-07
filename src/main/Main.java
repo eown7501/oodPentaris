@@ -8,7 +8,7 @@ import controller.Controller;
  * @author 신승현
  */
 public class Main {
-
+	
 	/**
 	 * Controller 객체를 생성합니다.
 	 * 

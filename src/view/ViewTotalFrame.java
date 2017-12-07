@@ -413,6 +413,7 @@ public class ViewTotalFrame extends JFrame {
 
 	/** MainPanel을 보여줍니다. */
 	public void showMainPanel() {
+		controller.playMusic(0);
 		card.show(contentPane, "Main");
 	}
 
@@ -715,4 +716,7 @@ public class ViewTotalFrame extends JFrame {
 	public void showPausePanelAI() {
 		card.show(contentPane, "AI Pause");
 	}
+	
+	
+	
 }

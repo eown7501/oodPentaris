@@ -502,7 +502,7 @@ public class GameBoardAI implements Runnable {
 					g.setColor(new Color(245, 180, 0));
 					break;
 				case 100:
-					g.setColor(Color.WHITE);
+					g.setColor(new Color(30, 26, 44));
 					break;
 
 				default:
@@ -623,6 +623,7 @@ public class GameBoardAI implements Runnable {
 
 	/** Block을 Board에 고정시키고, 다음 Block을 설정합니다. */
 	public void fixedAndSetNextBlock() {
+		controller.playMusic(3);
 		clear();
 		fixedBlock();
 		if (isGameOver())

@@ -1,6 +1,10 @@
 package controller;
 
 import java.awt.Graphics;
+import java.net.URL;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import model.GameBoard1P;
 import model.GameBoard2P;
 import model.GameBoardSolo;
@@ -29,11 +33,106 @@ public class Controller {
 	private GameBoardAI gameBoardAIP;
 	/** GameMode 를 나타낼 Int Type 변수입니다. */
 	public int gameMode;
+	/** Game 이 시작할때 쓰이는 intro clip 입니다. */
+	private Clip clipIntro;
+	/** Game 이 시작할때 쓰이는 Origin clip 입니다. */
+	private Clip clipOrigin;
+	/** Game 이 시작할때 쓰이는 Metal clip 입니다. */
+	private Clip clipMetal;
+	/** Game 이 시작할때 쓰이는 Landing clip 입니다. */
+	private Clip clipLanding;
 
 	/** ViewTotalFrame이 생성되는 Controller 를 생성합니다. */
 	public Controller() {
 		gameMode = 0;
 		totalFrame = new ViewTotalFrame(this);
+		makeMusic();
+		playMusic(0);
+	}
+
+	public void playMusic(int index) {
+		if (index == 0) {
+			clipIntro.start();
+			clipIntro.loop(-1);
+		}
+
+		if (index == 1) {
+			clipOrigin.start();
+			clipOrigin.loop(-1);
+		}
+
+		if (index == 2) {
+			clipMetal.start();
+			clipMetal.loop(-1);
+		}
+		if (index == 3) {
+			clipLanding.start();
+			clipLanding.loop(1);
+		}
+
+	}
+
+	/** Music 을 정지합니다. */
+	public void stopMusic(int index) {
+		if (index == 0)
+			clipIntro.stop();
+		if (index == 1)
+			clipOrigin.stop();
+		if (index == 2)
+			clipMetal.stop();
+		if (index == 3)
+			clipLanding.stop();
+	}
+
+	public void makeMusic() {
+		makeIntroMusic();
+		makeOriginMusic();
+		makeMetalMusic();
+		makeLandingMusic();
+	}
+
+	/** Intro Music 을 만듭니다. */
+	public void makeIntroMusic() {
+		URL intro = getClass().getClassLoader().getResource("musics/intro.wav");
+		try {
+			AudioInputStream aisIntro = AudioSystem.getAudioInputStream(intro);
+			clipIntro = AudioSystem.getClip();
+			clipIntro.open(aisIntro);
+		} catch (Exception e) {
+		}
+
+	}
+
+	/** Original Music 을 만듭니다. */
+	public void makeOriginMusic() {
+		URL origin = getClass().getClassLoader().getResource("musics/BradinskyOrignal.wav");
+		try {
+			AudioInputStream aisOrigin = AudioSystem.getAudioInputStream(origin);
+			clipOrigin = AudioSystem.getClip();
+			clipOrigin.open(aisOrigin);
+		} catch (Exception e) {
+		}
+	}
+
+	/** Metal Music 을 만듭니다. */
+	public void makeMetalMusic() {
+		URL metal = getClass().getClassLoader().getResource("musics/BradinskyMetal.wav");
+		try {
+			AudioInputStream aisMetal = AudioSystem.getAudioInputStream(metal);
+			clipMetal = AudioSystem.getClip();
+			clipMetal.open(aisMetal);
+		} catch (Exception e) {
+		}
+	}
+
+	public void makeLandingMusic() {
+		URL landing = getClass().getClassLoader().getResource("musics/Landing.wav");
+		try {
+			AudioInputStream aisLanding = AudioSystem.getAudioInputStream(landing);
+			clipLanding = AudioSystem.getClip();
+			clipLanding.open(aisLanding);
+		} catch (Exception e) {
+		}
 	}
 
 	/**
@@ -70,6 +169,9 @@ public class Controller {
 	public void startSoloGame() {
 		initSolo();
 		gameMode = 1;
+		stopMusic(0);
+		makeOriginMusic();
+		playMusic(1);
 		GameBoardSolo.startSoloGame();
 		totalFrame.showSoloGamePanel();
 	}
@@ -83,6 +185,9 @@ public class Controller {
 		init();
 		init2();
 		gameMode = 2;
+		stopMusic(0);
+		makeOriginMusic();
+		playMusic(1);
 		GameBoard1P.startGame();
 		GameBoard2P.startGame();
 		totalFrame.show2PGamePanel();
@@ -94,6 +199,8 @@ public class Controller {
 		initAI();
 		gameMode = 3;
 		totalFrame.gameMode = 3;
+		stopMusic(0);
+		playMusic(2);
 		gameBoardAI.startAIGame();
 		gameBoardAIP.startPlayerGame();
 		totalFrame.showAIGamePanel();
@@ -262,6 +369,7 @@ public class Controller {
 	 */
 	public void fastDown1P() {
 		GameBoard1P.fastDown();
+		// playMusic(3);
 		update();
 	}
 
@@ -272,11 +380,13 @@ public class Controller {
 	 */
 	public void fastDown2P() {
 		GameBoard2P.fastDown();
+		// playMusic(3);
 		update();
 	}
 
 	/** 바로내림 명령을 전달합니다. */
 	public void fastDownSolo() {
+		//
 		GameBoardSolo.fastDown();
 		update();
 	}
@@ -287,6 +397,7 @@ public class Controller {
 	 * @author 송민석
 	 */
 	public void pause() {
+		stopMusic(1);
 		GameBoard1P.pause();
 		GameBoard2P.pause();
 		totalFrame.showPausePanel();
@@ -294,12 +405,14 @@ public class Controller {
 
 	/** Game 을 일시정지 합니다. */
 	public void pauseSolo() {
+		stopMusic(1);
 		GameBoardSolo.pause();
 		totalFrame.showPausePanelSolo();
 	}
 
 	/** Game 을 일시정지 합니다. */
 	public void pauseAI() {
+		stopMusic(2);
 		gameBoardAIP.pause();
 		gameBoardAI.pause();
 		totalFrame.showPausePanelAI();
@@ -312,6 +425,7 @@ public class Controller {
 	 * @author 송민석
 	 */
 	public void resume() {
+		playMusic(1);
 		GameBoard1P.resume();
 		GameBoard2P.resume();
 		totalFrame.show2PGamePanel();
@@ -320,6 +434,7 @@ public class Controller {
 
 	/** Game 을 재개 합니다. */
 	public void resumeSolo() {
+		playMusic(1);
 		GameBoardSolo.resume();
 		totalFrame.showSoloGamePanel();
 		update();
@@ -327,6 +442,7 @@ public class Controller {
 
 	/** Game 을 재개 합니다. */
 	public void resumeAI() {
+		playMusic(2);
 		gameBoardAI.resume();
 		gameBoardAIP.resume();
 		totalFrame.showAIGamePanel();
@@ -339,6 +455,7 @@ public class Controller {
 	 * @author 송민석
 	 */
 	public void restart() {
+		playMusic(1);
 		GameBoard1P.restart();
 		GameBoard2P.restart();
 		totalFrame.show2PGamePanel();
@@ -347,6 +464,7 @@ public class Controller {
 
 	/** Game 을 재시작 합니다. */
 	public void restartSolo() {
+		playMusic(1);
 		GameBoardSolo.restart();
 		totalFrame.showSoloGamePanel();
 		update();
@@ -354,6 +472,7 @@ public class Controller {
 
 	/** Game 을 재시작 합니다. */
 	public void restartAI() {
+		playMusic(2);
 		gameBoardAI.restart();
 		gameBoardAIP.restart();
 		totalFrame.showAIGamePanel();
@@ -362,6 +481,8 @@ public class Controller {
 
 	/** 메인으로 돌아갑니다. */
 	public void goMain() {
+		makeIntroMusic();
+		playMusic(0);
 		totalFrame.showMainPanel();
 	}
 
@@ -369,8 +490,7 @@ public class Controller {
 	 * 사용자의 점수를 얻습니다.
 	 * 
 	 * @author 이은경
-	 * @return GameBoardSolo.getScore()
-	 * 								int Type의 score를 반환합니다.
+	 * @return GameBoardSolo.getScore() int Type의 score를 반환합니다.
 	 */
 	public int getScore() {
 		return GameBoardSolo.getScore();
@@ -387,6 +507,7 @@ public class Controller {
 
 	/** SoloGame Over하면 호출됩니다. */
 	public void soloGameOver() {
+		stopMusic(1);
 		totalFrame.soloGameOver();
 	}
 
@@ -400,16 +521,20 @@ public class Controller {
 	 */
 
 	public void GameOver2P(int player) {
+		stopMusic(1);
 		GameBoard1P.start = false;
 		GameBoard2P.start = false;
 		totalFrame.ZPGameLose(player);
 	}
 
-	/** 
+	/**
 	 * AI Game이 game over 하면 호출됩니다.
-	 * @param gameMode - 어떤 객체가 호출했는지를 알아낼 값입니다.
+	 * 
+	 * @param gameMode
+	 *            - 어떤 객체가 호출했는지를 알아낼 값입니다.
 	 */
 	public void GameOverAI(int gameMode) {
+		stopMusic(2);
 		gameBoardAI.start = false;
 		gameBoardAIP.start = false;
 		totalFrame.AIGameLose(gameMode);
@@ -441,33 +566,39 @@ public class Controller {
 
 	/** 바로내림 명령을 전달합니다. */
 	public void fastDownAI() {
+		// playMusic(3);
 		gameBoardAIP.fastDown();
 		update();
 	}
 
 	/** AI 에게 바로내림명령을 전달합니다. AI의 블럭을 강제로 내릴때 사용됩니다. */
 	public void AIFastDown() {
+		// playMusic(3);
 		gameBoardAI.fastDown();
 		update();
 	}
-	
+
 	/**
 	 * 이 메소드는 라인추가명령을 전달합니다.
-	 * @param index - 어떤 플레이어가 라인을 추가하는지를 확인할 값입니다.
+	 * 
+	 * @param index
+	 *            - 어떤 플레이어가 라인을 추가하는지를 확인할 값입니다.
 	 */
 	public void addLineAI(int index) {
-		if(index == 3)
+		if (index == 3)
 			gameBoardAIP.addLine();
 		else
 			gameBoardAI.addLine();
 	}
-	
+
 	/**
 	 * 이 메소드는 라인추가명령을 전달합니다.
-	 * @param index - 어떤 플레이어가 라인을 추가하는지를 확인할 값입니다.
+	 * 
+	 * @param index
+	 *            - 어떤 플레이어가 라인을 추가하는지를 확인할 값입니다.
 	 */
 	public void addLine2P(int index) {
-		if(index == 1)
+		if (index == 1)
 			GameBoard2P.addLine();
 		else
 			GameBoard1P.addLine();

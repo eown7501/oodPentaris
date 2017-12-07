@@ -461,6 +461,7 @@ public class GameBoard2P implements Runnable {
 
 	/** 2P Block을 Board에 고정시키고, 다음 Block을 설정합니다. */
 	public void fixedAndSetNextBlock() {
+		controller.playMusic(3);
 		clear();
 		for (int i = 0; i < Board.length; i++)
 			for (int j = 0; j < Board[i].length; j++)
