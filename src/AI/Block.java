@@ -313,4 +313,8 @@ public abstract class Block {
 			AIMoveDown();
 		changeCoord();
 	}
+	
+	public void shadow() {
+		
+	}
 }

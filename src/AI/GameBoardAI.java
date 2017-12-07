@@ -67,9 +67,10 @@ public class GameBoardAI implements Runnable {
 		this.controller = controller;
 		initGameBoard();
 	}
-	
+
 	/**
 	 * 점수를 얻는 메소드입니다.
+	 * 
 	 * @return 점수를 반환합니다.
 	 */
 	public int getScore() {
@@ -101,7 +102,7 @@ public class GameBoardAI implements Runnable {
 		setStartTime();
 	}
 
-	/** AI Game을 시작합니다.  */
+	/** AI Game을 시작합니다. */
 	public void startAIGame() {
 		AIbehavior = new AIBehavior(this);
 		gameMode = 3;
@@ -113,8 +114,7 @@ public class GameBoardAI implements Runnable {
 
 	/**
 	 * 인터페이스 Runnable를 구현하고있는 객체를 사용해 thread를 작성하면, thread를 기동하면 , 객체의 run 메소드가 그 개별
-	 * 실행 thread로 불려갑니다.
-	 * gameMode가 1이라면 Player모드로, 2라면 AI모드로 기동합니다.
+	 * 실행 thread로 불려갑니다. gameMode가 1이라면 Player모드로, 2라면 AI모드로 기동합니다.
 	 */
 	@Override
 	public void run() {
@@ -170,7 +170,7 @@ public class GameBoardAI implements Runnable {
 		if (level == 10)
 			speed = 90;
 		try {
-			if(t.isAlive())
+			if (t.isAlive())
 				Thread.sleep(100);
 			timer += 150;
 			if (timer >= speed) {
@@ -182,7 +182,7 @@ public class GameBoardAI implements Runnable {
 		}
 	}
 
-	/** Thread가 몇초 단위로 실행될지 설정합니다.AI 전용 sleep 메소드 입니다.  */
+	/** Thread가 몇초 단위로 실행될지 설정합니다.AI 전용 sleep 메소드 입니다. */
 	private void sleep() {
 		int speed = 0;
 		if (level == 1)
@@ -324,21 +324,20 @@ public class GameBoardAI implements Runnable {
 	}
 
 	/**
-	 * GameBoard 화면을 그립니다.
-	 * gameMode가 1이라면 Player에 관한 draw를, 3이라면AI 에 관한 draw함수를 실행합니다.
+	 * GameBoard 화면을 그립니다. gameMode가 1이라면 Player에 관한 draw를, 3이라면AI 에 관한 draw함수를
+	 * 실행합니다.
 	 * 
 	 * @param g
 	 *            - Controller에게 전달받은 Graphcis g 입니다.
 	 */
 	public void draw(Graphics g) {
-		if(gameMode == 3) {
+		if (gameMode == 3) {
 			drawBoardAI(g);
 			drawNextBlockAI(g);
 			drawScoreAI(g);
 			drawLevelAI(g);
 			drawPlayTimeAI(g);
-		}
-		else {
+		} else {
 			drawBoard(g);
 			drawNextBlock(g);
 			drawScore(g);
@@ -378,6 +377,9 @@ public class GameBoardAI implements Runnable {
 					break;
 				case 6:
 					g.setColor(new Color(245, 180, 0));
+					break;
+				case 100:
+					g.setColor(new Color(30, 26, 44));
 					break;
 
 				default:
@@ -498,6 +500,9 @@ public class GameBoardAI implements Runnable {
 					break;
 				case 6:
 					g.setColor(new Color(245, 180, 0));
+					break;
+				case 100:
+					g.setColor(Color.WHITE);
 					break;
 
 				default:
@@ -631,9 +636,11 @@ public class GameBoardAI implements Runnable {
 				tempBoard[i][j] = Board[i][j];
 	}
 
-	/** 
+	/**
 	 * Game Over시 호출됩니다.
-	 * @param gameMode - gameOver를 호출한 객체를판단하는 값 입니다.
+	 * 
+	 * @param gameMode
+	 *            - gameOver를 호출한 객체를판단하는 값 입니다.
 	 */
 	public void GameOver(int gameMode) {
 		start = false;
@@ -719,6 +726,7 @@ public class GameBoardAI implements Runnable {
 			if (isFullRow(i)) {
 				deleteLine(i);
 				score += 10;
+				controller.addLineAI(gameMode);
 			}
 		}
 		update();
@@ -741,6 +749,19 @@ public class GameBoardAI implements Runnable {
 				Board[i + 1][j] = temp[i][j];
 	}
 
+	/** 이 메소드는 라인을 추가합니다. */
+	public void addLine() {
+		int[][] temp = new int[ROWS][COLS];
+		for (int i = 0; i < ROWS; i++)
+			for (int j = 0; j < tempBoard[i].length; j++)
+				temp[i][j] = tempBoard[i][j];
+		for (int i = 1; i < temp.length; i++)
+			for (int j = 0; j < temp[i].length; j++)
+				tempBoard[i - 1][j] = temp[i][j];
+		for (int j = 0; j < COLS; j++)
+			tempBoard[21][j] = 100;
+	}
+
 	/**
 	 * Line이 완성되었는지 확인합니다.
 	 * 
@@ -750,9 +771,9 @@ public class GameBoardAI implements Runnable {
 	 */
 	public boolean isFullRow(int line) {
 		for (int i = 0; i < Board[line].length; i++)
-			if (Board[line][i] == -1)
+			if (Board[line][i] == -1 || Board[line][i] == 100)
 				return false;
 		return true;
 	}
-	
+
 }

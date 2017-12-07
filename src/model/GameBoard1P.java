@@ -339,6 +339,9 @@ public class GameBoard1P implements Runnable {
 				case 12:
 					g.setColor(new Color(46, 232, 179));
 					break;
+				case 100:
+					g.setColor(new Color(30, 26, 44));
+					break;
 				default:
 					if (j % 2 == 0)
 						g.setColor(new Color(66, 66, 66, 80));
@@ -550,6 +553,7 @@ public class GameBoard1P implements Runnable {
 			if (isFullRow(i)) {
 				deleteLine(i);
 				score += 10;
+				controller.addLine2P(player);
 			}
 		}
 		update();
@@ -572,6 +576,19 @@ public class GameBoard1P implements Runnable {
 				Board[i + 1][j] = temp[i][j];
 	}
 
+	/** 이 메소드는 라인을 추가합니다. */
+	public void addLine() {
+		int[][] temp = new int[ROWS][COLS];
+		for (int i = 0; i < ROWS; i++)
+			for (int j = 0; j < tempBoard[i].length; j++)
+				temp[i][j] = tempBoard[i][j];
+		for (int i = 1; i < temp.length; i++)
+			for (int j = 0; j < temp[i].length; j++)
+				tempBoard[i - 1][j] = temp[i][j];
+		for (int j = 0; j < COLS; j++)
+			tempBoard[21][j] = 100;
+	}
+
 	/**
 	 * Line이 완성되었는지 확인합니다.
 	 * 
@@ -581,7 +598,7 @@ public class GameBoard1P implements Runnable {
 	 */
 	public boolean isFullRow(int line) {
 		for (int i = 0; i < Board[line].length; i++)
-			if (Board[line][i] == -1)
+			if (Board[line][i] == -1 || Board[line][i] == 100)
 				return false;
 		return true;
 	}

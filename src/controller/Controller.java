@@ -450,5 +450,27 @@ public class Controller {
 		gameBoardAI.fastDown();
 		update();
 	}
+	
+	/**
+	 * 이 메소드는 라인추가명령을 전달합니다.
+	 * @param index - 어떤 플레이어가 라인을 추가하는지를 확인할 값입니다.
+	 */
+	public void addLineAI(int index) {
+		if(index == 3)
+			gameBoardAIP.addLine();
+		else
+			gameBoardAI.addLine();
+	}
+	
+	/**
+	 * 이 메소드는 라인추가명령을 전달합니다.
+	 * @param index - 어떤 플레이어가 라인을 추가하는지를 확인할 값입니다.
+	 */
+	public void addLine2P(int index) {
+		if(index == 1)
+			GameBoard2P.addLine();
+		else
+			GameBoard1P.addLine();
+	}
 
 }
